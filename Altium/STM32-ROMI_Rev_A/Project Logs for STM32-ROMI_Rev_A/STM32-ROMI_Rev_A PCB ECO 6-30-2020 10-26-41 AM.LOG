@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=GND Pin=J1-1
+Removed Pin From Net: NetName=3.3V Pin=J1-2
+Removed Pin From Net: NetName=OLED_SCL Pin=J1-3
+Removed Pin From Net: NetName=OLED_SDA Pin=J1-4
+Change Component Footprint: Designator=CN1 Old Footprint=PinHeader_1x06_P2.54mm_Vertical New Footprint=Romi-header6
+Change Component Footprint: Designator=CN2 Old Footprint=PinHeader_2x05_P2.54mm_Vertical New Footprint=Romi_Header5x2
+Change Component Footprint: Designator=CN3 Old Footprint=PinHeader_2x08_P2.54mm_Vertical New Footprint=Romi_header8x2
+Change Component Comment : Designator=CN1 Old Comment=PinHeader_1x06_P2.54mm_Vertical New Comment=Header 6
+Change Component Comment : Designator=CN2 Old Comment=PinHeader_2x05_P2.54mm_Vertical New Comment=Romi-Header 5X2
+Change Component Comment : Designator=CN3 Old Comment=PinHeader_2x08_P2.54mm_Vertical New Comment=Romi_Header 8X2
+Added Component: Designator=CN?(OLED_0.96_I2C)
+Added Pin To Net: NetName=GND Pin=CN?-1
+Added Pin To Net: NetName=3.3V Pin=CN?-2
+Added Pin To Net: NetName=OLED_SCL Pin=CN?-3
+Added Pin To Net: NetName=OLED_SDA Pin=CN?-4

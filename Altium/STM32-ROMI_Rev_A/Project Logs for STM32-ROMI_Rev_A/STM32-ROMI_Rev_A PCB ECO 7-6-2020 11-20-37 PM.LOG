@@ -1,0 +1,18 @@
+Added Component: Designator=U14(SOT23-6)
+Add component (AddParameter): Name = "Current - Output"; Value = "3A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Frequency - Switching"; Value = "650KHZ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "TPS563209DDCR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Device Package"; Value = "TSOT-23-6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "296-40813-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Topology"; Value = "Buck"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Input (Max)"; Value = "17V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Input (Min)"; Value = "4.5V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Output (Max)"; Value = "7V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Output (Min/Fixed)"; Value = "0.765V"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=U14-1
+Added Pin To Net: NetName=NetC41_2 Pin=U14-2
+Added Pin To Net: NetName=VBAT Pin=U14-3
+Added Pin To Net: NetName=NetR13_2 Pin=U14-4
+Added Pin To Net: NetName=VBAT Pin=U14-5
+Added Pin To Net: NetName=NetC41_1 Pin=U14-6

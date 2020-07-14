@@ -1,0 +1,2 @@
+Change Component Comment : Designator=CN7 Old Comment=QTR_RIGHT New Comment=QTR_LEFT
+Added Pin To Net: NetName=QTRL_OUT Pin=CN7-4

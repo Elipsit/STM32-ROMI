@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=3.3V Pin=CN15-1
+Removed Pin From Net: NetName=TXD Pin=CN15-2
+Removed Pin From Net: NetName=RXD Pin=CN15-3
+Removed Pin From Net: NetName=GND Pin=CN15-4
+Change Component Comment : Designator=CN20 Old Comment=Header 3 New Comment=STM_RX
+Change Component Comment : Designator=CN19 Old Comment=Header 3 New Comment=STM_TX
+Added Component: Designator=TP9(TestPoint-SM)
+Added Component: Designator=TP10(TestPoint-SM)
+Added Pin To Net: NetName=RTS Pin=TP9-1
+Added Pin To Net: NetName=DTR Pin=TP10-1

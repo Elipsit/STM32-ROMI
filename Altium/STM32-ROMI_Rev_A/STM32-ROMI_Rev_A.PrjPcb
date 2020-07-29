@@ -174,10 +174,14 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for STM32-ROMI_Rev_A\STM32-ROMI_Rev_A_4_3V_5V.NET
+DocumentPath=Project Outputs for STM32-ROMI_Rev_A\Design Rule Check - STM32-ROMI_Rev_A.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
+DocumentPath=Project Outputs for STM32-ROMI_Rev_A\STM32-ROMI_Rev_A_4_3V_5V.NET
+DItemRevisionGUID=
+
+[GeneratedDocument3]
 DocumentPath=Project Outputs for STM32-ROMI_Rev_A\STM32-ROMI_Rev_A_4_3V_5V.PRT
 DItemRevisionGUID=
 

@@ -1,0 +1,15 @@
+Project Outputs Generation Report
+---------------------------------
+Start Output Generation At 10:01:46 PM On 8/18/2020
+
+Output: Generates pick and place files
+Type  : Pick Place
+From  : PCB Document [STM32-ROMI_Rev_A.PcbDoc]
+   Generated File[STM32-ROMI_Rev_A-2020-08-18.txt]
+   Generated File[STM32-ROMI_Rev_A-2020-08-18.csv]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 10:02:14 PM On 8/18/2020

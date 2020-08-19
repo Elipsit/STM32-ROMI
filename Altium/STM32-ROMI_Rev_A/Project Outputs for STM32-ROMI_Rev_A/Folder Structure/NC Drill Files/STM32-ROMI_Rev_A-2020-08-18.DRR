@@ -1,0 +1,26 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: STM32-ROMI_Rev_A.PcbDoc   8/18/2020  9:46:24 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Copper to Bottom Copper
+ASCII RoundHoles File : STM32-ROMI_Rev_A-2020-08-18-RoundHoles.TXT
+ASCII SlotHoles File : STM32-ROMI_Rev_A-2020-08-18-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      8mil (0.2mm)                                              Round             8         PTH        0.00inch (0.00mm)
+T2      12mil (0.305mm)                                           Round             356       PTH        0.00inch (0.00mm)
+T3      20mil (0.5mm)                                             Slot              2         PTH        0.00inch (0.00mm)
+T4      22mil (0.55mm)                                            Slot              2         PTH        0.00inch (0.00mm)
+T5      35mil (0.9mm)                                             Round             8         PTH        0.00inch (0.00mm)
+T6      39mil (1mm)                                               Round             72        PTH        0.00inch (0.00mm)
+T7      40mil (1.02mm)          +10mil (0.25mm)/-0mil (0mm)       Round             3         PTH        0.00inch (0.00mm)
+T8      41mil (1.03mm)          +10mil (0.25mm)                   Round             1         PTH        0.00inch (0.00mm)
+T9      42mil (1.067mm)                                           Round             63        PTH        0.00inch (0.00mm)
+T10     42mil (1.067mm)                                           Round             4         NPTH       0.00inch (0.00mm)
+T11     42mil (1.067mm)                                           Round             4         NPTH       0.00inch (0.00mm)
+T12     138mil (3.5mm)                                            Round             4         NPTH       0.00inch (0.00mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              527
+
+Total Processing Time (hh:mm:ss) : 00:00:00

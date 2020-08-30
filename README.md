@@ -1,11 +1,22 @@
 # STM32-ROMI
 
+## Project Description
+
+This STM32F4 based robot that uses a Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it.
+ 
+ 
+## Project Status
+Boards have been sent for PCBA
+ 
+**This project is still a work in progress**
+
+
 ![3D Render](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Render_Top.png)
 
 
  STM32 based robot that uses a Polulu ROMI base.
  
-This is still a work in progress and will be updated with a better desctiption soon.
+This is still a work in progress and will be updated with a better description soon.
 
 ## Requited Parts
 

@@ -40,8 +40,8 @@ STM32F4-Romi-V0.1.bin \
 all: STM32F4-Romi-V0.1.elf secondary-outputs
 
 # Tool invocations
-STM32F4-Romi-V0.1.elf: $(OBJS) $(USER_OBJS) C:\github\STM32\STM32F4\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\github\STM32\STM32F4\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32F4-Romi-V0.1.elf: $(OBJS) $(USER_OBJS) C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

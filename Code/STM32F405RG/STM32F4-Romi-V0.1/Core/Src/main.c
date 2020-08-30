@@ -23,6 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "app_main.h"
+#include <stm32f4xx_hal.h>
 
 /* USER CODE END Includes */
 
@@ -141,7 +143,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
-
+  appMain(); // will not return from here
   /* USER CODE END 2 */
 
   /* Infinite loop */

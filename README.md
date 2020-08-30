@@ -13,10 +13,13 @@ Boards have been sent for PCBA
 
 ![3D Render](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Render_Top.png)
 
+## Electrical Design Files
+This project was designed in Altium Designer 20
 
- STM32 based robot that uses a Polulu ROMI base.
- 
-This is still a work in progress and will be updated with a better description soon.
+##PCBA
+This project was manufactured by JLCPCB as an excuse for me to test their PCBA service.
+*They didn't sponcer me I just wanted to try it out*
+
 
 ## Requited Parts
 

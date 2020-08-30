@@ -14,7 +14,6 @@ Boards have been sent for PCBA
 ![3D Render](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Render_Top.png)
 
 ## Electrical Design Files
-
 This project was designed in Altium Designer 20
 
 ##PCBA

@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This STM32F4 based robot that uses a Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it.
+The Silicon Valley [HomeBrew Robotics Club](http://www.hbrobotics.org/) built an awesome [FPGA ROMI](https://github.com/hbrc-fpga-class) robot late 2019. I was inspired to build my own version using an STM32F4  while keeping the board compatable with the previous Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it.
  
  
 ## Project Status
@@ -35,5 +35,5 @@ This project was manufactured by JLCPCB as an excuse for me to test their PCBA s
 -[HC-SRO4](https://www.amazon.com/Smraza-Ultrasonic-Distance-Mounting-Duemilanove/dp/B01JG09DCK/ref=sr_1_6?dchild=1&keywords=sonar+arduino&qid=1598137419&sr=8-6)
 
 ## 3D Print Files
-- [Sonar Servo Mount] (https://www.thingiverse.com/thing:1423)
+- [Sonar Servo Mount](https://www.thingiverse.com/thing:1423)
 

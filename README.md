@@ -18,6 +18,17 @@ This project was designed in Altium Designer 20
 ## Datasheets
 - [DRV8838 Motor Driver](https://www.ti.com/lit/ds/symlink/drv8838.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1599069814852)
 
+## Motor Driver
+
+The DRV8838 offers a simple two-pin PHASE/ENABLE control interface, which this board makes available for each motor as DIR and PWM, respectively. The DIR pin determines the motor direction (low drives the motor forward, high drives it in reverse) and the PWM pin can be supplied with a PWM signal to control the motor speed. The DIR and PWM control inputs are pulled low through weak internal pull-down resistors (approximately 100 kΩ). When the PWM pin is low, the motor outputs are both shorted to ground, which results in dynamic braking of a connected motor.
+
+The two drivers’ SLEEP pins (labeled SLP) are connected together by default and can be driven low to put the drivers into a low-power sleep mode and turn off the motor outputs, which is useful if you want to let the motors coast. The SLEEP pins are pulled high through 10 kΩ pull-up resistors on the board so that the drivers are awake by default. In most applications, these pins can be left disconnected; if you want independent control of SLEEP on each side, you can cut the jumper labeled SLP L = R. The two SLEEP pins should not be driven separately without cutting this jumper.
+
+The following simplified truth table shows how each driver operates:
+
+### Motor Driver Truth Table
+![Truth Table](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/DRV8838_Truth_Table.png)
+
 ## PCBA
 This project was manufactured by JLCPCB as an excuse for me to test their PCBA service.
 *They didn't sponcer me I just wanted to try it out*

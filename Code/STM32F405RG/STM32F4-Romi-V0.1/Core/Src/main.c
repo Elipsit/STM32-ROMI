@@ -25,16 +25,25 @@
 /* USER CODE BEGIN Includes */
 #include "app_main.h"
 #include <stm32f4xx_hal.h>
+#include <stdio.h>
+
+//******Setup PrintF****
+#define IO_UART huart2 // **** change this to the UART your board uses ****
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+void TIM6_DAC_IRQHandler(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6);
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+//extern the timer variable to pass it to the interrupt
+extern TIM_HandleTypeDef htim6;
+extern UART_HandleTypeDef huart2;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -91,6 +100,9 @@ static void MX_USART3_UART_Init(void);
 static void MX_CAN1_Init(void);
 /* USER CODE BEGIN PFP */
 
+void TIM6_DAC_IRQHandler(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -143,6 +155,9 @@ int main(void)
   MX_USART3_UART_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
+  //Start the timer
+  HAL_TIM_Base_Start_IT(&htim6);
+
   appMain(); // will not return from here
   /* USER CODE END 2 */
 
@@ -177,8 +192,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 16;
-  RCC_OscInitStruct.PLL.PLLN = 192;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 100;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -192,7 +207,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
@@ -341,7 +356,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -671,9 +686,9 @@ static void MX_TIM6_Init(void)
 
   /* USER CODE END TIM6_Init 1 */
   htim6.Instance = TIM6;
-  htim6.Init.Prescaler = 0;
+  htim6.Init.Prescaler = 800;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 0;
+  htim6.Init.Period = 6241;
   htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
@@ -963,6 +978,44 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/* This function sets up the serial printf*/
+int __io_putchar(int ch) {
+    HAL_StatusTypeDef sts = HAL_UART_Transmit(&IO_UART ,(uint8_t*)&ch,1,10);
+    if(sts == HAL_OK) {
+        return ch;
+    }
+    return EOF;
+}
+
+int __io_getchar(void) {
+    if(__HAL_UART_GET_FLAG(&IO_UART , UART_FLAG_RXNE)) {
+        uint8_t ch=0;
+        __HAL_UART_CLEAR_FEFLAG(&IO_UART );
+        __HAL_UART_CLEAR_OREFLAG(&IO_UART );
+        __HAL_UART_CLEAR_PEFLAG(&IO_UART );
+        HAL_StatusTypeDef sts = HAL_UART_Receive(&IO_UART ,&ch,1,1);
+        if(sts == HAL_OK) {
+            return (int)ch;
+        }
+    }
+    return EOF;
+}
+
+int _read(int file, char *ptr, int len){
+int DataIdx;
+
+    for (DataIdx = 0; DataIdx < len; DataIdx++) {
+        int ch =  __io_getchar();
+        if(ch != EOF) {
+             *ptr++ = ch;
+        }
+        else {
+            return DataIdx;
+        }
+    }
+    return len;
+}
 
 /* USER CODE END 4 */
 

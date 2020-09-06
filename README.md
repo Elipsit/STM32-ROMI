@@ -5,20 +5,21 @@
 The Silicon Valley [HomeBrew Robotics Club](http://www.hbrobotics.org/) built an awesome [FPGA ROMI](https://github.com/hbrc-fpga-class) robot late 2019. I was inspired to build my own version using an STM32F4  while keeping the board compatable with the previous Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it.
  
  
-## Project Status
+### Project Status
 Boards have been sent for PCBA
  **This project is still a work in progress**
 
 
 ![3D Render](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Render_Top.png)
 
-## Electrical Design Files
+## Design Files
+### Electrical Design Files
 This project was designed in Altium Designer 20
 
-## Datasheets
+#### Datasheets
 - [DRV8838 Motor Driver](https://www.ti.com/lit/ds/symlink/drv8838.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1599069814852)
 
-## Motor Driver
+### Motor Driver
 
 The DRV8838 offers a simple two-pin PHASE/ENABLE control interface, which this board makes available for each motor as DIR and PWM, respectively. The DIR pin determines the motor direction (low drives the motor forward, high drives it in reverse) and the PWM pin can be supplied with a PWM signal to control the motor speed. The DIR and PWM control inputs are pulled low through weak internal pull-down resistors (approximately 100 kΩ). When the PWM pin is low, the motor outputs are both shorted to ground, which results in dynamic braking of a connected motor.
 
@@ -26,10 +27,10 @@ The two drivers’ SLEEP pins (labeled SLP) are connected together by default an
 
 The following simplified truth table shows how each driver operates:
 
-### Motor Driver Truth Table
+#### Motor Driver Truth Table
 ![Truth Table](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/DRV8838_Truth_Table.png)
 
-## PCBA
+### PCBA
 This project was manufactured by JLCPCB as an excuse for me to test their PCBA service.
 *They didn't sponcer me I just wanted to try it out*
 
@@ -48,6 +49,9 @@ This project was manufactured by JLCPCB as an excuse for me to test their PCBA s
 
 - [HC-SRO4](https://www.amazon.com/Smraza-Ultrasonic-Distance-Mounting-Duemilanove/dp/B01JG09DCK/ref=sr_1_6?dchild=1&keywords=sonar+arduino&qid=1598137419&sr=8-6)
 
-## 3D Print Files
+### 3D Print Files
 - [Sonar Servo Mount](https://www.thingiverse.com/thing:1423)
+
+# Bring Up
+The Uart2 channel can be connected to the CH340C; USB to serial converter, or an ESP8266 running [esp-link](https://github.com/jeelabs/esp-link) as a telnet connection
 

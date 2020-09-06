@@ -12,6 +12,7 @@
  * 8/29/2020
  * added Sonar left and right
  * added header and main files for oled screen
+ * esp link http://192.168.50.85/console.html
 //
 // *****************************************************************************
 */
@@ -23,9 +24,14 @@
 #include <string.h>
 #include <stdio.h>
 
+//OLED Includes
+#include "fonts.h"
+#include "ssd1306.h"
+#include "test.h"
+
+#include "bitmap.h"
 
 //******Define Sonar******
-char *user_data = "*****STM32 HC-SR04\r\n*****";
 #define uSTIM TIM3
 char uartBuff[100];
 //Sonar ticks set to zero
@@ -36,21 +42,33 @@ const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach
 float distanceL, distanceR;
 
 
+
 // local functions
 void uSec_Delay(uint32_t uSec);
 void checksonar(uint32_t numTicks, float distanceL, float distanceR);
-void updateUART ();
+//void updateUART();
 
 
 // main application loop
 void appMain(void){
+printf("Power up initiated...\r\n");
+printf("All systems nominal..\r\n");
 
-
+//Initialize OLED
+SSD1306_Init();
+SSD1306_Clear();
+SSD1306_DrawBitmap(0, 0, ologic, 128, 64, 1);
+SSD1306_UpdateScreen();
+HAL_Delay(2000);
+SSD1306_Clear();
+SSD1306_GotoXY(30, 0);
+SSD1306_Puts("STM32-ROMI", &Font_7x10, 1);
+SSD1306_UpdateScreen();
+HAL_Delay(100);
 
 	//Main program to loop forever
 	while(1){
-		checksonar(numTicks);
-		updateUART();
+
 
 	}
 
@@ -117,19 +135,13 @@ void checksonar(uint32_t numTicks, float distanceL, float distanceR){
 				//4. Estimate distance. 0.0f type casts as a float, multiply by actuall delay 2.8uS
 				distanceR = (numTicks + 0.0f)*2.8*SpeedOfSound;
 
-return distanceL, distanceR;
 }
 
-void updateUART (){
-	//This will be to update the uart
-	//5. Print to UART Terminal, convert to string
-	sprintf(uartBuff,"Left Distance (cm) = %.1f\r\n",distanceL);
-	HAL_UART_Transmit(&huart2, (uint8_t *)uartBuff, strlen(uartBuff), 100);
-	HAL_Delay(500);
 
-	sprintf(uartBuff,"Right Distance (cm) = %.1f\r\n",distanceR);
-	HAL_UART_Transmit(&huart2, (uint8_t *)uartBuff, strlen(uartBuff), 100);
-	HAL_Delay(500);
-
-	return;
+/* This function uses interrupts to toggle Blinky*/
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
+{
+	 HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
 }
+
+

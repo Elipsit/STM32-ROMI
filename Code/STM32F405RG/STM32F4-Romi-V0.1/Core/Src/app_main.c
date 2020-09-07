@@ -32,22 +32,43 @@
 #include "bitmap.h"
 
 //******Define Sonar******
-#define uSTIM TIM3
-char uartBuff[100];
+#define uSTIM TIM9
 //Sonar ticks set to zero
 uint32_t numTicks = 0;
 
 //Speed of sound in air cm/uSec
 const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
-float distanceL, distanceR;
+
 
 
 
 // local functions
 void uSec_Delay(uint32_t uSec);
-void checksonar(uint32_t numTicks, float distanceL, float distanceR);
-//void updateUART();
+//void checksonar(uint32_t numTicks, float distanceL, float distanceR);
 
+
+//Encoder Setup
+typedef struct ENC_STATUS_t {
+	int32_t pos;
+	int32_t vel;
+	int32_t last;
+	char tag;
+	TIM_HandleTypeDef *htim;
+} ENC_STATUS;
+
+//Sonar Setup
+typedef struct SONAR_STATUS_t {
+	float distanceL;
+	float distanceR;
+	float distanceC;
+}SONAR_STATUS;
+
+//declare the variable for sonar status
+SONAR_STATUS sonar ={0.0,0.0,0.0};
+
+//create array for sonar tirgger pins
+
+void checksonar(SONAR_STATUS *sonar);
 
 // main application loop
 void appMain(void){
@@ -68,7 +89,9 @@ HAL_Delay(100);
 
 	//Main program to loop forever
 	while(1){
-
+		printf("Check Sonar\r\n");
+		checksonar(&sonar);
+		HAL_Delay(1000);
 
 	}
 
@@ -86,6 +109,34 @@ void uSec_Delay(uint32_t uSec)
 
 }
 
+void checksonar(SONAR_STATUS *sonar){
+	//Left Sonar - Update wiith hardware timer to count the input pulses
+		//Set the trigger pin low for a few uSec
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
+			  uSec_Delay(3);
+
+			  ///Start the ultrasonic measurement routine
+			  //1. output 10us pulse on trigger pin
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_SET);
+			  uSec_Delay(10);
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
+
+			  //2. Wait for echo pin rising edge
+			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_RESET);
+
+			  //3. Start measuring echo pause width until the falling edge
+			  numTicks = 0;
+			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_SET)
+			  {
+				  numTicks++;
+				  uSec_Delay(2);  //actually around 2.8 uSec, measures every 2.8us
+			  }
+			//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
+			sonar->distanceL = (numTicks + 0.0f)*2.8*SpeedOfSound;
+			printf("Left Sonar Distance (cm): %f",sonar->distanceL);
+
+};
+/*
 void checksonar(uint32_t numTicks, float distanceL, float distanceR){
 //Left Sonar
 	//Set the trigger pin low for a few uSec
@@ -136,12 +187,24 @@ void checksonar(uint32_t numTicks, float distanceL, float distanceR){
 				distanceR = (numTicks + 0.0f)*2.8*SpeedOfSound;
 
 }
-
+*/
 
 /* This function uses interrupts to toggle Blinky*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
 {
 	 HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
+}
+
+//Update Encoder
+void updateEncoder(ENC_STATUS *enc){
+	enc-> pos = __HAL_TIM_GetCounter(enc -> htim);
+
+	//calculate the velocity
+	enc-> vel = enc -> pos - enc -> last;
+	printf("encoder  %d: pos = %ld, vel = %ld, last = %ld\r\n",enc->tag, enc->pos, enc->vel, enc->last);
+
+	//Save enc pause into inc last
+	enc -> last  =  enc -> pos;
 }
 
 

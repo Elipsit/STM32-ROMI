@@ -5,8 +5,9 @@
  *      Author: poe
  */
 
-#include "test.h"
-#include "ssd1306.h"
+#include "../../app/Inc/test.h"
+
+#include "../../app/Inc/ssd1306.h"
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 

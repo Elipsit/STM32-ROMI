@@ -1,0 +1,5 @@
+app_main.c:78:6:appMain	56	static
+app_main.c:175:6:uSec_Delay	16	static
+app_main.c:187:6:checksonar	24	static
+app_main.c:217:6:HAL_TIM_PeriodElapsedCallback	16	static
+app_main.c:226:6:updateEncoder	24	static

@@ -28,9 +28,9 @@
 
 
 //OLED Includes
-#include "../../app/Inc/fonts.h"
-#include "../../app/Inc/ssd1306.h"
-#include "../../app/Inc/test.h"
+#include "fonts.h"
+#include "ssd1306.h"
+#include "test.h"
 #include "bitmap.h"
 
 //******Define Sonar******
@@ -71,21 +71,38 @@ uint8_t RevBit[3];
 
 // local functions
 void uSec_Delay(uint32_t uSec);
-uint32_t PID_RATE = 10;
-uint32_t PID_Timer = PID_RATE;
-int16_t speed_l = 0;
-int16_t speed_r = 0;
-
-/* Check Hardware Revision Bits*/
-
-
 void checksonar(SONAR_STATUS *sonar);
+
 
 // main application loop
 void appMain(void){
+	/* Check Hardware Revision Bits*/
 	RevBit[0] =	HAL_GPIO_ReadPin(REV_BIT0_GPIO_Port, REV_BIT0_Pin);
 	RevBit[1] =	HAL_GPIO_ReadPin(REV_BIT1_GPIO_Port, REV_BIT1_Pin);
 	RevBit[2] =	HAL_GPIO_ReadPin(REV_BIT2_GPIO_Port, REV_BIT2_Pin);
+
+
+	//hal pwm start
+	HAL_TIM_PWM_Start(TIM2,TIM_CHANNEL_3);  //ROMI_PWMR
+	HAL_TIM_PWM_Start(TIM4, TIM_CHANNEL_1); //ROMI_PWML
+
+	//hal encoder start
+
+	int32_t MTR_PWM_PERIOD;
+	int32_t MAX_SPEED;
+	int32_t MAX_VELOCITY;
+
+	int16_t speed_l = 0;
+	int16_t speed_r = 0;
+
+	int16_t duty_l = 0;
+	int16_t duty_r = 0;
+
+	uint32_t BLINK_RATE = 50;
+	uint32_t BlinkTimer = BLINK_RATE;
+
+	uint32_t PID_RATE = 50;
+	uint32_t PIDTimer = PID_RATE;
 
 	printf("Power up initiated...\r\n");
 	printf("All systems nominal..\r\n");
@@ -103,13 +120,55 @@ void appMain(void){
 	SSD1306_UpdateScreen();
 	HAL_Delay(100);
 
+	uint32_t tick = HAL_GetTick();
+
+	//Set Direction bits to 0 for forward
+	HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, RESET);
+	HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, RESET);
+	//Set Sleep bits to 1 for enable
+	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
+	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
+
 	//Main program to loop forever
 	while(1){
 		//printf("Check Sonar\r\n");
 		//checksonar(&sonar);
-		HAL_Delay(1000);
+		//HAL_Delay(1000);
+		uint32_t tock = HAL_GetTick();
+
+		if(tock-tick>10){
+			BlinkTimer--;
+			if(BlinkTimer==0){
+				BlinkTimer = BLINK_RATE;
+				HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
+			}
+		}
+
+		/// use this to adjust the pwm
+		int c = getchar();
+			if(c != EOF){
+				putchar(c);
+
+				if(c == '-'){
+					if(speed_l < -MTR_PWM_PERIOD){
+						speed_l -= 80;
+					}
+				}
+
+				if(c == '>'){
+					if(speed_r < MTR_PWM_PERIOD){
+						speed_r += 80;
+					}
+				}
+
+				else{
+					clearerr(stdin);
+					}
+			}
+
 
 	}
+
 
 }
 
@@ -176,7 +235,7 @@ void updateEncoder(ENC_STATUS *enc){
 }
 
 
-PID pid_right = {KP, KI, 0.0, 0.0};
-PID pid_left = {KP, KI, 0.0, 0.0};
+//PID pid_right = {KP, KI, 0.0, 0.0};
+//PID pid_left = {KP, KI, 0.0, 0.0};
 
 

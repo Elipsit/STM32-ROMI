@@ -1,0 +1,241 @@
+/** ****************************************************************************
+//
+//  @file  app_main.cpp
+//
+//  Project:  STM32-Romi.
+//
+//  @brief   handle main application loop
+//
+//  Created: Kyle Rodrigues
+//
+//Change Notes:
+ * 8/29/2020
+ * added Sonar left and right
+ * added header and main files for oled screen
+ * esp link http://192.168.50.85/console.html
+//
+// *****************************************************************************
+*/
+#include "app_main.h"
+#include "main.h"
+#include "stm32f4xx_hal_conf.h"
+#include "stm32f4xx_it.h"
+
+#include <string.h>
+#include <stdio.h>
+
+#include "PID.h"
+
+
+//OLED Includes
+#include "fonts.h"
+#include "ssd1306.h"
+#include "test.h"
+#include "bitmap.h"
+
+//******Define Sonar******
+#define uSTIM TIM9
+//Sonar ticks set to zero
+uint32_t numTicks = 0;
+
+//******PID******
+#define KP 1.0
+#define KI 0.0
+
+//Sonar Setup
+typedef struct SONAR_STATUS_t {
+	float distanceL;
+	float distanceR;
+	float distanceC;
+}SONAR_STATUS;
+
+//Encoder Setup
+typedef struct ENC_STATUS_t {
+	int32_t pos;
+	int32_t vel;
+	int32_t last;
+	char tag;
+	TIM_HandleTypeDef *htim;
+} ENC_STATUS;
+
+//declare the variable for sonar status
+SONAR_STATUS sonar ={0.0,0.0,0.0};
+
+//create array for sonar tirgger pins
+
+//Speed of sound in air cm/uSec
+const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
+
+// Hardware Revision bits
+uint8_t RevBit[3];
+
+// local functions
+void uSec_Delay(uint32_t uSec);
+void checksonar(SONAR_STATUS *sonar);
+
+
+// main application loop
+void appMain(void){
+	/* Check Hardware Revision Bits*/
+	RevBit[0] =	HAL_GPIO_ReadPin(REV_BIT0_GPIO_Port, REV_BIT0_Pin);
+	RevBit[1] =	HAL_GPIO_ReadPin(REV_BIT1_GPIO_Port, REV_BIT1_Pin);
+	RevBit[2] =	HAL_GPIO_ReadPin(REV_BIT2_GPIO_Port, REV_BIT2_Pin);
+
+
+	//hal pwm start
+
+
+	//hal encoder start
+
+	int32_t MTR_PWM_PERIOD;
+	int32_t MAX_SPEED;
+	int32_t MAX_VELOCITY;
+
+	int16_t speed_l = 0;
+	int16_t speed_r = 0;
+
+	int16_t duty_l = 0;
+	int16_t duty_r = 0;
+
+	uint32_t BLINK_RATE = 50;
+	uint32_t BlinkTimer = BLINK_RATE;
+
+	uint32_t PID_RATE = 50;
+	uint32_t PIDTimer = PID_RATE;
+
+	printf("Power up initiated...\r\n");
+	printf("All systems nominal..\r\n");
+	printf("Hardware Revision: %d%d%d\r\n",RevBit[2],RevBit[2],RevBit[2]);
+
+	//Initialize OLED
+	SSD1306_Init();
+	SSD1306_Clear();
+	SSD1306_DrawBitmap(0, 0, ologic, 128, 64, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_Clear();
+	SSD1306_GotoXY(30, 0);
+	SSD1306_Puts("STM32-ROMI", &Font_7x10, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(100);
+
+	uint32_t tick = HAL_GetTick();
+
+	//Set Direction bits to 0 for forward
+	HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, RESET);
+	HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, RESET);
+	//Set Sleep bits to 1 for enable
+	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
+	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
+
+	//Main program to loop forever
+	while(1){
+		//printf("Check Sonar\r\n");
+		//checksonar(&sonar);
+		//HAL_Delay(1000);
+		uint32_t tock = HAL_GetTick();
+
+		if(tock-tick>10){
+			BlinkTimer--;
+			if(BlinkTimer==0){
+				BlinkTimer = BLINK_RATE;
+				HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
+			}
+		}
+
+
+		int c = getchar();
+			if(c != EOF){
+				putchar(c);
+
+				if(c == '-'){
+					if(speed_l < -MTR_PWM_PERIOD){
+						speed_l -= 80;
+					}
+				}
+
+				if(c == '>'){
+					if(speed_r < MTR_PWM_PERIOD){
+						speed_r += 80;
+					}
+				}
+
+				else{
+					clearerr(stdin);
+					}
+			}
+
+
+	}
+
+
+
+}
+
+void uSec_Delay(uint32_t uSec)
+{
+	if(uSec < 2)uSec = 2;
+	uSTIM->ARR = uSec - 1; 	//Sets the value in the auto reload register
+	uSTIM -> EGR = 1;		//Re-initialize the Timer
+	uSTIM -> SR &= ~1;  	//Resets the flag
+	uSTIM ->CR1 |= 1;		//Enables the counter
+	while((uSTIM -> SR&0x0001) != 1);
+	uSTIM -> SR &= ~(0x0001);
+
+}
+
+void checksonar(SONAR_STATUS *sonar){
+	//Left Sonar - Update wiith hardware timer to count the input pulses
+		//Set the trigger pin low for a few uSec
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
+			  uSec_Delay(3);
+
+			  ///Start the ultrasonic measurement routine
+			  //1. output 10us pulse on trigger pin
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_SET);
+			  uSec_Delay(10);
+			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
+
+			  //2. Wait for echo pin rising edge
+			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_RESET);
+
+			  //3. Start measuring echo pause width until the falling edge
+			  numTicks = 0;
+			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_SET)
+			  {
+				  numTicks++;
+				  uSec_Delay(2);  //actually around 2.8 uSec, measures every 2.8us
+			  }
+			//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
+			sonar->distanceL = (numTicks + 0.0f)*2.8*SpeedOfSound;
+			printf("Left Sonar Distance (cm): %f",sonar->distanceL);
+
+};
+
+
+/* This function uses interrupts to toggle Blinky*/
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
+{
+	 HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
+}
+
+
+
+
+//Update Encoder
+void updateEncoder(ENC_STATUS *enc){
+	enc-> pos = __HAL_TIM_GetCounter(enc -> htim);
+
+	//calculate the velocity
+	enc-> vel = enc -> pos - enc -> last;
+	printf("encoder  %d: pos = %ld, vel = %ld, last = %ld\r\n",enc->tag, enc->pos, enc->vel, enc->last);
+
+	//Save enc pause into inc last
+	enc -> last  =  enc -> pos;
+}
+
+
+//PID pid_right = {KP, KI, 0.0, 0.0};
+//PID pid_left = {KP, KI, 0.0, 0.0};
+
+

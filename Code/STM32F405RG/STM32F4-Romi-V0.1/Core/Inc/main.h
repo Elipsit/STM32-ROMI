@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <stm32f4xx_hal.h>
+#include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -70,24 +70,24 @@ void Error_Handler(void);
 #define REV_BIT1_GPIO_Port GPIOC
 #define REV_BIT2_Pin GPIO_PIN_3
 #define REV_BIT2_GPIO_Port GPIOC
-#define ROMI_PWMR_Pin GPIO_PIN_0
-#define ROMI_PWMR_GPIO_Port GPIOA
+#define ENCL_CHA_Pin GPIO_PIN_0
+#define ENCL_CHA_GPIO_Port GPIOA
+#define ENCL_CHB_Pin GPIO_PIN_1
+#define ENCL_CHB_GPIO_Port GPIOA
 #define Blinky_Pin GPIO_PIN_5
 #define Blinky_GPIO_Port GPIOA
 #define RGB_INT1_Pin GPIO_PIN_4
 #define RGB_INT1_GPIO_Port GPIOC
 #define RGB_INT2_Pin GPIO_PIN_5
 #define RGB_INT2_GPIO_Port GPIOC
-#define ENCR_CHA_Pin GPIO_PIN_0
-#define ENCR_CHA_GPIO_Port GPIOB
-#define ENCR_CHB_Pin GPIO_PIN_1
-#define ENCR_CHB_GPIO_Port GPIOB
+#define TRIGL_Pin GPIO_PIN_0
+#define TRIGL_GPIO_Port GPIOB
+#define ECHOL_Pin GPIO_PIN_1
+#define ECHOL_GPIO_Port GPIOB
 #define QTRR_OUT_Pin GPIO_PIN_2
 #define QTRR_OUT_GPIO_Port GPIOB
-#define ENCL_CHA_Pin GPIO_PIN_10
-#define ENCL_CHA_GPIO_Port GPIOB
-#define ENCL_CHB_Pin GPIO_PIN_11
-#define ENCL_CHB_GPIO_Port GPIOB
+#define ROMI_PWMR_Pin GPIO_PIN_10
+#define ROMI_PWMR_GPIO_Port GPIOB
 #define QTRL_OUT_Pin GPIO_PIN_12
 #define QTRL_OUT_GPIO_Port GPIOB
 #define ROMI_DIRR_Pin GPIO_PIN_13
@@ -112,10 +112,10 @@ void Error_Handler(void);
 #define ROMI_DIRL_GPIO_Port GPIOC
 #define SPI_CS_FLASH_Pin GPIO_PIN_2
 #define SPI_CS_FLASH_GPIO_Port GPIOD
-#define TRIGL_Pin GPIO_PIN_4
-#define TRIGL_GPIO_Port GPIOB
-#define ECHOL_Pin GPIO_PIN_5
-#define ECHOL_GPIO_Port GPIOB
+#define ENCR_CHA_Pin GPIO_PIN_4
+#define ENCR_CHA_GPIO_Port GPIOB
+#define ENCR_CHB_Pin GPIO_PIN_5
+#define ENCR_CHB_GPIO_Port GPIOB
 #define ROMI_PWML_Pin GPIO_PIN_6
 #define ROMI_PWML_GPIO_Port GPIOB
 #define SERVO2_PWM_Pin GPIO_PIN_9

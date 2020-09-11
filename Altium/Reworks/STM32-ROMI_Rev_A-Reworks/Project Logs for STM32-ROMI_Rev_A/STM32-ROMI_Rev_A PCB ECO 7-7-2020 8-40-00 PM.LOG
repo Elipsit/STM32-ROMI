@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=3.3V Pin=CN12-1
+Removed Pin From Net: NetName=I2C1_SCL Pin=CN12-2
+Removed Pin From Net: NetName=I2C1_SDA Pin=CN12-3
+Removed Pin From Net: NetName=GND Pin=CN12-4
+Removed Pin From Net: NetName=ROMI_DIRL Pin=U1-36
+Removed Pin From Net: NetName=I2C3_SCL Pin=U1-51
+Added Pin To Net: NetName=GND Pin=CN12-1
+Added Pin To Net: NetName=3.3V Pin=CN12-2
+Added Pin To Net: NetName=I2C1_SCL Pin=CN12-3
+Added Pin To Net: NetName=I2C1_SDA Pin=CN12-4
+Added Pin To Net: NetName=ROMI_DIRL Pin=U1-53
+Added Pin To Net: NetName=SERVO1_PWM Pin=CN22-2
+Added Pin To Net: NetName=SERVO1_PWM Pin=U1-36
+Added Net: Name=SERVO1_PWM
+Added Pin To Net: NetName=SERVO2_PWM Pin=CN15-2
+Added Pin To Net: NetName=SERVO2_PWM Pin=U1-62
+Added Net: Name=SERVO2_PWM
+Added Pin To Net: NetName=UART4_RX Pin=U1-52
+Added Net: Name=UART4_RX
+Added Pin To Net: NetName=UART4_TX Pin=U1-51
+Added Net: Name=UART4_TX

@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\github\STM32\STM32F4\STM32F411RE\STM32F4-SG90"/>
 			<item value="C:\github\STM32\STM32F4\STM32F429ZI\STM32-HCSR04"/>
 			<item value="C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1"/>
 		</list>

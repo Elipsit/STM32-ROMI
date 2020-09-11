@@ -1,0 +1,41 @@
+Remove Pin=U1A-2 From Net=SCREEN_BTN
+Remove Pin=U1A-14 From Net=ROMI_PWMR
+Remove Pin=U1A-16 From Net=UART2_TX
+Remove Pin=U1A-17 From Net=UART2_RX
+Remove Pin=U1A-24 From Net=NEOP1
+Remove Pin=U1A-25 From Net=NEOP2
+Remove Pin=U1A-34 From Net=ROMI_DIRR
+Remove Pin=U1A-35 From Net=ROMI_S\L\P\R\
+Remove Pin=U1A-36 From Net=ROMI_DIRL
+Remove Pin=U1A-37 From Net=ROMI_S\L\P\L\
+Remove Pin=U1A-39 From Net=TRIG_CTR
+Remove Pin=U1A-44 From Net=ECHOL
+Remove Pin=U1A-45 From Net=TRIGL
+Remove Pin=U1A-58 From Net=ROMI_PWML
+Remove Pin=U1A-59 From Net=I2C1_SDA
+Remove Pin=U1A-61 From Net=I2C1_SCL
+Change Component Footprint: Designator=C14 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0402(1005)_L
+Change Component Footprint: Designator=C15 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0402(1005)_L
+Change Component Footprint: Designator=C16 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0402(1005)_L
+Change Component Footprint: Designator=C17 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0402(1005)_L
+Change Component Footprint: Designator=C25 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C26 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C27 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C28 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C29 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C31 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C32 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C33 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Footprint: Designator=C34 Old Footprint=CAPC0603(1608)_L New Footprint=CAPC0603(1608)_N
+Change Component Comment: Designator=CN11 Old Comment=SONAR-Cen New Comment=SONAR-BL
+Add Pin To Net: Pin=U1A-21 Old Net=BLINKY New Net=SPI_SCK
+Add Pin To Net: Pin=U1A-22 Old Net=SPI1_MISO New Net=SPI_MISO
+Add Pin To Net: Pin=U1A-23 Old Net=SPI1_MOSI New Net=SPI_MOSI
+Add Pin To Net: Pin=U1A-41 Old Net=I2C3_SCL New Net=SPI_CS_FLASH
+Change Pin Designator/Name:  Old Designator=U1A-21 Old Name=PA5 New Designator =PC1 New Name=9
+Change Pin Designator/Name:  Old Designator=U1A-22 Old Name=PA6 New Designator =PC2 New Name=10
+Change Pin Designator/Name:  Old Designator=U1A-23 Old Name=PA7 New Designator =PC3 New Name=11
+Change Pin Designator/Name:  Old Designator=U1A-41 Old Name=PA8 New Designator =PA0_WKUP New Name=14
+Change Pin Designator/Name:  Old Designator=U1A-53 Old Name=PC12 New Designator =PA2 New Name=16
+Change Pin Designator/Name:  Old Designator=U1A-9 Old Name=PC1 New Designator =PC13 New Name=2
+Change Pin Designator/Name:  Old Designator=U1A-10 Old Name=PC2 New Designator =PC12 New Name=53

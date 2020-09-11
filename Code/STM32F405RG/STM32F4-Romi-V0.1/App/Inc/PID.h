@@ -6,7 +6,7 @@
 #ifndef INC_PID_H
 #define INC_PID_H_
 
-
+/*
 // The strut is named PID_t, the typedef is PID
 typedef struct PID_t{
 	float kp; //proportional error
@@ -20,5 +20,5 @@ float PID_update (float target, float current, PID *PID_state){
 
 
 }
-
+*/
 #endif /*INC_PID_H_ */

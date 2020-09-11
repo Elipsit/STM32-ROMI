@@ -1,0 +1,11 @@
+Change Component Comment : Designator=CN5 Old Comment=ADC/DAC New Comment=Header 4
+Change Component Comment : Designator=CN11 Old Comment=SONAR-BL New Comment=Header 4
+Change Component Comment : Designator=CN9 Old Comment=SONAR-FL New Comment=Header 4
+Change Component Comment : Designator=CN10 Old Comment=SONAR-FR New Comment=Header 4
+Change Component Comment : Designator=CN21 Old Comment=SPI New Comment=Header 4
+Change Component Library : Designator=CN9 Old Library=Kyle-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB
+Change Component Library : Designator=CN10 Old Library=Kyle-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB
+Change Component Library : Designator=CN11 Old Library=Kyle-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB
+Change Component Library : Designator=CN5 Old Library=OLogic-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB
+Change Component Library : Designator=CN12 Old Library=OLogic-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB
+Change Component Library : Designator=CN21 Old Library=OLogic-Connectors.IntLib New Library=Kyle-Connectors.SCHLIB

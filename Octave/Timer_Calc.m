@@ -15,7 +15,7 @@ printf("Source CLK For TIM6 %d (Hz)\n",TIM6_CLK);
 printf("\n");
 
 %The timer interrupt period in seconds
-target_interupt_sec = 10e-3;
+target_interupt_sec = 1/250e3;
 target_interupt_msec = target_interupt_sec*1000;
 target_interupt_uSec = target_interupt_msec*1000;
 printf("Target Timer Interupt %d (Sec)\n",target_interupt_sec );
@@ -24,7 +24,7 @@ printf("Target Timer Interupt %d (uSec)\n",target_interupt_uSec);
 printf("\n");
 
 %The prescaler can divide the counter clock frequency by any factor between 1 and 65536
-prescaler = 800
+prescaler = 9
 printf("\n");
 
 CNT_CLK = TIM6_CLK/(prescaler+1);

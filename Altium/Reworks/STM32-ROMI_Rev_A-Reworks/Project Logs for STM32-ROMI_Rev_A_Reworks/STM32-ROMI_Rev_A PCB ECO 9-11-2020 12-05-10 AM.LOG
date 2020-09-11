@@ -1,0 +1,25 @@
+Removed Pin From Net: NetName=ROMI_PWMR Pin=U1-14
+Removed Pin From Net: NetName=ADC_IN1 Pin=U1-15
+Removed Pin From Net: NetName=ENCR_CHA Pin=U1-26
+Removed Pin From Net: NetName=ENCR_CHB Pin=U1-27
+Removed Pin From Net: NetName=ENCL_CHA Pin=U1-29
+Removed Pin From Net: NetName=ENCL_CHB Pin=U1-30
+Removed Pin From Net: NetName=TRIGL Pin=U1-56
+Removed Pin From Net: NetName=ECHOL Pin=U1-57
+Added Component: Designator=L?(INDP6060X45N)
+Add component (AddParameter): Name = "Current Rating (Amps)"; Value = "3A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Saturation (Amps)"; Value = "4A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.bourns.com/data/global/pdfs/SRN6045.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DC Resistance (DCR)"; Value = "37.6mOhm Max"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Inductance"; Value = "4.7uH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "SRN6045-4R7Y"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Shielding"; Value = "Semi-Shielded"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Size / Dimension"; Value = "0.236" L x 0.236" W (6.00mm x 6.00mm)"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=ENCL_CHA Pin=U1-14
+Added Pin To Net: NetName=ENCL_CHB Pin=U1-15
+Added Pin To Net: NetName=TRIGL Pin=U1-26
+Added Pin To Net: NetName=ECHOL Pin=U1-27
+Added Pin To Net: NetName=ROMI_PWMR Pin=U1-29
+Added Pin To Net: NetName=ADC_IN1 Pin=U1-30
+Added Pin To Net: NetName=ENCR_CHA Pin=U1-56
+Added Pin To Net: NetName=ENCR_CHB Pin=U1-57

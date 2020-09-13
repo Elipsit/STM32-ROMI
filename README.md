@@ -6,11 +6,11 @@ The Silicon Valley [HomeBrew Robotics Club](http://www.hbrobotics.org/) built an
  
  
 ### Project Status
-Boards have been sent for PCBA
+Boards are in bringup and testing phase
  **This project is still a work in progress**
 
 
-![3D Render](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Render_Top.png)
+![Robot_Front](https://github.com/Elipsit/STM32-ROMI/blob/master/Pics/Robot/00000IMG_00000_BURST20200910130652117_COVER.jpg)
 
 ## Design Files
 ### Electrical Design Files

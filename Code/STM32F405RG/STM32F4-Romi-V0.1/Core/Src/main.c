@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <string.h>
 #include <stm32f4xx_hal.h>
 #include "app_main.h"
 
@@ -42,9 +43,11 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 //extern the timer variable to pass it to the interrupt
-extern TIM_HandleTypeDef htim6;
-extern TIM_HandleTypeDef htim9;
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
 extern UART_HandleTypeDef huart2;
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -162,6 +165,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 	  appMain(); // will not return from here
     /* USER CODE END WHILE */
 
@@ -935,7 +939,6 @@ int __io_putchar(int ch) {
     }
     return EOF;
 }
-
 int __io_getchar(void) {
     if(__HAL_UART_GET_FLAG(&IO_UART , UART_FLAG_RXNE)) {
         uint8_t ch=0;
@@ -949,10 +952,8 @@ int __io_getchar(void) {
     }
     return EOF;
 }
-
 int _read(int file, char *ptr, int len){
 int DataIdx;
-
     for (DataIdx = 0; DataIdx < len; DataIdx++) {
         int ch =  __io_getchar();
         if(ch != EOF) {

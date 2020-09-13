@@ -18,8 +18,10 @@
 */
 #include "app_main.h"
 #include "main.h"
-#include "stm32f4xx_hal_conf.h"
 #include "stm32f4xx_it.h"
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_tim.h"
+#include "stm32f4xx_hal_tim_ex.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -66,13 +68,18 @@ SONAR_STATUS sonar ={0.0,0.0,0.0};
 //Speed of sound in air cm/uSec
 const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
 
+//******PWM Setup****
+
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim4;
+
 // Hardware Revision bits
 uint8_t RevBit[3];
 
 // local functions
 void uSec_Delay(uint32_t uSec);
 void checksonar(SONAR_STATUS *sonar);
-
+void setPWM(TIM_HandleTypeDef, uint32_t, uint16_t, uint16_t);
 
 // main application loop
 void appMain(void){
@@ -83,17 +90,17 @@ void appMain(void){
 
 
 	//hal pwm start
-	HAL_TIM_PWM_Start(TIM2,TIM_CHANNEL_3);  //ROMI_PWMR
-	HAL_TIM_PWM_Start(TIM4, TIM_CHANNEL_1); //ROMI_PWML
+	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);  //Start PWM
+	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);  //Start PWM
 
 	//hal encoder start
 
-	int32_t MTR_PWM_PERIOD;
+	int32_t MTR_PWM_PERIOD = 255;
 	int32_t MAX_SPEED;
 	int32_t MAX_VELOCITY;
 
-	int16_t speed_l = 0;
-	int16_t speed_r = 0;
+	int16_t speed_l = 20;
+	int16_t speed_r = 20;
 
 	int16_t duty_l = 0;
 	int16_t duty_r = 0;
@@ -149,9 +156,14 @@ void appMain(void){
 			if(c != EOF){
 				putchar(c);
 
+				if(c == '+'){
+					if(speed_l < MTR_PWM_PERIOD){
+						speed_l += 10;
+					}
+				}
 				if(c == '-'){
-					if(speed_l < -MTR_PWM_PERIOD){
-						speed_l -= 80;
+					if(speed_l > -MTR_PWM_PERIOD){
+						speed_l -= 10;
 					}
 				}
 
@@ -160,14 +172,32 @@ void appMain(void){
 						speed_r += 80;
 					}
 				}
-
-				else{
-					clearerr(stdin);
+				if(c == '<'){
+					if(speed_r > -MTR_PWM_PERIOD){
+						speed_r -= 80;
 					}
+				}
+				if(c == ' '){
+					speed_r = 0;
+					speed_l = 0;
+				}
 			}
 
+			else{
+				clearerr(stdin); // Reset the EOF Condition
+				}
 
-	}
+				setPWM(htim2, TIM_CHANNEL_3, MTR_PWM_PERIOD, speed_r);
+				setPWM(htim4, TIM_CHANNEL_1, MTR_PWM_PERIOD, speed_l);
+				printf("Left Motor = %d\t Right Motor =%d\n\r",speed_l,speed_r);
+				SSD1306_GotoXY(0, 30);
+				SSD1306_Puts("MOTR Pulse", &Font_7x10, 1);
+				//SSD1306_GotoXY(60, 30);
+				//SSD1306_Puts((char)MTR_PWM_PERIOD, &Font_7x10, 1);
+				SSD1306_UpdateScreen();
+
+			}
+
 
 
 }
@@ -238,4 +268,19 @@ void updateEncoder(ENC_STATUS *enc){
 //PID pid_right = {KP, KI, 0.0, 0.0};
 //PID pid_left = {KP, KI, 0.0, 0.0};
 
+void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint16_t period, uint16_t pulse){
+	HAL_TIM_PWM_Stop(&timer, channel); // stop the current timer
+	TIM_OC_InitTypeDef sConfigOC;
+	timer.Init.Period = period;   //load period duration
+	HAL_TIM_PWM_Init(&timer); //reinit the timer
 
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;
+	sConfigOC.Pulse = pulse;
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+	HAL_TIM_PWM_ConfigChannel(&timer, &sConfigOC, channel);
+
+	HAL_TIM_PWM_Start(&timer,channel);  //start PWM
+
+
+}

@@ -11,11 +11,11 @@ printf("\n");
 
 %Input Timer Clock HZ - APB1 Bus for this timer
 TIM6_CLK = 50e6; %HZ
-printf("Source CLK For TIM6 %d (Hz)\n",TIM6_CLK);
+printf("Source CLK For TIM2 %d (Hz)\n",TIM6_CLK);
 printf("\n");
 
 %The timer interrupt period in seconds
-target_interupt_sec = 1/250e3;
+target_interupt_sec = 0.000004;
 target_interupt_msec = target_interupt_sec*1000;
 target_interupt_uSec = target_interupt_msec*1000;
 printf("Target Timer Interupt %d (Sec)\n",target_interupt_sec );

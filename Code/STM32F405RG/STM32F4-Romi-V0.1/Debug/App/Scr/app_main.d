@@ -33,9 +33,10 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../App/Inc/app_main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/stm32f4xx_it.h ../App/Inc/PID.h ../App/Inc/fonts.h \
- ../App/Inc/ssd1306.h ../App/Inc/../../app/Inc/fonts.h ../App/Inc/test.h \
- ../App/Scr/bitmap.h
+ ../Core/Inc/stm32f4xx_it.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
+ ../App/Inc/PID.h ../App/Inc/fonts.h ../App/Inc/ssd1306.h \
+ ../App/Inc/../../app/Inc/fonts.h ../App/Inc/test.h ../App/Scr/bitmap.h
 
 ../App/Inc/app_main.h:
 
@@ -110,6 +111,8 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../App/Inc/app_main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
 ../Core/Inc/stm32f4xx_it.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
 ../App/Inc/PID.h:
 

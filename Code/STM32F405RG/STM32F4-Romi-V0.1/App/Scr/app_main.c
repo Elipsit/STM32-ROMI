@@ -35,6 +35,12 @@
 #include "test.h"
 #include "bitmap.h"
 
+//******timers******
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim5;
+
 //******Define Sonar******
 #define uSTIM TIM9
 //Sonar ticks set to zero
@@ -44,21 +50,14 @@ uint32_t numTicks = 0;
 #define KP 1.0
 #define KI 0.0
 
-//Sonar Setup
+char position[10]; // used to write a int to char
+uint8_t oddeven = 0; //used to flip left and right oled screen location
+//*******Sonar Setup******
 typedef struct SONAR_STATUS_t {
 	float distanceL;
 	float distanceR;
 	float distanceC;
 }SONAR_STATUS;
-
-//Encoder Setup
-typedef struct ENC_STATUS_t {
-	int32_t pos;
-	int32_t vel;
-	int32_t last;
-	char tag;
-	TIM_HandleTypeDef *htim;
-} ENC_STATUS;
 
 //declare the variable for sonar status
 SONAR_STATUS sonar ={0.0,0.0,0.0};
@@ -68,10 +67,24 @@ SONAR_STATUS sonar ={0.0,0.0,0.0};
 //Speed of sound in air cm/uSec
 const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
 
-//******PWM Setup****
+//******Encoder Setup******
+typedef struct ENC_STATUS_t {
+	int32_t pos;
+	int32_t vel;
+	int32_t last;
+	char *tag;
+	int32_t dir;
+	TIM_HandleTypeDef *htim;
+} ENC_STATUS;
 
-extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim4;
+
+
+//******PWM Setup****
+typedef struct MOTOR_T {
+	int8_t dir;
+
+};
+
 
 // Hardware Revision bits
 uint8_t RevBit[3];
@@ -79,10 +92,13 @@ uint8_t RevBit[3];
 // local functions
 void uSec_Delay(uint32_t uSec);
 void checksonar(SONAR_STATUS *sonar);
-void setPWM(TIM_HandleTypeDef, uint32_t, uint16_t, uint16_t);
+void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
+
 
 // main application loop
 void appMain(void){
+
+
 	/* Check Hardware Revision Bits*/
 	RevBit[0] =	HAL_GPIO_ReadPin(REV_BIT0_GPIO_Port, REV_BIT0_Pin);
 	RevBit[1] =	HAL_GPIO_ReadPin(REV_BIT1_GPIO_Port, REV_BIT1_Pin);
@@ -90,17 +106,23 @@ void appMain(void){
 
 
 	//hal pwm start
-	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);  //Start PWM
-	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);  //Start PWM
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);  //Start PWM
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);  //Start PWM
 
 	//hal encoder start
+	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+	HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
 
-	int32_t MTR_PWM_PERIOD = 255;
+	ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
+	ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5};
+
+
+	int32_t MTR_PWM_PERIOD = 100;
 	int32_t MAX_SPEED;
 	int32_t MAX_VELOCITY;
 
-	int16_t speed_l = 20;
-	int16_t speed_r = 20;
+	int16_t speed_l = 45;
+	int16_t speed_r = 45;
 
 	int16_t duty_l = 0;
 	int16_t duty_r = 0;
@@ -130,8 +152,8 @@ void appMain(void){
 	uint32_t tick = HAL_GetTick();
 
 	//Set Direction bits to 0 for forward
-	HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, RESET);
-	HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, RESET);
+	HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
+	HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
 	//Set Sleep bits to 1 for enable
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
@@ -187,14 +209,11 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-				setPWM(htim2, TIM_CHANNEL_3, MTR_PWM_PERIOD, speed_r);
-				setPWM(htim4, TIM_CHANNEL_1, MTR_PWM_PERIOD, speed_l);
+				setPWM(htim2, TIM_CHANNEL_3, 0, MTR_PWM_PERIOD, speed_r);
+				setPWM(htim4, TIM_CHANNEL_1, 0, MTR_PWM_PERIOD, speed_l);
 				printf("Left Motor = %d\t Right Motor =%d\n\r",speed_l,speed_r);
-				SSD1306_GotoXY(0, 30);
-				SSD1306_Puts("MOTR Pulse", &Font_7x10, 1);
-				//SSD1306_GotoXY(60, 30);
-				//SSD1306_Puts((char)MTR_PWM_PERIOD, &Font_7x10, 1);
-				SSD1306_UpdateScreen();
+				updateEncoder(&enc_right);
+				updateEncoder(&enc_left);
 
 			}
 
@@ -254,21 +273,52 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
 
 //Update Encoder
 void updateEncoder(ENC_STATUS *enc){
-	enc-> pos = __HAL_TIM_GetCounter(enc -> htim);
+
+	enc-> pos = __HAL_TIM_GET_COUNTER(enc->htim);
 
 	//calculate the velocity
 	enc-> vel = enc -> pos - enc -> last;
-	printf("encoder  %d: pos = %ld, vel = %ld, last = %ld\r\n",enc->tag, enc->pos, enc->vel, enc->last);
+	printf("encoder  %s: pos = %ld, vel = %ld, last = %ld\r\n\n",enc->tag, enc->pos, enc->vel, enc->last);
 
 	//Save enc pause into inc last
 	enc -> last  =  enc -> pos;
+
+	if(oddeven < 1){
+		SSD1306_GotoXY(50, 20);
+		SSD1306_Puts(enc->tag, &Font_7x10, 1);
+		SSD1306_GotoXY(50, 40);
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		SSD1306_Puts(position, &Font_7x10, 1);
+		SSD1306_UpdateScreen();
+		oddeven++;
+
+	}else if(2 > oddeven >= 1) {
+		SSD1306_GotoXY(0, 20);
+		SSD1306_Puts(enc->tag, &Font_7x10, 1);
+		SSD1306_GotoXY(0, 40);
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		SSD1306_Puts(position, &Font_7x10, 1);
+		SSD1306_UpdateScreen();
+		oddeven = 0;
+	}else{
+		oddeven = 0;
+	}
+
+
 }
 
 
 //PID pid_right = {KP, KI, 0.0, 0.0};
 //PID pid_left = {KP, KI, 0.0, 0.0};
 
-void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint16_t period, uint16_t pulse){
+void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){
+	if(dir == 1){
+		HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
+		HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
+	}else{
+		HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, RESET);
+		HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, RESET);
+	}
 	HAL_TIM_PWM_Stop(&timer, channel); // stop the current timer
 	TIM_OC_InitTypeDef sConfigOC;
 	timer.Init.Period = period;   //load period duration
@@ -282,5 +332,5 @@ void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint16_t period, uint16_t 
 
 	HAL_TIM_PWM_Start(&timer,channel);  //start PWM
 
-
 }
+

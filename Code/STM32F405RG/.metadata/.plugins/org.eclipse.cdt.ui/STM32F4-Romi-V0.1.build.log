@@ -1,20 +1,10 @@
-13:19:13 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+22:43:15 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: STM32F4-Romi-V0.1.elf
- 
-arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
-arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  42524	    492	   3580	  46596	   b604	STM32F4-Romi-V0.1.elf
+  44076	    492	   3596	  48164	   bc24	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
-Finished building: STM32F4-Romi-V0.1.bin
- 
-Finished building: STM32F4-Romi-V0.1.list
- 
 
-13:19:15 Build Finished. 0 errors, 0 warnings. (took 1s.791ms)
+22:43:16 Build Finished. 0 errors, 0 warnings. (took 896ms)
 

@@ -1,5 +1,5 @@
-App/Scr/app_main.o: ../App/Scr/app_main.c ../App/Inc/app_main.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -33,12 +33,13 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../App/Inc/app_main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/stm32f4xx_it.h \
+ ../Core/Inc/can.h ../Core/Inc/main.h ../Core/Inc/dac.h ../Core/Inc/i2c.h \
+ ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/usart.h \
+ ../Core/Inc/gpio.h ../Core/Inc/stm32f4xx_it.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../App/Inc/PID.h ../App/Inc/fonts.h ../App/Inc/ssd1306.h \
- ../App/Inc/../../app/Inc/fonts.h ../App/Inc/test.h ../App/Scr/bitmap.h
-
-../App/Inc/app_main.h:
+ ../App/Inc/app_main.h ../App/Inc/PID.h ../App/Inc/encoder.h \
+ ../App/Inc/fonts.h ../App/Inc/ssd1306.h ../App/Inc/../../app/Inc/fonts.h \
+ ../App/Inc/test.h ../App/Scr/bitmap.h
 
 ../Core/Inc/main.h:
 
@@ -110,11 +111,31 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../App/Inc/app_main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
+../Core/Inc/can.h:
+
+../Core/Inc/main.h:
+
+../Core/Inc/dac.h:
+
+../Core/Inc/i2c.h:
+
+../Core/Inc/spi.h:
+
+../Core/Inc/tim.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/gpio.h:
+
 ../Core/Inc/stm32f4xx_it.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
+../App/Inc/app_main.h:
+
 ../App/Inc/PID.h:
+
+../App/Inc/encoder.h:
 
 ../App/Inc/fonts.h:
 

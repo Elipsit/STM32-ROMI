@@ -16,17 +16,26 @@
 //
 // *****************************************************************************
 */
-#include "app_main.h"
+/* Includes ------------------------------------------------------------------*/
+#include <string.h>
+#include <stdio.h>
 #include "main.h"
+#include "can.h"
+#include "dac.h"
+#include "i2c.h"
+#include "spi.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
 #include "stm32f4xx_it.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_tim.h"
 #include "stm32f4xx_hal_tim_ex.h"
 
-#include <string.h>
-#include <stdio.h>
-
+//******Custom Files******
+#include "app_main.h"
 #include "PID.h"
+#include "encoder.h"
 
 
 //OLED Includes
@@ -49,9 +58,10 @@ uint32_t numTicks = 0;
 //******PID******
 #define KP 1.0
 #define KI 0.0
+#define PIDRATE 10
 
-char position[10]; // used to write a int to char
-uint8_t oddeven = 0; //used to flip left and right oled screen location
+//char position[10]; // used to write a int to char
+//uint8_t oddeven = 0; //used to flip left and right oled screen location
 //*******Sonar Setup******
 typedef struct SONAR_STATUS_t {
 	float distanceL;
@@ -67,18 +77,6 @@ SONAR_STATUS sonar ={0.0,0.0,0.0};
 //Speed of sound in air cm/uSec
 const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
 
-//******Encoder Setup******
-typedef struct ENC_STATUS_t {
-	int32_t pos;
-	int32_t vel;
-	int32_t last;
-	char *tag;
-	int32_t dir;
-	TIM_HandleTypeDef *htim;
-} ENC_STATUS;
-
-
-
 //******PWM Setup****
 typedef struct MOTOR_T {
 	int8_t dir;
@@ -93,6 +91,13 @@ uint8_t RevBit[3];
 void uSec_Delay(uint32_t uSec);
 void checksonar(SONAR_STATUS *sonar);
 void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
+
+//PID pid_right = {KP, KI, 0.0, 0.0};
+//PID pid_left = {KP, KI, 0.0, 0.0};
+
+
+ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
+ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5};
 
 
 // main application loop
@@ -113,8 +118,6 @@ void appMain(void){
 	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
 	HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
 
-	ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
-	ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5};
 
 
 	int32_t MTR_PWM_PERIOD = 100;
@@ -270,7 +273,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
 
 
 
-
+/*
 //Update Encoder
 void updateEncoder(ENC_STATUS *enc){
 
@@ -305,11 +308,10 @@ void updateEncoder(ENC_STATUS *enc){
 	}
 
 
-}
+	}*/
 
 
-//PID pid_right = {KP, KI, 0.0, 0.0};
-//PID pid_left = {KP, KI, 0.0, 0.0};
+
 
 void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){
 	if(dir == 1){

@@ -1,9 +1,7 @@
-12:21:13 **** Clean-only build of configuration Debug for project Serial-Test ****
+11:01:02 **** Clean-only build of configuration Debug for project Serial-Test ****
 make -j8 clean 
-rm -rf *
-rm: can't remove 'Serial-Test.elf': Permission denied
-make: [makefile:65: clean] Error 1 (ignored)
- 
+make: *** No rule to make target 'clean'.  Stop.
+"make -j8 clean" terminated with exit code 2. Build might be incomplete.
 
-12:21:13 Build Finished. 0 errors, 0 warnings. (took 353ms)
+11:01:02 Build Failed. 1 errors, 0 warnings. (took 161ms)
 

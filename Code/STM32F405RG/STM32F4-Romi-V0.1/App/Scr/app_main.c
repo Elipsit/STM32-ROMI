@@ -13,6 +13,12 @@
  * added Sonar left and right
  * added header and main files for oled screen
  * esp link http://192.168.50.85/console.html
+ *
+ * To Do:
+ * Work on PID Loop
+ * Confirm PWM channel timer is 16bit or 32 bit
+ * confirm PID Period and Duty is correct
+ *
 //
 // *****************************************************************************
 */
@@ -56,9 +62,14 @@ extern TIM_HandleTypeDef htim5;
 uint32_t numTicks = 0;
 
 //******PID******
+#define FORWARD 0
+#define REVERSE 1
 #define KP 1.0
 #define KI 0.0
-#define PIDRATE 10
+//int32_t MTR_PWM_PERIOD = 100;
+const int32_t MAX_SPEED = 100;
+const int32_t MAX_VELOCITY = 360;
+const int32_t SPEED_CHANGE = 5;
 
 //char position[10]; // used to write a int to char
 //uint8_t oddeven = 0; //used to flip left and right oled screen location
@@ -79,21 +90,28 @@ const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach
 
 //******PWM Setup****
 typedef struct MOTOR_T {
-	int8_t dir;
+	char *motor;
+	uint32_t tim_ch;
+	TIM_HandleTypeDef *htim;
+	GPIO_TypeDef* gpio_port;
+	uint32_t gpio_pin;
 
-};
+}MOTOR_CONF;
 
+static const  MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin};
+static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
 
 // Hardware Revision bits
 uint8_t RevBit[3];
 
 // local functions
-void uSec_Delay(uint32_t uSec);
-void checksonar(SONAR_STATUS *sonar);
-void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
+static void uSec_Delay(uint32_t uSec);
+static void checksonar(SONAR_STATUS *sonar);
+static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
+static void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor);
 
-//PID pid_right = {KP, KI, 0.0, 0.0};
-//PID pid_left = {KP, KI, 0.0, 0.0};
+PID pid_right = {KP, KI, 0.0, 0.0};
+PID pid_left = {KP, KI, 0.0, 0.0};
 
 
 ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
@@ -118,22 +136,16 @@ void appMain(void){
 	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
 	HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
 
+	int16_t speed_l = 25;
+	int16_t speed_r = 25;
 
-
-	int32_t MTR_PWM_PERIOD = 100;
-	int32_t MAX_SPEED;
-	int32_t MAX_VELOCITY;
-
-	int16_t speed_l = 45;
-	int16_t speed_r = 45;
-
-	int16_t duty_l = 0;
-	int16_t duty_r = 0;
+	float duty_l = 0;
+	float duty_r = 0;
 
 	uint32_t BLINK_RATE = 50;
 	uint32_t BlinkTimer = BLINK_RATE;
 
-	uint32_t PID_RATE = 50;
+	uint32_t PID_RATE = 10; //Changed to a #Define function at top
 	uint32_t PIDTimer = PID_RATE;
 
 	printf("Power up initiated...\r\n");
@@ -154,75 +166,100 @@ void appMain(void){
 
 	uint32_t tick = HAL_GetTick();
 
+
 	//Set Direction bits to 0 for forward
-	HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
-	HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
+	//HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
+	//HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
 	//Set Sleep bits to 1 for enable
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
+
 
 	//Main program to loop forever
 	while(1){
 		//printf("Check Sonar\r\n");
 		//checksonar(&sonar);
-		//HAL_Delay(1000);
-		uint32_t tock = HAL_GetTick();
+		//uint32_t tock = HAL_GetTick();
 
+		/*
 		if(tock-tick>10){
 			BlinkTimer--;
 			if(BlinkTimer==0){
 				BlinkTimer = BLINK_RATE;
 				HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
 			}
-		}
+
+		}*/
 
 		/// use this to adjust the pwm
+
 		int c = getchar();
 			if(c != EOF){
 				putchar(c);
 
-				if(c == '+'){
-					if(speed_l < MTR_PWM_PERIOD){
-						speed_l += 10;
+					if(speed_l < MAX_SPEED){
+						speed_l += SPEED_CHANGE;
 					}
-				}
-				if(c == '-'){
-					if(speed_l > -MTR_PWM_PERIOD){
-						speed_l -= 10;
-					}
-				}
 
-				if(c == '>'){
-					if(speed_r < MTR_PWM_PERIOD){
-						speed_r += 80;
+					if(c == '-'){
+						if(speed_l > -MAX_SPEED){
+							speed_l -= SPEED_CHANGE;
+						}
 					}
-				}
-				if(c == '<'){
-					if(speed_r > -MTR_PWM_PERIOD){
-						speed_r -= 80;
-					}
-				}
-				if(c == ' '){
-					speed_r = 0;
-					speed_l = 0;
-				}
-			}
 
-			else{
+					if(c == '>'){
+						if(speed_r < MAX_SPEED){
+							speed_r += SPEED_CHANGE;
+						}
+					}
+					if(c == '<'){
+						if(speed_r > -MAX_SPEED){
+							speed_r -= SPEED_CHANGE;
+						}
+					}
+					if(c == ' '){
+						speed_r = 0;
+						speed_l = 0;
+						}
+
+				}else{
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-				setPWM(htim2, TIM_CHANNEL_3, 0, MTR_PWM_PERIOD, speed_r);
-				setPWM(htim4, TIM_CHANNEL_1, 0, MTR_PWM_PERIOD, speed_l);
-				printf("Left Motor = %d\t Right Motor =%d\n\r",speed_l,speed_r);
+			PIDTimer--;
+			//printf("PIDTimer = %ld\r\n",PIDTimer);
+			if(PIDTimer == 0){ //every 10 Hz
+				PIDTimer = PID_RATE;
+
+				/* Update the encoders*/
 				updateEncoder(&enc_right);
 				updateEncoder(&enc_left);
+
+				duty_l = PID_update((float)speed_l/MAX_SPEED, (float)enc_left.vel/MAX_VELOCITY, &pid_left);
+				duty_r = PID_update((float)speed_r/MAX_SPEED, (float)enc_right.vel/MAX_VELOCITY, &pid_right);
+
+
+				/* Update the motors*/
+				//setPWM(htim2, TIM_CHANNEL_3, 0, MTR_PWM_PERIOD, duty_r);
+				//setPWM(htim4, TIM_CHANNEL_1, 0, MTR_PWM_PERIOD, duty_l);
+
+
+				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
+				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
+				printf("Left Motor = %d\t Right Motor =%d\n\r",speed_l,speed_r);
 
 			}
 
 
 
-}
+				//tick = tock;
+
+			} //end of while loop
+
+
+
+} //end of main loop
+
 
 void uSec_Delay(uint32_t uSec)
 {
@@ -311,6 +348,17 @@ void updateEncoder(ENC_STATUS *enc){
 	}*/
 
 
+void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor){
+
+	uint32_t direction = speed > 0?1:0; //if assignment, ternary operator
+	speed = abs(speed); //takes speed and returns absolute value
+	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+
+	if(speed > MOTOR_PWM_PERIOD){
+		speed = MOTOR_PWM_PERIOD;
+	}
+	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+}
 
 
 void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){

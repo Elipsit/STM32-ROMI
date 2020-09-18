@@ -14,12 +14,13 @@ typedef struct PID_t{
 	float ki; //intergral error
 	float error; //error that is  tracking
 	float I; //running intergral of error
+	char *tag;
 
 }PID;
 
-float PID_update (float target, float current, PID *PID_state){
+float PID_update (float target, float current, PID *PID_state);
 
 
-}
+
 
 #endif /*INC_PID_H_ */

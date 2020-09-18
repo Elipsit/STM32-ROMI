@@ -1,0 +1,6 @@
+app_main.c:116:6:appMain	56	static
+app_main.c:258:6:uSec_Delay	16	static
+app_main.c:270:6:checksonar	24	static
+app_main.c:300:6:HAL_TIM_PeriodElapsedCallback	16	static
+app_main.c:345:6:setMTRSpeed	24	static
+app_main.c:358:6:setPWM	40	static

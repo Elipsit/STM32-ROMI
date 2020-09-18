@@ -59,6 +59,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MOTOR_PWM_PERIOD 1200
 #define OLED_BTN_Pin GPIO_PIN_13
 #define OLED_BTN_GPIO_Port GPIOC
 #define IMU_RST_Pin GPIO_PIN_0

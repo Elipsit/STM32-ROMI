@@ -215,3 +215,41 @@ arm-none-eabi-size   STM32F4-Romi-V0.1.elf
   44068	    580	   3596	  48244	   bc74	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
+13:54:21 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
+../App/Scr/app_main.c: In function 'appMain':
+../App/Scr/app_main.c:167:11: warning: unused variable 'tick' [-Wunused-variable]
+  uint32_t tick = HAL_GetTick();
+           ^~~~
+../App/Scr/app_main.c:146:11: warning: unused variable 'BlinkTimer' [-Wunused-variable]
+  uint32_t BlinkTimer = BLINK_RATE;
+           ^~~~~~~~~~
+At top level:
+../App/Scr/app_main.c:364:6: warning: 'setPWM' defined but not used [-Wunused-function]
+ void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){
+      ^~~~~~
+../App/Scr/app_main.c:276:6: warning: 'checksonar' defined but not used [-Wunused-function]
+ void checksonar(SONAR_STATUS *sonar){
+      ^~~~~~~~~~
+arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32F4-Romi-V0.1.elf
+ 
+arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
+arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44068	    580	   3596	  48244	   bc74	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM32F4-Romi-V0.1.bin
+ 
+Finished building: STM32F4-Romi-V0.1.list
+ 
+13:54:54 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44068	    580	   3596	  48244	   bc74	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 

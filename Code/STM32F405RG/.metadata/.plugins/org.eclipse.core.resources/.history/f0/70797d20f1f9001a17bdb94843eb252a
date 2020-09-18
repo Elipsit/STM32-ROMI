@@ -350,7 +350,7 @@ void updateEncoder(ENC_STATUS *enc){
 
 void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor){
 
-	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
+	uint32_t direction = speed > 0?1:0; //if assignment, ternary operator
 	speed = abs(speed); //takes speed and returns absolute value
 	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
 

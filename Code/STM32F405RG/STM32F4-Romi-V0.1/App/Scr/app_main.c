@@ -25,6 +25,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h> //this is required to use bool statements
 #include "main.h"
 #include "can.h"
 #include "dac.h"
@@ -42,6 +43,7 @@
 #include "app_main.h"
 #include "PID.h"
 #include "encoder.h"
+#include "sonar.h"
 
 
 //OLED Includes
@@ -55,10 +57,21 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim9; //sonar 1uSec
 
 //******Define Sonar******
-#define uSTIM TIM9
+//#define uSTIM TIM9
+static bool sonarActive = false;  // trigger flag to start next sonar readings (set by message from host)
+static bool sonarRestart = false; // flag to start sonar updates again after trigger
+//Speed of sound in air cm/uSec
+const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
+
+SONAR_STATUS SONARL ={"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0};
+SONAR_STATUS SONARR ={"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0};
+SONAR_STATUS SONARC ={"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0};
+
 //Sonar ticks set to zero
+
 uint32_t numTicks = 0;
 
 //******PID******
@@ -69,24 +82,7 @@ uint32_t numTicks = 0;
 //int32_t MTR_PWM_PERIOD = 100;
 const int32_t MAX_SPEED = 100;
 const int32_t MAX_VELOCITY = 360;
-const int32_t SPEED_CHANGE = 5;
-
-//char position[10]; // used to write a int to char
-//uint8_t oddeven = 0; //used to flip left and right oled screen location
-//*******Sonar Setup******
-typedef struct SONAR_STATUS_t {
-	float distanceL;
-	float distanceR;
-	float distanceC;
-}SONAR_STATUS;
-
-//declare the variable for sonar status
-SONAR_STATUS sonar ={0.0,0.0,0.0};
-
-//create array for sonar tirgger pins
-
-//Speed of sound in air cm/uSec
-const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
+const int32_t SPEED_CHANGE = 10;
 
 //******PWM Setup****
 typedef struct MOTOR_T {
@@ -98,7 +94,7 @@ typedef struct MOTOR_T {
 
 }MOTOR_CONF;
 
-static const  MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin};
+static const  MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
 static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
 
 // Hardware Revision bits
@@ -106,7 +102,6 @@ uint8_t RevBit[3];
 
 // local functions
 static void uSec_Delay(uint32_t uSec);
-static void checksonar(SONAR_STATUS *sonar);
 static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
 static void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor);
 
@@ -127,6 +122,8 @@ void appMain(void){
 	RevBit[1] =	HAL_GPIO_ReadPin(REV_BIT1_GPIO_Port, REV_BIT1_Pin);
 	RevBit[2] =	HAL_GPIO_ReadPin(REV_BIT2_GPIO_Port, REV_BIT2_Pin);
 
+	//Start the 1uSec timer for sonar
+	HAL_TIM_Base_Start(&htim9);
 
 	//hal pwm start
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);  //Start PWM
@@ -166,10 +163,6 @@ void appMain(void){
 
 	uint32_t tick = HAL_GetTick();
 
-
-	//Set Direction bits to 0 for forward
-	//HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
-	//HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
 	//Set Sleep bits to 1 for enable
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
@@ -177,8 +170,6 @@ void appMain(void){
 
 	//Main program to loop forever
 	while(1){
-		//printf("Check Sonar\r\n");
-		//checksonar(&sonar);
 		//uint32_t tock = HAL_GetTick();
 
 		/*
@@ -196,31 +187,39 @@ void appMain(void){
 		int c = getchar();
 			if(c != EOF){
 				putchar(c);
-
-					if(speed_l < MAX_SPEED){
-						speed_l += SPEED_CHANGE;
-					}
-
-					if(c == '-'){
-						if(speed_l > -MAX_SPEED){
-							speed_l -= SPEED_CHANGE;
-						}
-					}
-
-					if(c == '>'){
-						if(speed_r < MAX_SPEED){
+				switch (c) {
+					case 'w':
+						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+							speed_l += SPEED_CHANGE;
 							speed_r += SPEED_CHANGE;
 						}
-					}
-					if(c == '<'){
-						if(speed_r > -MAX_SPEED){
+						break;
+					case 'a':
+						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+							speed_l += SPEED_CHANGE;
+						}
+						break;
+					case 'd':
+						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+							speed_r += SPEED_CHANGE;
+						}
+						break;
+					case 's':
+						if((speed_l > -MAX_SPEED)&&(speed_r > -MAX_SPEED)){
+							speed_l -= SPEED_CHANGE;
 							speed_r -= SPEED_CHANGE;
 						}
-					}
-					if(c == ' '){
-						speed_r = 0;
-						speed_l = 0;
+						break;
+
+					case ' ':
+						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+							speed_l = 0;
+							speed_r = 0;
 						}
+						break;
+					default:
+						break;
+				}
 
 				}else{
 				clearerr(stdin); // Reset the EOF Condition
@@ -260,7 +259,7 @@ void appMain(void){
 
 } //end of main loop
 
-
+/*
 void uSec_Delay(uint32_t uSec)
 {
 	if(uSec < 2)uSec = 2;
@@ -271,8 +270,9 @@ void uSec_Delay(uint32_t uSec)
 	while((uSTIM -> SR&0x0001) != 1);
 	uSTIM -> SR &= ~(0x0001);
 
-}
+}*/
 
+/*
 void checksonar(SONAR_STATUS *sonar){
 	//Left Sonar - Update wiith hardware timer to count the input pulses
 		//Set the trigger pin low for a few uSec
@@ -299,7 +299,7 @@ void checksonar(SONAR_STATUS *sonar){
 			sonar->distanceL = (numTicks + 0.0f)*2.8*SpeedOfSound;
 			printf("Left Sonar Distance (cm): %f",sonar->distanceL);
 
-};
+};*/
 
 
 /* This function uses interrupts to toggle Blinky*/

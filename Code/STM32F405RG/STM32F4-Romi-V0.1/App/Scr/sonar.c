@@ -1,0 +1,37 @@
+/*
+ * sonar.c
+ *
+ *  Created on: Sep 19, 2020
+ *      Author: livin
+ */
+#include "sonar.h"
+#include "main.h"
+#include "tim.h"
+
+
+void checkSonar(SONAR_STATUS *sonar){
+	uint32_t tock = 0;
+	sonar->tick = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
+	while(tock-sonar->tick <= 10){
+		tock = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	}
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
+	sonar->tick = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+}
+
+/*
+void uSec_Delay(uint32_t uSec)
+{
+	if(uSec < 2)uSec = 2;
+	uSTIM->ARR = uSec - 1; 	//Sets the value in the auto reload register
+	uSTIM -> EGR = 1;		//Re-initialize the Timer
+	uSTIM -> SR &= ~1;  	//Resets the flag
+	uSTIM ->CR1 |= 1;		//Enables the counter
+	while((uSTIM -> SR&0x0001) != 1);
+	uSTIM -> SR &= ~(0x0001);
+
+}*/
+
+

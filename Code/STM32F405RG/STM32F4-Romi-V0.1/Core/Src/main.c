@@ -54,6 +54,7 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim9; //Sonar 1mS Timer
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE END PD */
@@ -75,7 +76,7 @@ void SystemClock_Config(void);
 
 void TIM6_DAC_IRQHandler(void);
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6);
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim9);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/

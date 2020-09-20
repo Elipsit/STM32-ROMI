@@ -1,0 +1,84 @@
+/*
+ * sonar.h
+ *
+ *  Created on: Sep 19, 2020
+ *      Author: livin
+ */
+
+#ifndef INC_SONAR_H_
+#define INC_SONAR_H_
+
+#define NUM_SONARS 3
+
+typedef enum SONAR_ID_t {
+  SONAR_1 =1,
+  SONAR_2 =2,
+  SONAR_3 =3
+
+} SONAR_ID;
+
+// event flag to pass to updateSonars method
+typedef enum SONAR_UPADTE_EVENT_t {
+  SONAR_EVENT_TIMER,
+  SONAR_EVENT_ERROR,
+  SONAR_EVENT_ECHO,
+  SONAR_EVENT_CHECK
+} SONAR_UPDATE_EVENT;
+
+bool initSonar(void);
+bool updateSonars(bool restart);
+void sonarTimer(void);
+void showSonars(void);
+
+void enableSonar(SONAR_ID sonarId, bool enabled);
+
+void reInitSonarComs(void);
+
+
+// class to manage a sonar
+class Sonar {
+
+  private:
+
+   IOPin & trig;                // IO pin for trigger
+   TIM_HandleTypeDef &echoTim;  // timer used to measure echo pulse width
+   //uint32_t echoCh;             // timer channel flag
+   bool enabled;                // enable/disable sonar flag
+   bool valid;                  // true if current distance is valid
+   bool fault;                  // set if fault occurs
+
+   volatile uint32_t *echoCounts;   // pointer to data buffer for DMA of echo time counts
+
+   float dist;                       // most recent distance measurement (m)
+   bool valueNew;
+
+   uint32_t dmaID(void);
+
+  public:
+    Sonar(IOPin &trig, TIM_HandleTypeDef & echoTim, volatile uint32_t * dataBuffer);
+    bool init(void);
+
+    bool trigger(IOPin & echoPin, IOPin & gpioPin,uint32_t trigSrc); // start a reading
+
+    void gotEcho(void); // handle echo return
+    bool doEvent(bool gotEcho, bool timeout);  // handle events for a sonar
+    void update(void);  // update reading
+    void error(void);
+
+    inline void enable(void) { valid = false; fault=false; enabled = true; };    // enable the sonar
+    inline void disable(void) { valid = false; fault=false;  enabled = false; };  // disable the sonar
+    inline bool isEnabled(void) { return enabled; };  // return true of sonar is enabled
+    inline bool isValid(void) { return valid; };      // return true of sonar reading is valid (dist should be ignored if valid is false)
+    inline bool hasFault(void) { return fault; };     // return fault flag
+    float getDistance(bool & valid); // get the distance - return true if distance is valid
+
+    bool isNew(void) { return valueNew; };
+};
+
+// make external references for accessing the sonars
+
+
+extern Sonar sonar1;
+extern Sonar sonar2;
+extern Sonar sonar3;
+#endif /* INC_SONAR_H_ */

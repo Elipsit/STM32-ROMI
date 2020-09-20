@@ -1,0 +1,10 @@
+/*
+ * sonar.c
+ *
+ *  Created on: Sep 19, 2020
+ *      Author: livin
+ */
+#include "sonar.h"
+
+void updateSonar(ENC_STATUS *sonar){
+

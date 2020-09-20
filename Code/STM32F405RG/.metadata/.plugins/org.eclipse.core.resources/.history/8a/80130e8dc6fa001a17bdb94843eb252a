@@ -1,0 +1,51 @@
+/*
+ * sonar.h
+ *
+ *  Created on: Sep 19, 2020
+ *      Author: Kyle Rodrigues
+ */
+
+#ifndef INC_SONAR_H_
+#define INC_SONAR_H_
+
+#include <stdbool.h> //this is required to use bool statements
+
+#define NUM_SONARS 3
+//Speed of sound in air cm/uSec
+const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
+
+typedef enum SONAR_ID_t {
+  SONARL =1,
+  SONARR =2,
+  SONARC =3
+
+} SONAR_ID;
+
+// event flag to pass to updateSonars method
+typedef enum SONAR_UPADTE_EVENT_t {
+  SONAR_EVENT_TIMER,
+  SONAR_EVENT_ERROR,
+  SONAR_EVENT_ECHO,
+  SONAR_EVENT_CHECK
+} SONAR_UPDATE_EVENT;
+
+bool initSonar(void);
+bool updateSonars(bool restart);
+void sonarTimer(void);
+void showSonars(void);
+
+void enableSonar(SONAR_ID sonarId, bool enabled);
+
+void reInitSonarComs(void);
+
+
+typedef struct SONAR_t {
+	char *sonar_ch;
+
+
+}SONAR;
+
+// make external references for accessing the sonars
+
+
+#endif /* INC_SONAR_H_ */

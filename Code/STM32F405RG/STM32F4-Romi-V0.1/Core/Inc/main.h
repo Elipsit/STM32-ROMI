@@ -62,6 +62,7 @@ void Error_Handler(void);
 #define MOTOR_PWM_PERIOD 1200
 #define OLED_BTN_Pin GPIO_PIN_13
 #define OLED_BTN_GPIO_Port GPIOC
+#define OLED_BTN_EXTI_IRQn EXTI15_10_IRQn
 #define IMU_RST_Pin GPIO_PIN_0
 #define IMU_RST_GPIO_Port GPIOC
 #define REV_BIT0_Pin GPIO_PIN_1
@@ -84,12 +85,14 @@ void Error_Handler(void);
 #define TRIGL_GPIO_Port GPIOB
 #define ECHOL_Pin GPIO_PIN_1
 #define ECHOL_GPIO_Port GPIOB
+#define ECHOL_EXTI_IRQn EXTI1_IRQn
 #define QTRR_OUT_Pin GPIO_PIN_2
 #define QTRR_OUT_GPIO_Port GPIOB
 #define ROMI_PWMR_Pin GPIO_PIN_10
 #define ROMI_PWMR_GPIO_Port GPIOB
 #define QTRL_OUT_Pin GPIO_PIN_12
 #define QTRL_OUT_GPIO_Port GPIOB
+#define QTRL_OUT_EXTI_IRQn EXTI15_10_IRQn
 #define ROMI_DIRR_Pin GPIO_PIN_13
 #define ROMI_DIRR_GPIO_Port GPIOB
 #define ROMI_SLPR_Pin GPIO_PIN_14
@@ -100,10 +103,12 @@ void Error_Handler(void);
 #define ROMI_SLPL_GPIO_Port GPIOC
 #define ECHO_CTR_Pin GPIO_PIN_7
 #define ECHO_CTR_GPIO_Port GPIOC
+#define ECHO_CTR_EXTI_IRQn EXTI9_5_IRQn
 #define TRIG_CTR_Pin GPIO_PIN_8
 #define TRIG_CTR_GPIO_Port GPIOC
 #define ECHOR_Pin GPIO_PIN_9
 #define ECHOR_GPIO_Port GPIOA
+#define ECHOR_EXTI_IRQn EXTI9_5_IRQn
 #define TRIGR_Pin GPIO_PIN_10
 #define TRIGR_GPIO_Port GPIOA
 #define SPI_CS_AUX_Pin GPIO_PIN_15

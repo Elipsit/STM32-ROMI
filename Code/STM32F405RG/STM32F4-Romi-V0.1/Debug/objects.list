@@ -3,6 +3,7 @@
 "App/Scr/encoder.o"
 "App/Scr/fonts.o"
 "App/Scr/motors.o"
+"App/Scr/sonar.o"
 "App/Scr/ssd1306.o"
 "Core/Src/can.o"
 "Core/Src/dac.o"

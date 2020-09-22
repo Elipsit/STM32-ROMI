@@ -25,7 +25,7 @@ void checkSonar(SONAR_STATUS *sonar){
 void updateSonar(SONAR_STATUS *sonar){
 	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
 				sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
-				printf("%C Sonar Distance (cm): %f",sonar->sonar_ch,sonar->distance);
+				printf("Left Sonar Distance (cm): %f",sonar->distanceL);
 
 }
 

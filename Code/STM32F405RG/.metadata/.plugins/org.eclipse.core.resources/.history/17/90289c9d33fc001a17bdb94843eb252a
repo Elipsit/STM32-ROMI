@@ -42,7 +42,6 @@ typedef struct SONAR_t {
 
 
 void checkSonar(SONAR_STATUS *sonar);
-void updateSonar(SONAR_STATUS *sonar);
 
 
 #endif /* INC_SONAR_H_ */

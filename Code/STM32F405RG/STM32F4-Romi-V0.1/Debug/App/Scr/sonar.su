@@ -1,1 +1,2 @@
-sonar.c:12:6:checkSonar	24	static
+sonar.c:13:6:checkSonar	24	static
+sonar.c:25:6:updateSonar	24	static

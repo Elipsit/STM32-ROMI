@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\github\STM32\tof\TOFCANFirmware"/>
 			<item value="C:\github\STM32-ROMI\Code\STM32F405RG\CodeBlocks\PWM-Test"/>
 			<item value="C:\github\STM32\STM32F4\STM32F411RE\STM32F4-SG90"/>
 			<item value="C:\github\STM32\STM32F4\STM32F429ZI\STM32-HCSR04"/>

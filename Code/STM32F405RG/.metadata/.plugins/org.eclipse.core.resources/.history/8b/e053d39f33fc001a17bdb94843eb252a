@@ -8,7 +8,6 @@
 #include "main.h"
 #include "tim.h"
 
-const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
 
 void checkSonar(SONAR_STATUS *sonar){
 	uint32_t tock = 0;
@@ -20,13 +19,6 @@ void checkSonar(SONAR_STATUS *sonar){
 	}
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
 	sonar->tick = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
-}
-
-void updateSonar(SONAR_STATUS *sonar){
-	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
-				sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
-				printf("%C Sonar Distance (cm): %f",sonar->sonar_ch,sonar->distance);
-
 }
 
 /*

@@ -28,7 +28,7 @@ DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
-OutputPath=
+OutputPath=Project Outputs for STM32-ROMI_Rev_A_Reworks
 LogFolderPath=
 ManagedProjectGUID=
 IncludeDesignInRelease=0
@@ -157,7 +157,24 @@ GenerateClassCluster=0
 DocumentUniqueId=YDJKGOAC
 
 [Document8]
-DocumentPath=STM32-ROMI_Rev_A_6_Reworks.SchDoc
+DocumentPath=STM32-ROMI_Rev_A_6_Notes.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=PGQAHSJE
+
+[Document9]
+DocumentPath=STM32-ROMI_Rev_A_7_Reworks.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -173,7 +190,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SYRPVOFI
 
-[Document9]
+[Document10]
 DocumentPath=STM32-ROMI_Rev_A.BomDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -190,7 +207,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document10]
+[Document11]
 DocumentPath=STM32-ROMI_Rev_A.PCBDwf
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -207,7 +224,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document11]
+[Document12]
 DocumentPath=STM32-ROMI_Rev_A.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -271,7 +288,7 @@ SCH_HasExpandLogicalToPhysicalSheets=-1
 SaveSettingsToOutJob=-1
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for STM32-ROMI_Rev_A_Reworks
 
 [OutputGroup1]
 Name=Netlist Outputs

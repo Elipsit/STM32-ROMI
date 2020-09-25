@@ -60,8 +60,6 @@
 /* External variables --------------------------------------------------------*/
 extern DAC_HandleTypeDef hdac;
 extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim3;
-extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim6;
 extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
@@ -69,7 +67,7 @@ extern UART_HandleTypeDef huart2;
 /* USER CODE END EV */
 
 /******************************************************************************/
-/*           Cortex-M4 Processor Interruption and Exception Handlers          */ 
+/*           Cortex-M4 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
 /**
   * @brief This function handles Non maskable interrupt.
@@ -210,9 +208,9 @@ void SysTick_Handler(void)
 void EXTI1_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI1_IRQn 0 */
-	uint32_t tock = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
-	sonar->tick = tock - sonar->tick;
-	updateSonar(sonar->tick);
+	//uint32_t tock = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	//sonar->tick = tock - sonar->tick;
+	//updateSonar(sonar->tick);
   /* USER CODE END EXTI1_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
   /* USER CODE BEGIN EXTI1_IRQn 1 */
@@ -250,20 +248,6 @@ void TIM2_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM3 global interrupt.
-  */
-void TIM3_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM3_IRQn 0 */
-
-  /* USER CODE END TIM3_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim3);
-  /* USER CODE BEGIN TIM3_IRQn 1 */
-
-  /* USER CODE END TIM3_IRQn 1 */
-}
-
-/**
   * @brief This function handles USART2 global interrupt.
   */
 void USART2_IRQHandler(void)
@@ -294,20 +278,6 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */
 
   /* USER CODE END EXTI15_10_IRQn 1 */
-}
-
-/**
-  * @brief This function handles TIM5 global interrupt.
-  */
-void TIM5_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM5_IRQn 0 */
-
-  /* USER CODE END TIM5_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim5);
-  /* USER CODE BEGIN TIM5_IRQn 1 */
-
-  /* USER CODE END TIM5_IRQn 1 */
 }
 
 /**

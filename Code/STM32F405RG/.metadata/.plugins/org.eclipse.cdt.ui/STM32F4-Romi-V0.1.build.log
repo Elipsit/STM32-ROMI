@@ -1,20 +1,10 @@
-11:00:00 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+21:26:07 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
-../Core/Src/stm32f4xx_it.c: In function 'EXTI1_IRQHandler':
-../Core/Src/stm32f4xx_it.c:213:18: warning: implicit declaration of function '___HAL_TIM_GET_COUNTER'; did you mean '__HAL_TIM_GET_COUNTER'? [-Wimplicit-function-declaration]
-  uint32_t tock = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
-                  ^~~~~~~~~~~~~~~~~~~~~~
-                  __HAL_TIM_GET_COUNTER
-../Core/Src/stm32f4xx_it.c:214:2: error: 'sonar' undeclared (first use in this function)
-  sonar->tick = tock - sonar->tick;
-  ^~~~~
-../Core/Src/stm32f4xx_it.c:214:2: note: each undeclared identifier is reported only once for each function it appears in
-../Core/Src/stm32f4xx_it.c: In function 'EXTI15_10_IRQHandler':
-../Core/Src/stm32f4xx_it.c:288:12: warning: value computed is not used [-Wunused-value]
-   EXTI->PR & (GPIO_PIN_13); //Clear the flag
-make: *** [Core/Src/subdir.mk:71: Core/Src/stm32f4xx_it.o] Error 1
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45084	    588	   3596	  49268	   c074	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
 
-11:00:04 Build Failed. 2 errors, 2 warnings. (took 4s.208ms)
+21:26:08 Build Finished. 0 errors, 0 warnings. (took 1s.125ms)
 

@@ -15,7 +15,7 @@
 typedef struct ENC_STATUS_t {
 	int32_t pos;
 	int32_t vel;
-	int32_t last;
+	int16_t last;
 	const char *tag;
 	int32_t dir;
 	TIM_HandleTypeDef *htim;

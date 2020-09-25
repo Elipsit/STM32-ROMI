@@ -71,18 +71,25 @@ SONAR_STATUS SONARR ={"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pi
 SONAR_STATUS SONARC ={"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0};
 
 //Sonar ticks set to zero
-
 uint32_t numTicks = 0;
 
+#define LED_BLINK_RATE 50 //50*10mS = 1/2 sec
+
 //******PID******
-#define FORWARD 0
-#define REVERSE 1
-#define KP 1.0
-#define KI 0.0
+#define KP 0.14
+#define KI 2.5
+
+#define TICK_RATE 10 //10mS
+#define PID_RATE  2 //2*10mS
+
+#define DT ((float)(TICK_RATE*PID_RATE)/1000)
+
+
 //int32_t MTR_PWM_PERIOD = 100;
-const int32_t MAX_SPEED = 100;
-const int32_t MAX_VELOCITY = 360;
-const int32_t SPEED_CHANGE = 10;
+#define MAX_SPEED 8.0  //rad/s
+#define ENCODER_VEL_SCALE 0.2617993878
+#define MAX_VELOCITY 50
+#define SPEED_CHANGE 0.1
 
 //******PWM Setup****
 typedef struct MOTOR_T {
@@ -94,27 +101,35 @@ typedef struct MOTOR_T {
 
 }MOTOR_CONF;
 
-static const  MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
+static const MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
 static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
 
-// Hardware Revision bits
-uint8_t RevBit[3];
-
-// local functions
-static void uSec_Delay(uint32_t uSec);
-static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
-static void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor);
-
-PID pid_right = {KP, KI, 0.0, 0.0};
-PID pid_left = {KP, KI, 0.0, 0.0};
+static PID pid_right = {KP, KI, 0, 0,"Right",DT};
+static PID pid_left = {KP, KI, 0, 0,"Left",DT};
 
 
 ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
 ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5};
 
 
+// Hardware Revision bits
+uint8_t RevBit[3];
+
+// local functions
+//static void uSec_Delay(uint32_t uSec);
+//static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
+static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+
+
+
 // main application loop
 void appMain(void){
+
+	float speed_l = 0;
+	float speed_r = 0;
+
+	float duty_l = 0;
+	float duty_r = 0;
 
 
 	/* Check Hardware Revision Bits*/
@@ -133,16 +148,7 @@ void appMain(void){
 	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
 	HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
 
-	int16_t speed_l = 25;
-	int16_t speed_r = 25;
-
-	float duty_l = 0;
-	float duty_r = 0;
-
-	uint32_t BLINK_RATE = 50;
-	uint32_t BlinkTimer = BLINK_RATE;
-
-	uint32_t PID_RATE = 10; //Changed to a #Define function at top
+	uint32_t ledTimer=LED_BLINK_RATE;
 	uint32_t PIDTimer = PID_RATE;
 
 	printf("Power up initiated...\r\n");
@@ -170,17 +176,36 @@ void appMain(void){
 
 	//Main program to loop forever
 	while(1){
-		//uint32_t tock = HAL_GetTick();
+		uint32_t tock = HAL_GetTick();
 
-		/*
-		if(tock-tick>10){
-			BlinkTimer--;
-			if(BlinkTimer==0){
-				BlinkTimer = BLINK_RATE;
+		if(tock-tick>TICK_RATE){ //10mS
+
+			ledTimer--;
+			if(ledTimer==0){
+				ledTimer = LED_BLINK_RATE;
 				HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
 			}
 
-		}*/
+			PIDTimer --;
+			if(PIDTimer==0) {
+				PIDTimer=PID_RATE;
+
+				/* Update the encoders*/
+				updateEncoder(&enc_right);
+				updateEncoder(&enc_left);
+
+				duty_l = PID_update(speed_l,(float)enc_left.vel*ENCODER_VEL_SCALE,&pid_left);
+				duty_r = PID_update(speed_r,(float)enc_right.vel*ENCODER_VEL_SCALE,&pid_right);
+
+				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD/2,&mot_right);
+				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD/2,&mot_left);
+				printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
+				printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
+
+			}
+			tick = tock;
+
+		}
 
 		/// use this to adjust the pwm
 
@@ -196,12 +221,12 @@ void appMain(void){
 						break;
 					case 'a':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l += SPEED_CHANGE;
+							speed_l += SPEED_CHANGE*2;
 						}
 						break;
 					case 'd':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_r += SPEED_CHANGE;
+							speed_r += SPEED_CHANGE*2;
 						}
 						break;
 					case 's':
@@ -213,8 +238,8 @@ void appMain(void){
 
 					case ' ':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l = 0;
-							speed_r = 0;
+							speed_l = 0.0;
+							speed_r = 0.0;
 						}
 						break;
 					default:
@@ -225,33 +250,13 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-			PIDTimer--;
-			//printf("PIDTimer = %ld\r\n",PIDTimer);
-			if(PIDTimer == 0){ //every 10 Hz
-				PIDTimer = PID_RATE;
-
-				/* Update the encoders*/
-				updateEncoder(&enc_right);
-				updateEncoder(&enc_left);
-
-				duty_l = PID_update((float)speed_l/MAX_SPEED, (float)enc_left.vel/MAX_VELOCITY, &pid_left);
-				duty_r = PID_update((float)speed_r/MAX_SPEED, (float)enc_right.vel/MAX_VELOCITY, &pid_right);
-
-
-				/* Update the motors*/
-				//setPWM(htim2, TIM_CHANNEL_3, 0, MTR_PWM_PERIOD, duty_r);
-				//setPWM(htim4, TIM_CHANNEL_1, 0, MTR_PWM_PERIOD, duty_l);
-
-
-				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
-				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
-				printf("Left Motor = %d\t Right Motor =%d\n\r",speed_l,speed_r);
-
-			}
 
 
 
-				//tick = tock;
+
+
+
+
 
 			} //end of while loop
 
@@ -302,11 +307,11 @@ void checksonar(SONAR_STATUS *sonar){
 };*/
 
 
-/* This function uses interrupts to toggle Blinky*/
+/* This function uses interrupts to toggle Blinky
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
 {
 	 HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
-}
+}*/
 
 
 
@@ -351,6 +356,7 @@ void updateEncoder(ENC_STATUS *enc){
 void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor){
 
 	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
+	//uint32_t direction = speed > 0?1:0; //if assignment, ternary operator
 	speed = abs(speed); //takes speed and returns absolute value
 	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
 
@@ -360,7 +366,7 @@ void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor){
 	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
 }
 
-
+/*
 void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){
 	if(dir == 1){
 		HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
@@ -382,5 +388,5 @@ void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t peri
 
 	HAL_TIM_PWM_Start(&timer,channel);  //start PWM
 
-}
+}*/
 

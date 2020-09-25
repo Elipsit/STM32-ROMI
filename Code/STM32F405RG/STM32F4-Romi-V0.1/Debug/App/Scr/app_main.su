@@ -1,4 +1,2 @@
-app_main.c:117:6:appMain	56	static
-app_main.c:306:6:HAL_TIM_PeriodElapsedCallback	16	static
-app_main.c:351:6:setMTRSpeed	24	static
-app_main.c:364:6:setPWM	40	static
+app_main.c:126:6:appMain	72	static
+app_main.c:356:6:setMTRSpeed	24	static

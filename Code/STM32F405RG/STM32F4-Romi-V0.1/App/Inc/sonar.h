@@ -7,6 +7,7 @@
  *      ECHOL = GPIO_EXTI1 - EXTI1_IRQHandler(void)
  *      ECHOR = GPIO_EXTI9 - EXTI9_5_IRQHandler(void)
  *      ECHO_CTR = GPIO_EXTI7 -EXTI9_5_IRQHandler(void)
+ *      check Core/SCR/stm32f4xx_it.c
  */
 
 #ifndef INC_SONAR_H_
@@ -39,6 +40,18 @@ typedef struct SONAR_t {
 
 
 }SONAR_STATUS;
+
+// States for Sonar state machine
+typedef enum SONAR_STATE_t {
+  SONAR_IDLE,
+  CHECK_SONAR_1,
+  CHECK_SONAR_2,
+
+  SONAR_1_ACTIVE,
+  SONAR_2_ACTIVE
+
+
+} SONAR_STATE;
 
 
 void checkSonar(SONAR_STATUS *sonar);

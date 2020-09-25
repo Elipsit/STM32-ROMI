@@ -88,7 +88,7 @@ void MX_TIM3_Init(void)
   htim3.Init.Period = 0xFFFF;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -164,7 +164,7 @@ void MX_TIM5_Init(void)
   htim5.Init.Period = 0xFFFF;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -237,7 +237,7 @@ void MX_TIM11_Init(void)
   htim11.Instance = TIM11;
   htim11.Init.Prescaler = 0;
   htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim11.Init.Period = 0;
+  htim11.Init.Period = 65535;
   htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim11.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim11) != HAL_OK)
@@ -267,7 +267,7 @@ void MX_TIM12_Init(void)
   htim12.Instance = TIM12;
   htim12.Init.Prescaler = 0;
   htim12.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim12.Init.Period = 0;
+  htim12.Init.Period = 65535;
   htim12.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim12.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_PWM_Init(&htim12) != HAL_OK)
@@ -365,11 +365,11 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
   /* USER CODE END TIM3_MspInit 0 */
     /* TIM3 clock enable */
     __HAL_RCC_TIM3_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM3 GPIO Configuration    
+    /**TIM3 GPIO Configuration
     PB4     ------> TIM3_CH1
-    PB5     ------> TIM3_CH2 
+    PB5     ------> TIM3_CH2
     */
     GPIO_InitStruct.Pin = ENCR_CHA_Pin|ENCR_CHB_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -378,9 +378,6 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /* TIM3 interrupt Init */
-    HAL_NVIC_SetPriority(TIM3_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(TIM3_IRQn);
   /* USER CODE BEGIN TIM3_MspInit 1 */
 
   /* USER CODE END TIM3_MspInit 1 */
@@ -392,11 +389,11 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
   /* USER CODE END TIM5_MspInit 0 */
     /* TIM5 clock enable */
     __HAL_RCC_TIM5_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**TIM5 GPIO Configuration    
+    /**TIM5 GPIO Configuration
     PA0-WKUP     ------> TIM5_CH1
-    PA1     ------> TIM5_CH2 
+    PA1     ------> TIM5_CH2
     */
     GPIO_InitStruct.Pin = ENCL_CHA_Pin|ENCL_CHB_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -405,9 +402,6 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /* TIM5 interrupt Init */
-    HAL_NVIC_SetPriority(TIM5_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspInit 1 */
 
   /* USER CODE END TIM5_MspInit 1 */
@@ -439,8 +433,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
 
   /* USER CODE END TIM2_MspPostInit 0 */
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM2 GPIO Configuration    
-    PB10     ------> TIM2_CH3 
+    /**TIM2 GPIO Configuration
+    PB10     ------> TIM2_CH3
     */
     GPIO_InitStruct.Pin = ROMI_PWMR_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -458,10 +452,10 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
   /* USER CODE BEGIN TIM4_MspPostInit 0 */
 
   /* USER CODE END TIM4_MspPostInit 0 */
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM4 GPIO Configuration    
-    PB6     ------> TIM4_CH1 
+    /**TIM4 GPIO Configuration
+    PB6     ------> TIM4_CH1
     */
     GPIO_InitStruct.Pin = ROMI_PWML_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -479,10 +473,10 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
   /* USER CODE BEGIN TIM11_MspPostInit 0 */
 
   /* USER CODE END TIM11_MspPostInit 0 */
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM11 GPIO Configuration    
-    PB9     ------> TIM11_CH1 
+    /**TIM11 GPIO Configuration
+    PB9     ------> TIM11_CH1
     */
     GPIO_InitStruct.Pin = SERVO2_PWM_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -500,10 +494,10 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
   /* USER CODE BEGIN TIM12_MspPostInit 0 */
 
   /* USER CODE END TIM12_MspPostInit 0 */
-  
+
     __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**TIM12 GPIO Configuration    
-    PB15     ------> TIM12_CH2 
+    /**TIM12 GPIO Configuration
+    PB15     ------> TIM12_CH2
     */
     GPIO_InitStruct.Pin = SERVO1_PWM_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -602,15 +596,13 @@ void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef* tim_encoderHandle)
   /* USER CODE END TIM3_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_TIM3_CLK_DISABLE();
-  
-    /**TIM3 GPIO Configuration    
+
+    /**TIM3 GPIO Configuration
     PB4     ------> TIM3_CH1
-    PB5     ------> TIM3_CH2 
+    PB5     ------> TIM3_CH2
     */
     HAL_GPIO_DeInit(GPIOB, ENCR_CHA_Pin|ENCR_CHB_Pin);
 
-    /* TIM3 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(TIM3_IRQn);
   /* USER CODE BEGIN TIM3_MspDeInit 1 */
 
   /* USER CODE END TIM3_MspDeInit 1 */
@@ -622,15 +614,13 @@ void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef* tim_encoderHandle)
   /* USER CODE END TIM5_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_TIM5_CLK_DISABLE();
-  
-    /**TIM5 GPIO Configuration    
+
+    /**TIM5 GPIO Configuration
     PA0-WKUP     ------> TIM5_CH1
-    PA1     ------> TIM5_CH2 
+    PA1     ------> TIM5_CH2
     */
     HAL_GPIO_DeInit(GPIOA, ENCL_CHA_Pin|ENCL_CHB_Pin);
 
-    /* TIM5 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(TIM5_IRQn);
   /* USER CODE BEGIN TIM5_MspDeInit 1 */
 
   /* USER CODE END TIM5_MspDeInit 1 */
@@ -651,7 +641,7 @@ void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef* tim_pwmHandle)
 
   /* USER CODE END TIM12_MspDeInit 1 */
   }
-} 
+}
 
 /* USER CODE BEGIN 1 */
 

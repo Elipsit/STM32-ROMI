@@ -30,9 +30,9 @@
 
 /* USER CODE END 1 */
 
-/** Configure pins as 
-        * Analog 
-        * Input 
+/** Configure pins as
+        * Analog
+        * Input
         * Output
         * EVENT_OUT
         * EXTI
@@ -50,7 +50,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, IMU_RST_Pin|REV_BIT0_Pin|RGB_INT1_Pin|RGB_INT2_Pin 
+  HAL_GPIO_WritePin(GPIOC, IMU_RST_Pin|REV_BIT0_Pin|RGB_INT1_Pin|RGB_INT2_Pin
                           |ROMI_SLPL_Pin|TRIG_CTR_Pin|ROMI_DIRL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -68,9 +68,9 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(OLED_BTN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PCPin PCPin PCPin PCPin 
+  /*Configure GPIO pins : PCPin PCPin PCPin PCPin
                            PCPin PCPin PCPin */
-  GPIO_InitStruct.Pin = IMU_RST_Pin|REV_BIT0_Pin|RGB_INT1_Pin|RGB_INT2_Pin 
+  GPIO_InitStruct.Pin = IMU_RST_Pin|REV_BIT0_Pin|RGB_INT1_Pin|RGB_INT2_Pin
                           |ROMI_SLPL_Pin|TRIG_CTR_Pin|ROMI_DIRL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

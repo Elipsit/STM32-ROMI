@@ -15,6 +15,7 @@ typedef struct PID_t{
 	float error; //error that is  tracking
 	float I; //running intergral of error
 	char *tag;
+	float dt; //delta time
 
 }PID;
 

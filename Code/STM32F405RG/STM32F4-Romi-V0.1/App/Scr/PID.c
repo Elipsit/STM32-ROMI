@@ -9,7 +9,12 @@
 
 float PID_update (float target, float current, PID *PID_state){
 	float error = target - current;
-	float I = PID_state -> I + error;
+	float I = PID_state->I+ error*PID_state->dt;
+
+	if(target==0.0 && current==0.0) {
+	    	I=0;
+	    }
+
 	float duty = PID_state -> kp * error + PID_state -> ki * I;
 
 	if(duty>1.0){

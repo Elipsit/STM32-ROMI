@@ -1,2 +1,4 @@
-app_main.c:126:6:appMain	72	static
-app_main.c:356:6:setMTRSpeed	24	static
+app_main.c:135:6:appMain	56	static
+app_main.c:385:6:setMTRSpeed	24	static
+app_main.c:424:6:STOP	8	static
+app_main.c:433:6:drive	16	static

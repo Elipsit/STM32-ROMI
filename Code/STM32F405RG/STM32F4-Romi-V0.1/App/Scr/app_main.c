@@ -44,6 +44,7 @@
 #include "PID.h"
 #include "encoder.h"
 #include "sonar.h"
+#include "edge_sensor.h"
 
 
 //OLED Includes
@@ -75,7 +76,15 @@ uint32_t numTicks = 0;
 
 #define LED_BLINK_RATE 50 //50*10mS = 1/2 sec
 
+char updatescr[10]; //use to update screen
+
 //******PID******
+float speed_l = 0;
+float speed_r = 0;
+
+float duty_l = 0;
+float duty_r = 0;
+
 #define KP 0.14
 #define KI 2.5
 
@@ -125,12 +134,6 @@ static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
 // main application loop
 void appMain(void){
 
-	float speed_l = 0;
-	float speed_r = 0;
-
-	float duty_l = 0;
-	float duty_r = 0;
-
 
 	/* Check Hardware Revision Bits*/
 	RevBit[0] =	HAL_GPIO_ReadPin(REV_BIT0_GPIO_Port, REV_BIT0_Pin);
@@ -164,8 +167,14 @@ void appMain(void){
 	SSD1306_Clear();
 	SSD1306_GotoXY(30, 0);
 	SSD1306_Puts("STM32-ROMI", &Font_7x10, 1);
+	SSD1306_GotoXY(0, 30);
+	SSD1306_Puts("E", &Font_7x10, 1);
+	SSD1306_GotoXY(0, 40);
+	SSD1306_Puts("D", &Font_7x10, 1);
+	SSD1306_GotoXY(0, 50);
+	SSD1306_Puts("S", &Font_7x10, 1);
 	SSD1306_UpdateScreen();
-	HAL_Delay(100);
+
 
 	uint32_t tick = HAL_GetTick();
 
@@ -197,10 +206,25 @@ void appMain(void){
 				duty_l = PID_update(speed_l,(float)enc_left.vel*ENCODER_VEL_SCALE,&pid_left);
 				duty_r = PID_update(speed_r,(float)enc_right.vel*ENCODER_VEL_SCALE,&pid_right);
 
-				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD/2,&mot_right);
-				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD/2,&mot_left);
-				printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
-				printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
+				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD*0.25,&mot_right);
+				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD*0.25,&mot_left);
+				//printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
+				//printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
+
+				//updTE screen
+				SSD1306_GotoXY(10, 40);
+				sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
+				SSD1306_Puts(updatescr, &Font_7x10, 1);
+				SSD1306_GotoXY(75, 40);
+				sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
+				SSD1306_Puts(updatescr, &Font_7x10, 1);
+				SSD1306_GotoXY(10, 50);
+				sprintf(updatescr, "%ld",speed_l); //this is used to convert to the char array position[10]
+				SSD1306_Puts(updatescr, &Font_7x10, 1);
+				SSD1306_GotoXY(75, 50);
+				sprintf(updatescr, "%ld",speed_r); //this is used to convert to the char array position[10]
+				SSD1306_Puts(updatescr, &Font_7x10, 1);
+
 
 			}
 			tick = tock;
@@ -221,12 +245,14 @@ void appMain(void){
 						break;
 					case 'a':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l += SPEED_CHANGE*2;
+							speed_l += SPEED_CHANGE;
+							speed_r -= SPEED_CHANGE;
 						}
 						break;
 					case 'd':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_r += SPEED_CHANGE*2;
+							speed_r += SPEED_CHANGE;
+							speed_l -= SPEED_CHANGE;
 						}
 						break;
 					case 's':
@@ -251,10 +277,13 @@ void appMain(void){
 				}
 
 
+			bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
+			bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
 
-
-
-
+			if(leftClif || rightClif){
+				STOP();
+				//event = leftClif?ME_BUMP_LEFT:ME_BUMP_RIGHT;
+			}
 
 
 
@@ -353,7 +382,7 @@ void updateEncoder(ENC_STATUS *enc){
 	}*/
 
 
-void setMTRSpeed(int16_t speed, const MOTOR_CONF *motor){
+void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 
 	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
 	//uint32_t direction = speed > 0?1:0; //if assignment, ternary operator
@@ -390,3 +419,17 @@ void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t peri
 
 }*/
 
+
+
+void STOP(void){
+	printf("Edge Detected");
+	speed_l = 0.0;
+	speed_r = 0.0;
+	setMTRSpeed(0.0,&mot_right);
+	setMTRSpeed(0.0,&mot_left);
+	//driving = false;
+}
+
+void drive(float lin_vel, float ang_vel){
+	//speed_l = (lin_vel);
+}

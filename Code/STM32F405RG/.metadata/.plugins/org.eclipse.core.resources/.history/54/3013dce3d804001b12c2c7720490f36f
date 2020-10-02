@@ -1,0 +1,21 @@
+/*
+ * edge_sensor.h
+ *
+ *  Created on: Oct 2, 2020
+ *      Author: livin
+ */
+
+#ifndef INC_EDGE_SENSOR_H_
+#define INC_EDGE_SENSOR_H_
+
+#include <stdint.h>
+
+#define BUMP_BIT_LEFT 1
+#define BUMP_BIT_RIGHT 2
+
+typedef enum EDGE_SENSOR_STATE_t{
+	ES_Clear,
+	ES_HIT
+}EDGE_SENSOR_STATE;
+
+#endif /* INC_EDGE_SENSOR_H_ */

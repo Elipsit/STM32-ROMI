@@ -98,7 +98,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin PBPin */
-  GPIO_InitStruct.Pin = ECHOL_Pin|QTRR_OUT_Pin|QTRL_OUT_Pin;
+  GPIO_InitStruct.Pin = ECHOL_Pin|QTRR_Pin|QTRL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);

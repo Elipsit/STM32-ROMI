@@ -1,5 +1,6 @@
 "App/Scr/PID.o"
 "App/Scr/app_main.o"
+"App/Scr/edge_sensor.o"
 "App/Scr/encoder.o"
 "App/Scr/fonts.o"
 "App/Scr/motors.o"

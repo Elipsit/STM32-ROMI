@@ -1,7 +1,7 @@
-11:01:01 **** Clean-only build of configuration Debug for project PWM-Test ****
+11:13:11 **** Clean-only build of configuration Debug for project PWM-Test ****
 make -j8 clean 
 make: *** No rule to make target 'clean'.  Stop.
 "make -j8 clean" terminated with exit code 2. Build might be incomplete.
 
-11:01:01 Build Failed. 1 errors, 0 warnings. (took 216ms)
+11:13:11 Build Failed. 1 errors, 0 warnings. (took 100ms)
 

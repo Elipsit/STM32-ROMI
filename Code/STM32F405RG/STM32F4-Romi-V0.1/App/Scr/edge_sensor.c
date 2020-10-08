@@ -36,8 +36,10 @@ void updateEdgeSensors(void) {
 	sensor_state = new_state;
 }
 uint32_t readSensors(void) {
+
 	uint32_t bump1=HAL_GPIO_ReadPin(QTRL_GPIO_Port, QTRL_Pin)==EDGE_SENSOR_ACTIVE?BUMP_BIT_LEFT:0;
 	uint32_t bump2=HAL_GPIO_ReadPin(QTRR_GPIO_Port, QTRR_Pin)==EDGE_SENSOR_ACTIVE?BUMP_BIT_RIGHT:0;
+
 	return bump1 | bump2;
 }
 uint32_t debounce(uint32_t sample)

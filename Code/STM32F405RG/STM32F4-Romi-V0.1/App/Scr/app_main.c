@@ -165,6 +165,11 @@ void appMain(void){
 	SSD1306_UpdateScreen();
 	HAL_Delay(2000);
 	SSD1306_Clear();
+	SSD1306_GotoXY(40, 20);
+	SSD1306_Puts("OwO", &Font_16x26, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_Clear();
 	SSD1306_GotoXY(30, 0);
 	SSD1306_Puts("STM32-ROMI", &Font_7x10, 1);
 	SSD1306_GotoXY(0, 30);
@@ -181,6 +186,10 @@ void appMain(void){
 	//Set Sleep bits to 1 for enable
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
+
+	//Edge Sensors
+	enableEdgeSensors(BUMP_BIT_LEFT);
+	enableEdgeSensors(BUMP_BIT_RIGHT);
 
 
 	//Main program to loop forever
@@ -263,10 +272,12 @@ void appMain(void){
 						break;
 
 					case ' ':
-						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+						/*if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_l = 0.0;
 							speed_r = 0.0;
-						}
+						}*/
+						speed_l = 0.0;
+						speed_r = 0.0;
 						break;
 					default:
 						break;
@@ -276,7 +287,7 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-
+			updateEdgeSensors();  //update the state of the edge sensors
 			bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
 			bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
 

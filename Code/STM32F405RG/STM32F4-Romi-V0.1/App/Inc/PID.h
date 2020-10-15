@@ -11,9 +11,9 @@
 // The strut is named PID_t, the typedef is PID
 typedef struct PID_t{
 	float kp; //proportional error
-	float ki; //intergral error
+	float ki; //Integral error
 	float error; //error that is  tracking
-	float I; //running intergral of error
+	float I; //running integral of error
 	char *tag;
 	float dt; //delta time
 

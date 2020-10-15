@@ -15,6 +15,7 @@ static uint32_t sensor_changed=0;
 static uint32_t sensor_enabled=0;
 static uint32_t debounce(uint32_t sample);
 static uint32_t readSensors(void);
+
 void enableEdgeSensors(uint32_t sensor) {
 	sensor_enabled |= sensor;
 }
@@ -31,7 +32,7 @@ EDGE_SENSOR_STATE getEdgeSensorState(uint32_t sensor) {
 }
 void updateEdgeSensors(void) {
 	uint32_t new_state = readSensors();
-	//uint32_t new_state = debounce(state);
+	//uint32_t state = debounce(state);
 	sensor_changed = new_state ^ sensor_state;
 	sensor_state = new_state;
 }

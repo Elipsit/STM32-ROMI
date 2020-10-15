@@ -35,8 +35,8 @@ void updateEncoder(ENC_STATUS *enc){
 		}
 	}
 
-	enc->vel = diff;
-	enc->pos += diff;
+	enc->vel = diff*ENCODER_VEL_SCALE;
+	enc->pos += diff*ENCODER_VEL_SCALE;
 	enc->last = pos16;
 
 
@@ -44,7 +44,7 @@ void updateEncoder(ENC_STATUS *enc){
 		SSD1306_GotoXY(75, 20);
 		SSD1306_Puts(enc->tag, &Font_7x10, 1);
 		SSD1306_GotoXY(75, 30);
-		//sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
 		sprintf(position, "%ld",pos32); //this is used to convert to the char array position[10]
 		SSD1306_Puts(position, &Font_7x10, 1);
 		SSD1306_UpdateScreen();
@@ -54,7 +54,7 @@ void updateEncoder(ENC_STATUS *enc){
 		SSD1306_GotoXY(10, 20);
 		SSD1306_Puts(enc->tag, &Font_7x10, 1);
 		SSD1306_GotoXY(10, 30);
-		//sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
 		sprintf(position, "%ld",pos32); //this is used to convert to the char array position[10]
 		SSD1306_Puts(position, &Font_7x10, 1);
 		SSD1306_UpdateScreen();

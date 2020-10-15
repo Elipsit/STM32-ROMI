@@ -62,14 +62,14 @@ extern TIM_HandleTypeDef htim9; //sonar 1uSec
 
 //******Define Sonar******
 //#define uSTIM TIM9
-static bool sonarActive = false;  // trigger flag to start next sonar readings (set by message from host)
-static bool sonarRestart = false; // flag to start sonar updates again after trigger
+
 //Speed of sound in air cm/uSec
 //const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
 
-SONAR_STATUS SONARL ={"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0};
-SONAR_STATUS SONARR ={"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0};
-SONAR_STATUS SONARC ={"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0};
+SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+						{"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+						{"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+
 
 //Sonar ticks set to zero
 uint32_t numTicks = 0;
@@ -85,8 +85,8 @@ float speed_r = 0;
 float duty_l = 0;
 float duty_r = 0;
 
-#define KP 0.14
-#define KI 2.5
+#define KP 0.015
+#define KI 0.0
 
 #define TICK_RATE 10 //10mS
 #define PID_RATE  2 //2*10mS
@@ -94,10 +94,10 @@ float duty_r = 0;
 #define DT ((float)(TICK_RATE*PID_RATE)/1000)
 
 
-//int32_t MTR_PWM_PERIOD = 100;
-#define MAX_SPEED 8.0  //rad/s
-#define ENCODER_VEL_SCALE 0.2617993878
-#define MAX_VELOCITY 50
+
+#define MAX_SPEED 13.0  //rad/s
+
+//#define MAX_VELOCITY 50.0
 #define SPEED_CHANGE 0.1
 
 //******PWM Setup****
@@ -128,7 +128,7 @@ uint8_t RevBit[3];
 //static void uSec_Delay(uint32_t uSec);
 //static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
 static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
-
+void STOP(void);
 
 
 // main application loop
@@ -166,7 +166,7 @@ void appMain(void){
 	HAL_Delay(2000);
 	SSD1306_Clear();
 	SSD1306_GotoXY(40, 20);
-	SSD1306_Puts("OwO", &Font_16x26, 1);
+	SSD1306_Puts("OWO", &Font_16x26, 1);
 	SSD1306_UpdateScreen();
 	HAL_Delay(2000);
 	SSD1306_Clear();
@@ -211,12 +211,17 @@ void appMain(void){
 				/* Update the encoders*/
 				updateEncoder(&enc_right);
 				updateEncoder(&enc_left);
+				printf("%s Encoder is %f\n\r",enc_left.tag,enc_left.vel);
+				printf("%s Encoder is %f\n\r",enc_right.tag,enc_right.vel);
 
-				duty_l = PID_update(speed_l,(float)enc_left.vel*ENCODER_VEL_SCALE,&pid_left);
-				duty_r = PID_update(speed_r,(float)enc_right.vel*ENCODER_VEL_SCALE,&pid_right);
-
-				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD*0.25,&mot_right);
-				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD*0.25,&mot_left);
+				duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
+				duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
+				duty_l = -0.2;
+				duty_r = 0.2;
+				//setMTRSpeed(duty_r*MOTOR_PWM_PERIOD*0.25,&mot_right);
+				//setMTRSpeed(duty_l*MOTOR_PWM_PERIOD*0.25,&mot_left);
+				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
+				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
 				//printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
 				//printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
 
@@ -234,7 +239,9 @@ void appMain(void){
 				sprintf(updatescr, "%ld",speed_r); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
 
-
+				//Check the sonars
+				checkSonar(&SONARS[SONAR1]);
+				checkSonar(&SONARS[SONAR2]);
 			}
 			tick = tock;
 
@@ -249,7 +256,7 @@ void appMain(void){
 					case 'w':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_l += SPEED_CHANGE;
-							speed_r += SPEED_CHANGE;
+							//speed_r += SPEED_CHANGE;
 						}
 						break;
 					case 'a':
@@ -272,12 +279,7 @@ void appMain(void){
 						break;
 
 					case ' ':
-						/*if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l = 0.0;
-							speed_r = 0.0;
-						}*/
-						speed_l = 0.0;
-						speed_r = 0.0;
+						STOP();
 						break;
 					default:
 						break;
@@ -406,41 +408,16 @@ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
 }
 
-/*
-void setPWM(TIM_HandleTypeDef timer,uint32_t channel, uint8_t dir, uint16_t period, uint16_t pulse){
-	if(dir == 1){
-		HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, SET);
-		HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, SET);
-	}else{
-		HAL_GPIO_WritePin(ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin, RESET);
-		HAL_GPIO_WritePin(ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin, RESET);
-	}
-	HAL_TIM_PWM_Stop(&timer, channel); // stop the current timer
-	TIM_OC_InitTypeDef sConfigOC;
-	timer.Init.Period = period;   //load period duration
-	HAL_TIM_PWM_Init(&timer); //reinit the timer
-
-	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = pulse;
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-	HAL_TIM_PWM_ConfigChannel(&timer, &sConfigOC, channel);
-
-	HAL_TIM_PWM_Start(&timer,channel);  //start PWM
-
-}*/
-
-
 
 void STOP(void){
-	printf("Edge Detected");
+	printf("Stop Detected\n");
 	speed_l = 0.0;
 	speed_r = 0.0;
 	setMTRSpeed(0.0,&mot_right);
 	setMTRSpeed(0.0,&mot_left);
 	//driving = false;
 }
-
+/*
 void drive(float lin_vel, float ang_vel){
 	//speed_l = (lin_vel);
-}
+}*/

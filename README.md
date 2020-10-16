@@ -2,11 +2,19 @@
 
 ## Project Description
 
-The Silicon Valley [HomeBrew Robotics Club](http://www.hbrobotics.org/) built an awesome [FPGA ROMI](https://github.com/hbrc-fpga-class) robot late 2019. I was inspired to build my own version using an STM32F4  while keeping the board compatable with the previous Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it.
+The Silicon Valley [HomeBrew Robotics Club](http://www.hbrobotics.org/) built an awesome [FPGA ROMI](https://github.com/hbrc-fpga-class) robot late 2019. I was inspired to build my own version using an STM32F4  while keeping the board compatable with the previous Polulu ROMI base. The purpose of this was to familiarize myself with the STM32 environment and get a cool robot out of it. 
+
+The robot is designed to compete in the HBRC TableTop Challenge:
+
+A challenge where robots succeed by staying on the table or paying the price.
+
+Stage 1: Walk autonomously from one end of the table to the other without falling off.
+Stage 2: Find and push a block off of the table.
+Stage 3: Find and push a block off of the table into a box at the edge of the table.
  
  
 ### Project Status
-Boards are in bringup and testing phase
+Robot is operational - working on tuning the PID loop for smooth driving
  **This project is still a work in progress**
 
 

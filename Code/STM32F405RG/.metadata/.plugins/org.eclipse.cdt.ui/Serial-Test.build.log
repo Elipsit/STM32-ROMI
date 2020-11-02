@@ -1,7 +1,10 @@
-22:37:30 **** Clean-only build of configuration Debug for project Serial-Test ****
-make -j8 clean 
-make: *** No rule to make target 'clean'.  Stop.
-"make -j8 clean" terminated with exit code 2. Build might be incomplete.
+18:59:24 **** Incremental Build of configuration Debug for project Serial-Test ****
+make -j8 all 
+arm-none-eabi-size   Serial-Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10124	     24	   1744	  11892	   2e74	Serial-Test.elf
+Finished building: default.size.stdout
+ 
 
-22:37:30 Build Failed. 1 errors, 0 warnings. (took 141ms)
+18:59:25 Build Finished. 0 errors, 0 warnings. (took 253ms)
 

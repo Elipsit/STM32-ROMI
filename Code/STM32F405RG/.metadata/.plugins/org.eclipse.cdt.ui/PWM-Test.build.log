@@ -1,7 +1,10 @@
-22:37:29 **** Clean-only build of configuration Debug for project PWM-Test ****
-make -j8 clean 
-make: *** No rule to make target 'clean'.  Stop.
-"make -j8 clean" terminated with exit code 2. Build might be incomplete.
+18:59:22 **** Incremental Build of configuration Debug for project PWM-Test ****
+make -j8 all 
+arm-none-eabi-size   PWM-Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9328	     20	   1700	  11048	   2b28	PWM-Test.elf
+Finished building: default.size.stdout
+ 
 
-22:37:29 Build Failed. 1 errors, 0 warnings. (took 131ms)
+18:59:22 Build Finished. 0 errors, 0 warnings. (took 266ms)
 

@@ -21,6 +21,7 @@ uint8_t oddeven = 0; //used to flip left and right oled screen location
 void updateEncoder(ENC_STATUS *enc){
 
 	int16_t pos16 = (int16_t) __HAL_TIM_GET_COUNTER(enc->htim); //treat timers as a signed 16bit
+	//int16_t pos16 = enc->dir*(int16_t) __HAL_TIM_GET_COUNTER(enc->htim); //treat timers as a signed 16bit
 	int32_t pos32 = (int32_t)pos16; //sign extended to 32bit
 
 	int16_t last = enc -> last; //get last raw timer value
@@ -35,7 +36,8 @@ void updateEncoder(ENC_STATUS *enc){
 		}
 	}
 
-	enc->vel = diff*ENCODER_VEL_SCALE;
+	//enc->vel = diff*ENCODER_VEL_SCALE;
+	enc->vel = (float)diff*ENCODER_VEL_SCALE;
 	enc->pos += diff*ENCODER_VEL_SCALE;
 	enc->last = pos16;
 

@@ -11,7 +11,8 @@
 #include <stdint.h> //standard interager
 #include "tim.h"
 
-#define ENCODER_VEL_SCALE 0.261667
+#define ENCODER_DIST_SCALE  (1.0/5456.740906) // counts/m
+#define ENCODER_VEL_SCALE 0.2617993878     // convert encoder velocity value to rad/sec
 
 //******Encoder Setup******
 typedef struct ENC_STATUS_t {

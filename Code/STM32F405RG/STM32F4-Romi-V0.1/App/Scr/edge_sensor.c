@@ -2,17 +2,20 @@
  * edge_sensor.c
  *
  *  Created on: Oct 2, 2020
- *      Author: livin
+ *      Author: Kyle R.
  */
 
 #include <stdio.h>
 #include "main.h"
 #include "gpio.h"
 #include "edge_sensor.h"
+
 #define EDGE_SENSOR_ACTIVE GPIO_PIN_SET
+
 static uint32_t sensor_state=0;
 static uint32_t sensor_changed=0;
 static uint32_t sensor_enabled=0;
+
 static uint32_t debounce(uint32_t sample);
 static uint32_t readSensors(void);
 
@@ -25,7 +28,7 @@ void disableEdgeSensors(uint32_t sensor) {
 EDGE_SENSOR_STATE getEdgeSensorState(uint32_t sensor) {
 	uint32_t hit =  (sensor_state & sensor)?ES_HIT:ES_CLEAR;
 	if(sensor_changed & sensor) {
-		printf("Edge Sensor %ld: %s\n",sensor,((hit==ES_HIT)?"Hit":"Clear"));
+		printf("Edge Sensor %ld: %s\n\r",sensor,((hit==ES_HIT)?"Hit":"Clear"));
 		sensor_changed &= ~sensor;
 	}
 	return hit & sensor_enabled;

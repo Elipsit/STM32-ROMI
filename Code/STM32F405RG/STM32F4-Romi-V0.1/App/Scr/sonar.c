@@ -28,10 +28,11 @@ void checkSonar(SONAR_STATUS *sonar){
 void updateSonar(SONAR_STATUS *sonar){
 	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
 				sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
+				//printf("Sonar tick: %f\n\r",sonar->tick);
 				//printf("%c Sonar Distance (cm): %f\n\r",sonar->sonar_ch,sonar->distance);
 
 }
-//This is called as an interupt controller, do minimal stuff in here and leave
+//This is called as an interrupt controller, do minimal stuff in here and leave
 void sonarISR(SONARID id){
 	SONAR_STATUS *sonar = &SONARS[id];
 	uint32_t tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register

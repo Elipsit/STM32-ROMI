@@ -12,14 +12,14 @@
  * 8/29/2020
  * added Sonar left and right
  * added header and main files for oled screen
- * esp link http://192.168.50.85/console.html
+ * esp link http://192.168.4.1 | 	192.168.50.85
  *
  * To Do:
  * Work on PID Loop
  * Confirm PWM channel timer is 16bit or 32 bit
  * confirm PID Period and Duty is correct
  *
-//
+// remove all uneccessary code to check speed and see if delays are errors
 // *****************************************************************************
 */
 /* Includes ------------------------------------------------------------------*/
@@ -79,23 +79,26 @@ uint32_t numTicks = 0;
 char updatescr[10]; //use to update screen
 
 //******PID******
-float speed_l = 0;
-float speed_r = 0;
+float speed_l = 0.2;
+float speed_r = 0.2;
 
-float duty_l = 0;
-float duty_r = 0;
+float duty_l = 0.0;
+float duty_r = 0.0;
 
-#define KP 0.015
+#define KP 0.02
 #define KI 0.0
 
+//#define KP 0.065
+//#define KI 2.0
+
 #define TICK_RATE 10 //10mS
-#define PID_RATE  2 //2*10mS
+#define PID_RATE  4 //2*10mS
 
 #define DT ((float)(TICK_RATE*PID_RATE)/1000)
 
 
 
-#define MAX_SPEED 13.0  //rad/s
+#define MAX_SPEED 10.0  //rad/s
 
 //#define MAX_VELOCITY 50.0
 #define SPEED_CHANGE 0.1
@@ -165,10 +168,10 @@ void appMain(void){
 	SSD1306_UpdateScreen();
 	HAL_Delay(2000);
 	SSD1306_Clear();
-	SSD1306_GotoXY(40, 20);
-	SSD1306_Puts("OWO", &Font_16x26, 1);
-	SSD1306_UpdateScreen();
-	HAL_Delay(2000);
+	//SSD1306_GotoXY(40, 20);
+	//SSD1306_Puts("OWO", &Font_16x26, 1);
+	//SSD1306_UpdateScreen();
+	//HAL_Delay(2000);
 	SSD1306_Clear();
 	SSD1306_GotoXY(30, 0);
 	SSD1306_Puts("STM32-ROMI", &Font_7x10, 1);
@@ -188,8 +191,7 @@ void appMain(void){
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
 
 	//Edge Sensors
-	enableEdgeSensors(BUMP_BIT_LEFT);
-	enableEdgeSensors(BUMP_BIT_RIGHT);
+	enableEdgeSensors(BUMP_BIT_LEFT | BUMP_BIT_RIGHT);
 
 
 	//Main program to loop forever
@@ -208,6 +210,10 @@ void appMain(void){
 			if(PIDTimer==0) {
 				PIDTimer=PID_RATE;
 
+				//set the motor drivers on
+				HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
+				HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
+
 				/* Update the encoders*/
 				updateEncoder(&enc_right);
 				updateEncoder(&enc_left);
@@ -216,16 +222,15 @@ void appMain(void){
 
 				duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
 				duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
-				duty_l = -0.2;
-				duty_r = 0.2;
-				//setMTRSpeed(duty_r*MOTOR_PWM_PERIOD*0.25,&mot_right);
-				//setMTRSpeed(duty_l*MOTOR_PWM_PERIOD*0.25,&mot_left);
+				//duty_l = 0.2;
+				//duty_r = 0.2;
 				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
 				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
+
 				//printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
 				//printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
 
-				//updTE screen
+				//update screen
 				SSD1306_GotoXY(10, 40);
 				sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
@@ -242,6 +247,10 @@ void appMain(void){
 				//Check the sonars
 				checkSonar(&SONARS[SONAR1]);
 				checkSonar(&SONARS[SONAR2]);
+
+				//check Edge Sensors
+				updateEdgeSensors();  //update the state of the edge sensors
+
 			}
 			tick = tock;
 
@@ -289,15 +298,13 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-			updateEdgeSensors();  //update the state of the edge sensors
-			bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
-			bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
+		//	updateEdgeSensors();  //update the state of the edge sensors
+		bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
+		bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
 
 			if(leftClif || rightClif){
 				STOP();
-				//event = leftClif?ME_BUMP_LEFT:ME_BUMP_RIGHT;
 			}
-
 
 
 			} //end of while loop
@@ -306,99 +313,10 @@ void appMain(void){
 
 } //end of main loop
 
-/*
-void uSec_Delay(uint32_t uSec)
-{
-	if(uSec < 2)uSec = 2;
-	uSTIM->ARR = uSec - 1; 	//Sets the value in the auto reload register
-	uSTIM -> EGR = 1;		//Re-initialize the Timer
-	uSTIM -> SR &= ~1;  	//Resets the flag
-	uSTIM ->CR1 |= 1;		//Enables the counter
-	while((uSTIM -> SR&0x0001) != 1);
-	uSTIM -> SR &= ~(0x0001);
-
-}*/
-
-/*
-void checksonar(SONAR_STATUS *sonar){
-	//Left Sonar - Update wiith hardware timer to count the input pulses
-		//Set the trigger pin low for a few uSec
-			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
-			  uSec_Delay(3);
-
-			  ///Start the ultrasonic measurement routine
-			  //1. output 10us pulse on trigger pin
-			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_SET);
-			  uSec_Delay(10);
-			  HAL_GPIO_WritePin(TRIGL_GPIO_Port, TRIGL_Pin, GPIO_PIN_RESET);
-
-			  //2. Wait for echo pin rising edge
-			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_RESET);
-
-			  //3. Start measuring echo pause width until the falling edge
-			  numTicks = 0;
-			  while(HAL_GPIO_ReadPin(ECHOL_GPIO_Port, ECHOL_Pin) == GPIO_PIN_SET)
-			  {
-				  numTicks++;
-				  uSec_Delay(2);  //actually around 2.8 uSec, measures every 2.8us
-			  }
-			//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
-			sonar->distanceL = (numTicks + 0.0f)*2.8*SpeedOfSound;
-			printf("Left Sonar Distance (cm): %f",sonar->distanceL);
-
-};*/
-
-
-/* This function uses interrupts to toggle Blinky
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6)
-{
-	 HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
-}*/
-
-
-
-/*
-//Update Encoder
-void updateEncoder(ENC_STATUS *enc){
-
-	enc-> pos = __HAL_TIM_GET_COUNTER(enc->htim);
-
-	//calculate the velocity
-	enc-> vel = enc -> pos - enc -> last;
-	printf("encoder  %s: pos = %ld, vel = %ld, last = %ld\r\n\n",enc->tag, enc->pos, enc->vel, enc->last);
-
-	//Save enc pause into inc last
-	enc -> last  =  enc -> pos;
-
-	if(oddeven < 1){
-		SSD1306_GotoXY(50, 20);
-		SSD1306_Puts(enc->tag, &Font_7x10, 1);
-		SSD1306_GotoXY(50, 40);
-		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
-		SSD1306_Puts(position, &Font_7x10, 1);
-		SSD1306_UpdateScreen();
-		oddeven++;
-
-	}else if(2 > oddeven >= 1) {
-		SSD1306_GotoXY(0, 20);
-		SSD1306_Puts(enc->tag, &Font_7x10, 1);
-		SSD1306_GotoXY(0, 40);
-		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
-		SSD1306_Puts(position, &Font_7x10, 1);
-		SSD1306_UpdateScreen();
-		oddeven = 0;
-	}else{
-		oddeven = 0;
-	}
-
-
-	}*/
-
 
 void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 
 	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
-	//uint32_t direction = speed > 0?1:0; //if assignment, ternary operator
 	speed = abs(speed); //takes speed and returns absolute value
 	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
 
@@ -410,11 +328,13 @@ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 
 
 void STOP(void){
-	printf("Stop Detected\n");
+	printf("Stop Detected\n\r");
 	speed_l = 0.0;
 	speed_r = 0.0;
 	setMTRSpeed(0.0,&mot_right);
 	setMTRSpeed(0.0,&mot_left);
+	//HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, RESET);
+	//HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, RESET);
 	//driving = false;
 }
 /*

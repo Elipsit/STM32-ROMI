@@ -37,11 +37,11 @@ void updateEncoder(ENC_STATUS *enc){
 	}
 
 	//enc->vel = diff*ENCODER_VEL_SCALE;
-	enc->vel = (float)diff*ENCODER_VEL_SCALE;
-	enc->pos += diff*ENCODER_VEL_SCALE;
+	enc->vel = (float)diff*ENCODER_VEL_SCALE/2;
+	enc->pos += diff*ENCODER_DIST_SCALE;
 	enc->last = pos16;
 
-
+	/*
 	if(oddeven < 1){
 		SSD1306_GotoXY(75, 20);
 		SSD1306_Puts(enc->tag, &Font_7x10, 1);
@@ -64,6 +64,6 @@ void updateEncoder(ENC_STATUS *enc){
 	}else{
 		oddeven = 0;
 	}
-
+	 */
 
 }

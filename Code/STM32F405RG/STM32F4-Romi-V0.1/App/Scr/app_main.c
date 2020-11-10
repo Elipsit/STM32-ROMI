@@ -79,20 +79,20 @@ uint32_t numTicks = 0;
 char updatescr[10]; //use to update screen
 
 //******PID******
-float speed_l = 0.2;
-float speed_r = 0.2;
+float speed_l = 0.0;
+float speed_r = 0.0;
 
 float duty_l = 0.0;
 float duty_r = 0.0;
 
-#define KP 0.02
-#define KI 0.0
+#define KP 0.03
+#define KI 1.0
 
 //#define KP 0.065
 //#define KI 2.0
 
 #define TICK_RATE 10 //10mS
-#define PID_RATE  4 //2*10mS
+#define PID_RATE  2 //2*10mS
 
 #define DT ((float)(TICK_RATE*PID_RATE)/1000)
 
@@ -101,7 +101,7 @@ float duty_r = 0.0;
 #define MAX_SPEED 10.0  //rad/s
 
 //#define MAX_VELOCITY 50.0
-#define SPEED_CHANGE 0.1
+#define SPEED_CHANGE 5.0
 
 //******PWM Setup****
 typedef struct MOTOR_T {
@@ -217,8 +217,8 @@ void appMain(void){
 				/* Update the encoders*/
 				updateEncoder(&enc_right);
 				updateEncoder(&enc_left);
-				printf("%s Encoder is %f\n\r",enc_left.tag,enc_left.vel);
-				printf("%s Encoder is %f\n\r",enc_right.tag,enc_right.vel);
+				printf("%s Encoder Vel %f \t Pos %f\n\r",enc_left.tag,enc_left.vel, enc_left.pos);
+				printf("%s Encoder Vel %f \t Pos %f\n\r",enc_right.tag,enc_right.vel, enc_right.pos);
 
 				duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
 				duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
@@ -237,12 +237,13 @@ void appMain(void){
 				SSD1306_GotoXY(75, 40);
 				sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
-				SSD1306_GotoXY(10, 50);
+				/*SSD1306_GotoXY(10, 50);
 				sprintf(updatescr, "%ld",speed_l); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
 				SSD1306_GotoXY(75, 50);
 				sprintf(updatescr, "%ld",speed_r); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
+				*/
 
 				//Check the sonars
 				checkSonar(&SONARS[SONAR1]);
@@ -265,19 +266,19 @@ void appMain(void){
 					case 'w':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_l += SPEED_CHANGE;
-							//speed_r += SPEED_CHANGE;
-						}
-						break;
-					case 'a':
-						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l += SPEED_CHANGE;
-							speed_r -= SPEED_CHANGE;
+							speed_r += SPEED_CHANGE;
 						}
 						break;
 					case 'd':
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_r += SPEED_CHANGE;
-							speed_l -= SPEED_CHANGE;
+							speed_l += SPEED_CHANGE/2;
+							speed_r -= SPEED_CHANGE/2;
+						}
+						break;
+					case 'a':
+						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
+							speed_r += SPEED_CHANGE/2;
+							speed_l -= SPEED_CHANGE/2;
 						}
 						break;
 					case 's':
@@ -314,7 +315,10 @@ void appMain(void){
 } //end of main loop
 
 
+
 void setMTRSpeed(float speed, const MOTOR_CONF *motor){
+	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
+	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
 
 	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
 	speed = abs(speed); //takes speed and returns absolute value
@@ -333,8 +337,8 @@ void STOP(void){
 	speed_r = 0.0;
 	setMTRSpeed(0.0,&mot_right);
 	setMTRSpeed(0.0,&mot_left);
-	//HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, RESET);
-	//HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, RESET);
+	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, RESET);
+	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, RESET);
 	//driving = false;
 }
 /*

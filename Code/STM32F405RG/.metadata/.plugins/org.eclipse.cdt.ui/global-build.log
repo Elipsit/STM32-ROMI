@@ -1,4 +1,4 @@
-20:09:03 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+19:35:56 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
 In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
@@ -125,12 +125,173 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
      sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
                          ~~^
                          %f
-../App/Scr/app_main.c:241:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
-     sprintf(updatescr, "%ld",speed_l); //this is used to convert to the char array position[10]
+arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32F4-Romi-V0.1.elf
+ 
+arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
+arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM32F4-Romi-V0.1.bin
+ 
+Finished building: STM32F4-Romi-V0.1.list
+ 
+19:36:13 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
+19:36:34 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
+19:40:11 **** Incremental Build of configuration Debug for project BlueBot ****
+make -j8 all 
+arm-none-eabi-size   BlueBot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  18632	    208	   2328	  21168	   52b0	BlueBot.elf
+Finished building: default.size.stdout
+ 
+19:40:12 **** Incremental Build of configuration Debug for project PWM-Test ****
+make -j8 all 
+arm-none-eabi-size   PWM-Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9328	     20	   1700	  11048	   2b28	PWM-Test.elf
+Finished building: default.size.stdout
+ 
+19:40:12 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
+In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/app_main.c:29:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../App/Scr/app_main.c: In function 'appMain':
+../App/Scr/app_main.c:235:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
                          ~~^
                          %f
-../App/Scr/app_main.c:244:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
-     sprintf(updatescr, "%ld",speed_r); //this is used to convert to the char array position[10]
+../App/Scr/app_main.c:238:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
                          ~~^
                          %f
 arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
@@ -140,17 +301,565 @@ arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
 arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  46356	    680	   3624	  50660	   c5e4	STM32F4-Romi-V0.1.elf
+  46084	    672	   3616	  50372	   c4c4	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
 Finished building: STM32F4-Romi-V0.1.bin
  
 Finished building: STM32F4-Romi-V0.1.list
  
-20:09:07 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+19:40:13 **** Incremental Build of configuration Debug for project STM32F4-SG90 ****
+make -j8 all 
+arm-none-eabi-size   STM32F4-SG90.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12020	     20	   1700	  13740	   35ac	STM32F4-SG90.elf
+Finished building: default.size.stdout
+ 
+19:40:14 **** Incremental Build of configuration Debug for project Serial-Test ****
+make -j8 all 
+arm-none-eabi-size   Serial-Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10124	     24	   1744	  11892	   2e74	Serial-Test.elf
+Finished building: default.size.stdout
+ 
+19:40:14 **** Incremental Build of configuration Debug for project TOFCANFirmware ****
+make all 
+arm-none-eabi-g++ "../Src/App/VL53L1X.cpp" -mcpu=cortex-m0 -std=gnu++98 -g -DSTM32F042x6 '-D__weak=__attribute__((weak))' '-D__packed="__attribute__((__packed__))"' -DUSE_HAL_DRIVER -c -I"C:/github/STM32/tof/TOFCANFirmware/Middlewares/STM_VLX_API/platform" -I"C:/github/STM32/tof/TOFCANFirmware/Inc" -I"C:/github/STM32/tof/TOFCANFirmware/Middlewares/STM_VLX_API/core" -I"C:/github/STM32/tof/TOFCANFirmware/Inc/App" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/CMSIS/Include" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/STM32F0xx_HAL_Driver/Inc" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/CMSIS/Device/ST/STM32F0xx/Include" -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Src/App/VL53L1X.d" -MT"Src/App/VL53L1X.o"  -mfloat-abi=soft -mthumb -o "Src/App/VL53L1X.o"
+In file included from ../Src/App/VL53L1X.cpp:8:0:
+C:/github/STM32/tof/TOFCANFirmware/Inc/App/VL53L1X.h:25:10: fatal error: io_pin.h: No such file or directory
+ #include "io_pin.h"
+          ^~~~~~~~~~
+compilation terminated.
+make: *** [Src/App/subdir.mk:24: Src/App/VL53L1X.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+18:28:41 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
+arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
+../App/Scr/motors.c:30:44: error: unknown type name 'MOTOR_CONF'
+ static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+                                            ^~~~~~~~~~
+../App/Scr/motors.c:35:37: error: unknown type name 'MOTOR_CONF'
+ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
+                                     ^~~~~~~~~~
+../App/Scr/motors.c: In function 'setMTRSpeed':
+../App/Scr/motors.c:40:10: warning: implicit declaration of function 'abs' [-Wimplicit-function-declaration]
+  speed = abs(speed); //takes speed and returns absolute value
+          ^~~
+../App/Scr/motors.c:41:25: error: request for member 'gpio_port' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                         ^~
+../App/Scr/motors.c:41:43: error: request for member 'gpio_pin' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                                           ^~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:400:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/motors.c:27:
+../App/Scr/motors.c:46:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:46:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:46:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:46:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:46:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:46:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:46:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1346:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__HANDLE__)->Instance->CCR4 = (__COMPARE__)))
+      ^~~~~~~~~~
+../App/Scr/motors.c: In function 'STOP':
+../App/Scr/motors.c:52:2: error: 'speed_l' undeclared (first use in this function)
+  speed_l = 0.0;
+  ^~~~~~~
+../App/Scr/motors.c:52:2: note: each undeclared identifier is reported only once for each function it appears in
+../App/Scr/motors.c:53:2: error: 'speed_r' undeclared (first use in this function); did you mean 'speed_l'?
+  speed_r = 0.0;
+  ^~~~~~~
+  speed_l
+../App/Scr/motors.c:54:19: error: 'mot_right' undeclared (first use in this function)
+  setMTRSpeed(0.0,&mot_right);
+                   ^~~~~~~~~
+../App/Scr/motors.c:55:19: error: 'mot_left' undeclared (first use in this function); did you mean 'mot_right'?
+  setMTRSpeed(0.0,&mot_left);
+                   ^~~~~~~~
+                   mot_right
+make: *** [App/Scr/subdir.mk:54: App/Scr/motors.o] Error 1
+make: *** Waiting for unfinished jobs....
+In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/app_main.c:29:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../App/Scr/app_main.c: In function 'appMain':
+../App/Scr/app_main.c:227:5: warning: implicit declaration of function 'setMTRSpeed' [-Wimplicit-function-declaration]
+     setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
+     ^~~~~~~~~~~
+../App/Scr/app_main.c:235:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
+                         ~~^
+                         %f
+../App/Scr/app_main.c:238:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
+                         ~~^
+                         %f
+../App/Scr/app_main.c:293:7: warning: implicit declaration of function 'STOP' [-Wimplicit-function-declaration]
+       STOP();
+       ^~~~
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:29:22 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
+../App/Scr/motors.c:36:44: error: unknown type name 'MOTOR_CONF'
+ static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+                                            ^~~~~~~~~~
+../App/Scr/motors.c:41:37: error: unknown type name 'MOTOR_CONF'
+ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
+                                     ^~~~~~~~~~
+../App/Scr/motors.c: In function 'setMTRSpeed':
+../App/Scr/motors.c:46:10: warning: implicit declaration of function 'abs' [-Wimplicit-function-declaration]
+  speed = abs(speed); //takes speed and returns absolute value
+          ^~~
+../App/Scr/motors.c:47:25: error: request for member 'gpio_port' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                         ^~
+../App/Scr/motors.c:47:43: error: request for member 'gpio_pin' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                                           ^~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:400:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/motors.c:27:
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1346:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__HANDLE__)->Instance->CCR4 = (__COMPARE__)))
+      ^~~~~~~~~~
+../App/Scr/motors.c: In function 'STOP':
+../App/Scr/motors.c:58:2: error: 'speed_l' undeclared (first use in this function)
+  speed_l = 0.0;
+  ^~~~~~~
+../App/Scr/motors.c:58:2: note: each undeclared identifier is reported only once for each function it appears in
+../App/Scr/motors.c:59:2: error: 'speed_r' undeclared (first use in this function); did you mean 'speed_l'?
+  speed_r = 0.0;
+  ^~~~~~~
+  speed_l
+../App/Scr/motors.c:60:19: error: 'mot_right' undeclared (first use in this function)
+  setMTRSpeed(0.0,&mot_right);
+                   ^~~~~~~~~
+../App/Scr/motors.c:61:19: error: 'mot_left' undeclared (first use in this function); did you mean 'mot_right'?
+  setMTRSpeed(0.0,&mot_left);
+                   ^~~~~~~~
+                   mot_right
+make: *** [App/Scr/subdir.mk:54: App/Scr/motors.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:31:25 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
+arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
+../App/Scr/motors.c:36:44: error: unknown type name 'MOTOR_CONF'
+ static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+                                            ^~~~~~~~~~
+../App/Scr/motors.c:41:37: error: unknown type name 'MOTOR_CONF'
+ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
+                                     ^~~~~~~~~~
+../App/Scr/motors.c: In function 'setMTRSpeed':
+../App/Scr/motors.c:46:10: warning: implicit declaration of function 'abs' [-Wimplicit-function-declaration]
+  speed = abs(speed); //takes speed and returns absolute value
+          ^~~
+../App/Scr/motors.c:47:25: error: request for member 'gpio_port' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                         ^~
+../App/Scr/motors.c:47:43: error: request for member 'gpio_pin' in something not a structure or union
+  HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
+                                           ^~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:400:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/motors.c:27:
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1343:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCR1 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1344:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_2) ? ((__HANDLE__)->Instance->CCR2 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:41: error: request for member 'tim_ch' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                                         ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+      ^~~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1345:41: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->Instance->CCR3 = (__COMPARE__)) :\
+                                         ^~~~~~~~~~
+../App/Scr/motors.c:52:29: error: request for member 'htim' in something not a structure or union
+  __HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+                             ^
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:1346:6: note: in definition of macro '__HAL_TIM_SET_COMPARE'
+    ((__HANDLE__)->Instance->CCR4 = (__COMPARE__)))
+      ^~~~~~~~~~
+../App/Scr/motors.c: In function 'STOP':
+../App/Scr/motors.c:58:2: error: 'speed_l' undeclared (first use in this function)
+  speed_l = 0.0;
+  ^~~~~~~
+../App/Scr/motors.c:58:2: note: each undeclared identifier is reported only once for each function it appears in
+../App/Scr/motors.c:59:2: error: 'speed_r' undeclared (first use in this function); did you mean 'speed_l'?
+  speed_r = 0.0;
+  ^~~~~~~
+  speed_l
+../App/Scr/motors.c:60:19: error: 'mot_right' undeclared (first use in this function)
+  setMTRSpeed(0.0,&mot_right);
+                   ^~~~~~~~~
+../App/Scr/motors.c:61:19: error: 'mot_left' undeclared (first use in this function); did you mean 'mot_right'?
+  setMTRSpeed(0.0,&mot_left);
+                   ^~~~~~~~
+                   mot_right
+make: *** [App/Scr/subdir.mk:54: App/Scr/motors.o] Error 1
+make: *** Waiting for unfinished jobs....
+In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/app_main.c:29:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:69:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:70:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:71:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../App/Scr/app_main.c: In function 'appMain':
+../App/Scr/app_main.c:235:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
+                         ~~^
+                         %f
+../App/Scr/app_main.c:238:27: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'double' [-Wformat=]
+     sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
+                         ~~^
+                         %f
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:32:15 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
+arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32F4-Romi-V0.1.elf
+ 
+arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
+arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
+arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM32F4-Romi-V0.1.bin
+ 
+Finished building: STM32F4-Romi-V0.1.list
+ 
+18:37:06 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  46356	    680	   3624	  50660	   c5e4	STM32F4-Romi-V0.1.elf
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  

@@ -1,10 +1,10 @@
-20:09:07 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+18:37:06 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  46356	    680	   3624	  50660	   c5e4	STM32F4-Romi-V0.1.elf
+  46076	    672	   3616	  50364	   c4bc	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
 
-20:09:08 Build Finished. 0 errors, 0 warnings. (took 306ms)
+18:37:07 Build Finished. 0 errors, 0 warnings. (took 551ms)
 

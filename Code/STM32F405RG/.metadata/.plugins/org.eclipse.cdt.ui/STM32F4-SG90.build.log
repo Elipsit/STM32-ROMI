@@ -1,4 +1,4 @@
-18:59:24 **** Incremental Build of configuration Debug for project STM32F4-SG90 ****
+19:40:13 **** Incremental Build of configuration Debug for project STM32F4-SG90 ****
 make -j8 all 
 arm-none-eabi-size   STM32F4-SG90.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size   STM32F4-SG90.elf
 Finished building: default.size.stdout
  
 
-18:59:24 Build Finished. 0 errors, 0 warnings. (took 262ms)
+19:40:14 Build Finished. 0 errors, 0 warnings. (took 292ms)
 

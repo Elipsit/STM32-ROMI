@@ -1,0 +1,6 @@
+edge_sensor.c:22:6:enableEdgeSensors	16	static
+edge_sensor.c:25:6:disableEdgeSensors	16	static
+edge_sensor.c:28:19:getEdgeSensorState	24	static
+edge_sensor.c:36:6:updateEdgeSensors	16	static
+edge_sensor.c:42:10:readSensors	16	static
+edge_sensor.c:49:10:debounce	24	static

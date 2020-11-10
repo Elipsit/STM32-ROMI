@@ -21,6 +21,7 @@
 
 #define uSTIM TIM9
 
+
 // event flag to pass to updateSonars method
 typedef enum SONAR_UPADTE_EVENT_t {
   SONAR_EVENT_TIMER,
@@ -53,9 +54,17 @@ typedef enum SONAR_STATE_t {
 
 } SONAR_STATE;
 
+typedef enum SONARID_t{
+	SONAR1,
+	SONAR2,
+	SONAR3,
+	numSONAR
+}SONARID;
 
 void checkSonar(SONAR_STATUS *sonar);
 void updateSonar(SONAR_STATUS *sonar);
+void sonarISR(SONARID id);
 
+extern SONAR_STATUS SONARS[numSONAR];
 
 #endif /* INC_SONAR_H_ */

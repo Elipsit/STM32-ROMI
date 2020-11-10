@@ -15,20 +15,29 @@ const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach
 
 void checkSonar(SONAR_STATUS *sonar){
 	uint32_t tock = 0;
-	sonar->tick = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
 	while(tock-sonar->tick <= 10){
-		tock = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+		tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
 	}
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
-	sonar->tick = ___HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
 }
 
 void updateSonar(SONAR_STATUS *sonar){
 	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
 				sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
-				printf("%C Sonar Distance (cm): %f",sonar->sonar_ch,sonar->distance);
+				//printf("Sonar tick: %f\n\r",sonar->tick);
+				//printf("%c Sonar Distance (cm): %f\n\r",sonar->sonar_ch,sonar->distance);
+
+}
+//This is called as an interrupt controller, do minimal stuff in here and leave
+void sonarISR(SONARID id){
+	SONAR_STATUS *sonar = &SONARS[id];
+	uint32_t tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	sonar->tick = tock - sonar->tick;
+	updateSonar(sonar->tick);
 
 }
 /*

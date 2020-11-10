@@ -11,10 +11,13 @@
 #include <stdint.h> //standard interager
 #include "tim.h"
 
+#define ENCODER_DIST_SCALE  (1.0/5456.902) // counts/m
+#define ENCODER_VEL_SCALE 0.2617993878     // convert encoder velocity value to rad/sec
+
 //******Encoder Setup******
 typedef struct ENC_STATUS_t {
-	int32_t pos;
-	int32_t vel;
+	float pos;
+	float vel;
 	int16_t last;
 	const char *tag;
 	int32_t dir;

@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\github\STM32\STM32F4\STM32L452RE\STM32L4-SSD1306"/>
 			<item value="C:\github\STM32\ecarnival\BlueBot"/>
 			<item value="C:\github\STM32\tof\TOFCANFirmware"/>
 			<item value="C:\github\STM32-ROMI\Code\STM32F405RG\CodeBlocks\PWM-Test"/>
@@ -23,5 +24,12 @@
 		<item key="DIALOG_WIDTH" value="662"/>
 		<item key="DIALOG_HEIGHT" value="474"/>
 		<item key="TOGGLE_SELECTED" value="false"/>
+	</section>
+	<section name="SaveAsDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="619"/>
+		<item key="DIALOG_Y_ORIGIN" value="94"/>
+		<item key="DIALOG_WIDTH" value="700"/>
+		<item key="DIALOG_HEIGHT" value="645"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

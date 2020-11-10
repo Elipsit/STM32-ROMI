@@ -21,6 +21,7 @@ uint8_t oddeven = 0; //used to flip left and right oled screen location
 void updateEncoder(ENC_STATUS *enc){
 
 	int16_t pos16 = (int16_t) __HAL_TIM_GET_COUNTER(enc->htim); //treat timers as a signed 16bit
+	//int16_t pos16 = enc->dir*(int16_t) __HAL_TIM_GET_COUNTER(enc->htim); //treat timers as a signed 16bit
 	int32_t pos32 = (int32_t)pos16; //sign extended to 32bit
 
 	int16_t last = enc -> last; //get last raw timer value
@@ -35,26 +36,27 @@ void updateEncoder(ENC_STATUS *enc){
 		}
 	}
 
-	enc->vel = diff;
-	enc->pos += diff;
+	//enc->vel = diff*ENCODER_VEL_SCALE;
+	enc->vel = (float)diff*ENCODER_VEL_SCALE/2;
+	enc->pos += diff*ENCODER_DIST_SCALE;
 	enc->last = pos16;
 
-
+	/*
 	if(oddeven < 1){
-		SSD1306_GotoXY(50, 20);
+		SSD1306_GotoXY(75, 20);
 		SSD1306_Puts(enc->tag, &Font_7x10, 1);
-		SSD1306_GotoXY(50, 40);
-		//sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		SSD1306_GotoXY(75, 30);
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
 		sprintf(position, "%ld",pos32); //this is used to convert to the char array position[10]
 		SSD1306_Puts(position, &Font_7x10, 1);
 		SSD1306_UpdateScreen();
 		oddeven++;
 
 	}else if(2 > oddeven >= 1) {
-		SSD1306_GotoXY(0, 20);
+		SSD1306_GotoXY(10, 20);
 		SSD1306_Puts(enc->tag, &Font_7x10, 1);
-		SSD1306_GotoXY(0, 40);
-		//sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
+		SSD1306_GotoXY(10, 30);
+		sprintf(position, "%ld",enc->pos); //this is used to convert to the char array position[10]
 		sprintf(position, "%ld",pos32); //this is used to convert to the char array position[10]
 		SSD1306_Puts(position, &Font_7x10, 1);
 		SSD1306_UpdateScreen();
@@ -62,6 +64,6 @@ void updateEncoder(ENC_STATUS *enc){
 	}else{
 		oddeven = 0;
 	}
-
+	 */
 
 }

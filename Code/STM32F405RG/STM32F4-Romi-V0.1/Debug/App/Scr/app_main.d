@@ -13,9 +13,9 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
@@ -38,9 +38,9 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
  ../Core/Inc/gpio.h ../Core/Inc/stm32f4xx_it.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../App/Inc/app_main.h ../App/Inc/PID.h ../App/Inc/app_main.h \
- ../App/Inc/encoder.h ../App/Inc/sonar.h ../App/Inc/fonts.h \
- ../App/Inc/ssd1306.h ../App/Inc/../../app/Inc/fonts.h ../App/Inc/test.h \
- ../App/Scr/bitmap.h
+ ../App/Inc/encoder.h ../App/Inc/sonar.h ../App/Inc/edge_sensor.h \
+ ../App/Inc/fonts.h ../App/Inc/ssd1306.h ../App/Inc/../../app/Inc/fonts.h \
+ ../App/Inc/test.h ../App/Scr/bitmap.h
 
 ../Core/Inc/main.h:
 
@@ -72,11 +72,11 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:
 
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h:
-
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:
 
@@ -141,6 +141,8 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
 ../App/Inc/encoder.h:
 
 ../App/Inc/sonar.h:
+
+../App/Inc/edge_sensor.h:
 
 ../App/Inc/fonts.h:
 

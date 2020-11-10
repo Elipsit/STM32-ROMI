@@ -1,0 +1,13 @@
+19:40:14 **** Incremental Build of configuration Debug for project TOFCANFirmware ****
+make all 
+arm-none-eabi-g++ "../Src/App/VL53L1X.cpp" -mcpu=cortex-m0 -std=gnu++98 -g -DSTM32F042x6 '-D__weak=__attribute__((weak))' '-D__packed="__attribute__((__packed__))"' -DUSE_HAL_DRIVER -c -I"C:/github/STM32/tof/TOFCANFirmware/Middlewares/STM_VLX_API/platform" -I"C:/github/STM32/tof/TOFCANFirmware/Inc" -I"C:/github/STM32/tof/TOFCANFirmware/Middlewares/STM_VLX_API/core" -I"C:/github/STM32/tof/TOFCANFirmware/Inc/App" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/CMSIS/Include" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/STM32F0xx_HAL_Driver/Inc" -I"C:/github/STM32/tof/TOFCANFirmware/Drivers/CMSIS/Device/ST/STM32F0xx/Include" -Os -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-use-cxa-atexit -Wall -fstack-usage -MMD -MP -MF"Src/App/VL53L1X.d" -MT"Src/App/VL53L1X.o"  -mfloat-abi=soft -mthumb -o "Src/App/VL53L1X.o"
+In file included from ../Src/App/VL53L1X.cpp:8:0:
+C:/github/STM32/tof/TOFCANFirmware/Inc/App/VL53L1X.h:25:10: fatal error: io_pin.h: No such file or directory
+ #include "io_pin.h"
+          ^~~~~~~~~~
+compilation terminated.
+make: *** [Src/App/subdir.mk:24: Src/App/VL53L1X.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+19:40:16 Build Failed. 2 errors, 0 warnings. (took 1s.251ms)
+

@@ -1,7 +1,10 @@
-11:01:02 **** Clean-only build of configuration Debug for project STM32F4-SG90 ****
-make -j8 clean 
-make: *** No rule to make target 'clean'.  Stop.
-"make -j8 clean" terminated with exit code 2. Build might be incomplete.
+19:40:13 **** Incremental Build of configuration Debug for project STM32F4-SG90 ****
+make -j8 all 
+arm-none-eabi-size   STM32F4-SG90.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12020	     20	   1700	  13740	   35ac	STM32F4-SG90.elf
+Finished building: default.size.stdout
+ 
 
-11:01:02 Build Failed. 1 errors, 0 warnings. (took 210ms)
+19:40:14 Build Finished. 0 errors, 0 warnings. (took 292ms)
 

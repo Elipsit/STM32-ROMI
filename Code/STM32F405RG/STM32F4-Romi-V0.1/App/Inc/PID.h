@@ -7,7 +7,6 @@
 #define INC_PID_H_
 
 #include <stdbool.h>
-#include <stdlib.h>
 
 // Define PID (PI) state variables
 typedef	struct PID_STATE_t {
@@ -36,8 +35,8 @@ typedef struct PID_t {
 
 float PID_update (float target, float current, PID *pid);
 
-extern PID pid_left;
 extern PID pid_right;
+extern PID pid_left;
 
 
 #endif /*INC_PID_H_ */

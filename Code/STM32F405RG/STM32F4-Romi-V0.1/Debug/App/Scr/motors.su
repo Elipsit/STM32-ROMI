@@ -1,0 +1,8 @@
+motors.c:65:6:setMTRSpeed	32	static
+motors.c:79:6:setMotorSpeed	16	static
+motors.c:84:6:drive	16	static
+motors.c:89:6:STOP	8	static
+motors.c:100:12:updateMotors	40	static
+motors.c:169:6:turnTo	16	static
+motors.c:186:6:driveTo	16	static
+motors.c:207:6:updatePose	32	static

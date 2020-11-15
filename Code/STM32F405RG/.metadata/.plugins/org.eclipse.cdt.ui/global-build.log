@@ -1,303 +1,85 @@
-20:27:46 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+21:17:51 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
-arm-none-eabi-gcc "../App/Scr/PID.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/PID.d" -MT"App/Scr/PID.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/PID.o"
 arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
-arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
-arm-none-eabi-gcc "../App/Scr/ui.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/ui.d" -MT"App/Scr/ui.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/ui.o"
-../App/Scr/ui.c:38:14: warning: 'randf' declared 'static' but never defined [-Wunused-function]
- static float randf(void);
-              ^~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:14:16: error: redefinition of 'struct PID_STATE_t'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:12:16: error: redefinition of 'struct PID_STATE_t'
  typedef struct PID_STATE_t {
                 ^~~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:14:16: note: originally defined here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:12:16: note: originally defined here
  typedef struct PID_STATE_t {
                 ^~~~~~~~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:21:2: error: conflicting types for 'PID_STATE'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:19:2: error: conflicting types for 'PID_STATE'
  }PID_STATE;
   ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:21:2: note: previous declaration of 'PID_STATE' was here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:19:2: note: previous declaration of 'PID_STATE' was here
  }PID_STATE;
   ^~~~~~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:24:16: error: redefinition of 'struct PID_t'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:22:16: error: redefinition of 'struct PID_t'
  typedef struct PID_t {
                 ^~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:24:16: note: originally defined here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:22:16: note: originally defined here
  typedef struct PID_t {
                 ^~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:36:3: error: conflicting types for 'PID'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:34:3: error: conflicting types for 'PID'
  } PID;
    ^~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:36:3: note: previous declaration of 'PID' was here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:34:3: note: previous declaration of 'PID' was here
  } PID;
    ^~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:38:7: error: conflicting types for 'PID_update'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:36:7: error: conflicting types for 'PID_update'
  float PID_update (float target, float current, PID *pid);
        ^~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:38:7: note: previous declaration of 'PID_update' was here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:36:7: note: previous declaration of 'PID_update' was here
  float PID_update (float target, float current, PID *pid);
        ^~~~~~~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:40:12: error: conflicting types for 'pid_left'
- extern PID pid_left;
-            ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_left' was here
- extern PID pid_left;
-            ^~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:41:12: error: conflicting types for 'pid_right'
+                 from ../App/Scr/app_main.c:58:
+../App/Inc/pid.h:38:12: error: conflicting types for 'pid_right'
  extern PID pid_right;
             ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:41:12: note: previous declaration of 'pid_right' was here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:38:12: note: previous declaration of 'pid_right' was here
  extern PID pid_right;
             ^~~~~~~~~
-In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
-                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../App/Scr/app_main.c:30:
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
- #define TRIGL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                 ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
- #define TRIGL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                 ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
- #define ECHOL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                                           ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
- #define ECHOL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                                           ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
- #define TRIGR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
- #define TRIGR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
- #define ECHOR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                                          ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
- #define ECHOR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                                          ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
- #define TRIG_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
- #define TRIG_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
- #define ECHO_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                                                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
- #define ECHO_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                                                 ^~~~~~~~~~~~~~~~~~
-../App/Scr/app_main.c:107:2: warning: "/*" within comment [-Wcomment]
- //******Motor Setup****
-   
-../App/Scr/app_main.c:122:5: error: conflicting types for 'pid_right'
- PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
-     ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:41:12: note: previous declaration of 'pid_right' was here
- extern PID pid_right;
-            ^~~~~~~~~
-../App/Scr/app_main.c:123:5: error: conflicting types for 'pid_left'
- PID pid_left  = {KP,KI,DT,false,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
-     ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_left' was here
- extern PID pid_left;
-            ^~~~~~~~
-../App/Scr/app_main.c: In function 'appMain':
-../App/Scr/app_main.c:269:15: warning: unused variable 'event' [-Wunused-variable]
-    MotorEvent event = updateMotors(pid_update,DT);
-               ^~~~~
-../App/Scr/app_main.c:206:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
-   bool send_telemetry=false;
-        ^~~~~~~~~~~~~~
-make: *** [App/Scr/subdir.mk:50: App/Scr/app_main.o] Error 1
-make: *** Waiting for unfinished jobs....
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-20:29:18 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
-make -j8 all 
-arm-none-eabi-gcc "../App/Scr/PID.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/PID.d" -MT"App/Scr/PID.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/PID.o"
-arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
-arm-none-eabi-gcc "../App/Scr/motors.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/motors.d" -MT"App/Scr/motors.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/motors.o"
-arm-none-eabi-gcc "../App/Scr/ui.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/ui.d" -MT"App/Scr/ui.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/ui.o"
-../App/Scr/ui.c:38:14: warning: 'randf' declared 'static' but never defined [-Wunused-function]
- static float randf(void);
-              ^~~~~
 In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:13:16: error: redefinition of 'struct PID_STATE_t'
- typedef struct PID_STATE_t {
-                ^~~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:13:16: note: originally defined here
- typedef struct PID_STATE_t {
-                ^~~~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:20:2: error: conflicting types for 'PID_STATE'
- }PID_STATE;
-  ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:20:2: note: previous declaration of 'PID_STATE' was here
- }PID_STATE;
-  ^~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:23:16: error: redefinition of 'struct PID_t'
- typedef struct PID_t {
-                ^~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:23:16: note: originally defined here
- typedef struct PID_t {
-                ^~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:35:3: error: conflicting types for 'PID'
- } PID;
-   ^~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:35:3: note: previous declaration of 'PID' was here
- } PID;
-   ^~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:37:7: error: conflicting types for 'PID_update'
- float PID_update (float target, float current, PID *pid);
-       ^~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:37:7: note: previous declaration of 'PID_update' was here
- float PID_update (float target, float current, PID *pid);
-       ^~~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
+                 from ../App/Scr/app_main.c:58:
 ../App/Inc/pid.h:39:12: error: conflicting types for 'pid_left'
  extern PID pid_left;
             ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
+In file included from ../App/Scr/app_main.c:31:0:
 ../App/Inc/PID.h:39:12: note: previous declaration of 'pid_left' was here
  extern PID pid_left;
             ^~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:40:12: error: conflicting types for 'pid_right'
- extern PID pid_right;
-            ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_right' was here
- extern PID pid_right;
-            ^~~~~~~~~
 In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
                  from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
                  from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
                  from ../Core/Inc/stm32f4xx_hal_conf.h:272,
                  from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
                  from ../Core/Inc/main.h:31,
-                 from ../App/Scr/app_main.c:30:
+                 from ../Core/Inc/tim.h:27,
+                 from ../App/Inc/encoder.h:12,
+                 from ../App/Scr/app_main.c:32:
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
  #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
                              ^
 ../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
  #define TRIGL_GPIO_Port GPIOB
                          ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+../App/Scr/app_main.c:74:33: note: in expansion of macro 'TRIGL_GPIO_Port'
  SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
                                  ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
@@ -306,7 +88,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
  #define TRIGL_GPIO_Port GPIOB
                          ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+../App/Scr/app_main.c:74:33: note: in expansion of macro 'TRIGL_GPIO_Port'
  SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
                                  ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
@@ -315,7 +97,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
  #define ECHOL_GPIO_Port GPIOB
                          ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+../App/Scr/app_main.c:74:59: note: in expansion of macro 'ECHOL_GPIO_Port'
  SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
                                                            ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
@@ -324,7 +106,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
  #define ECHOL_GPIO_Port GPIOB
                          ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+../App/Scr/app_main.c:74:59: note: in expansion of macro 'ECHOL_GPIO_Port'
  SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
                                                            ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
@@ -333,7 +115,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
  #define TRIGR_GPIO_Port GPIOA
                          ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+../App/Scr/app_main.c:75:16: note: in expansion of macro 'TRIGR_GPIO_Port'
        {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
                 ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
@@ -342,7 +124,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
  #define TRIGR_GPIO_Port GPIOA
                          ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+../App/Scr/app_main.c:75:16: note: in expansion of macro 'TRIGR_GPIO_Port'
        {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
                 ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
@@ -351,7 +133,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
  #define ECHOR_GPIO_Port GPIOA
                          ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+../App/Scr/app_main.c:75:42: note: in expansion of macro 'ECHOR_GPIO_Port'
        {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
                                           ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
@@ -360,7 +142,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
  #define ECHOR_GPIO_Port GPIOA
                          ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+../App/Scr/app_main.c:75:42: note: in expansion of macro 'ECHOR_GPIO_Port'
        {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
                                           ^~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
@@ -369,7 +151,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
  #define TRIG_CTR_GPIO_Port GPIOC
                             ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+../App/Scr/app_main.c:76:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                  ^~~~~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
@@ -378,7 +160,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
  #define TRIG_CTR_GPIO_Port GPIOC
                             ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+../App/Scr/app_main.c:76:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                  ^~~~~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
@@ -387,7 +169,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
  #define ECHO_CTR_GPIO_Port GPIOC
                             ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+../App/Scr/app_main.c:76:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                                                  ^~~~~~~~~~~~~~~~~~
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
@@ -396,306 +178,29 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
 ../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
  #define ECHO_CTR_GPIO_Port GPIOC
                             ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+../App/Scr/app_main.c:76:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                                                  ^~~~~~~~~~~~~~~~~~
-../App/Scr/app_main.c:107:2: warning: "/*" within comment [-Wcomment]
- //******Motor Setup****
-   
-../App/Scr/app_main.c:122:5: error: conflicting types for 'pid_right'
+../App/Scr/app_main.c:100:5: error: conflicting types for 'pid_right'
  PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
      ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_right' was here
+In file included from ../App/Scr/app_main.c:31:0:
+../App/Inc/PID.h:38:12: note: previous declaration of 'pid_right' was here
  extern PID pid_right;
             ^~~~~~~~~
-../App/Scr/app_main.c:123:5: error: conflicting types for 'pid_left'
+../App/Scr/app_main.c:101:5: error: conflicting types for 'pid_left'
  PID pid_left  = {KP,KI,DT,false,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
      ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
+In file included from ../App/Scr/app_main.c:31:0:
 ../App/Inc/PID.h:39:12: note: previous declaration of 'pid_left' was here
  extern PID pid_left;
             ^~~~~~~~
 ../App/Scr/app_main.c: In function 'appMain':
-../App/Scr/app_main.c:269:15: warning: unused variable 'event' [-Wunused-variable]
+../App/Scr/app_main.c:241:15: warning: unused variable 'event' [-Wunused-variable]
     MotorEvent event = updateMotors(pid_update,DT);
                ^~~~~
-../App/Scr/app_main.c:206:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
+../App/Scr/app_main.c:178:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
    bool send_telemetry=false;
         ^~~~~~~~~~~~~~
 make: *** [App/Scr/subdir.mk:50: App/Scr/app_main.o] Error 1
-make: *** Waiting for unfinished jobs....
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-20:31:26 **** Clean-only build of configuration Debug for project BlueBot ****
-make -j8 clean 
-rm -rf *
- 
-20:31:26 **** Clean-only build of configuration Debug for project STM32F4-Romi-V0.1 ****
-make -j8 clean 
-rm -rf *
- 
-20:31:26 **** Clean-only build of configuration Debug for project STM32F4-SG90 ****
-make -j8 clean 
-rm -rf *
- 
-20:31:27 **** Clean-only build of configuration Debug for project TOFCANFirmware ****
-make clean 
-rm -rf *
- 
-20:31:32 **** Build of configuration Debug for project STM32F4-Romi-V0.1 ****
-make -j8 all 
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dac_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o"
-arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o"
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -c -I"C:/github/STM32-ROMI/Code/STM32F405RG/STM32F4-Romi-V0.1/App" -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f405rgtx.d" -MT"Core/Startup/startup_stm32f405rgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f405rgtx.o" "../Core/Startup/startup_stm32f405rgtx.s"
-arm-none-eabi-gcc "../Core/Src/can.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/can.d" -MT"Core/Src/can.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/can.o"
-arm-none-eabi-gcc "../Core/Src/dac.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/dac.d" -MT"Core/Src/dac.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/dac.o"
-arm-none-eabi-gcc "../Core/Src/gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/gpio.d" -MT"Core/Src/gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/gpio.o"
-arm-none-eabi-gcc "../Core/Src/i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/i2c.d" -MT"Core/Src/i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/i2c.o"
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/spi.d" -MT"Core/Src/spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/spi.o"
-arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
-arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
-arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
-arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
-../Core/Src/stm32f4xx_it.c: In function 'EXTI15_10_IRQHandler':
-../Core/Src/stm32f4xx_it.c:270:12: warning: value computed is not used [-Wunused-value]
-   EXTI->PR & (GPIO_PIN_13); //Clear the flag
-arm-none-eabi-gcc "../Core/Src/system_stm32f4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/system_stm32f4xx.d" -MT"Core/Src/system_stm32f4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32f4xx.o"
-arm-none-eabi-gcc "../Core/Src/test.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/test.d" -MT"Core/Src/test.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/test.o"
-arm-none-eabi-gcc "../Core/Src/tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/tim.d" -MT"Core/Src/tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/tim.o"
-arm-none-eabi-gcc "../Core/Src/usart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/usart.d" -MT"Core/Src/usart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/usart.o"
-arm-none-eabi-gcc "../App/Scr/PID.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/PID.d" -MT"App/Scr/PID.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/PID.o"
-arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
-arm-none-eabi-gcc "../App/Scr/control.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/control.d" -MT"App/Scr/control.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/control.o"
-arm-none-eabi-gcc "../App/Scr/edge_sensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/edge_sensor.d" -MT"App/Scr/edge_sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/edge_sensor.o"
-arm-none-eabi-gcc "../App/Scr/encoder.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/encoder.d" -MT"App/Scr/encoder.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/encoder.o"
-arm-none-eabi-gcc "../App/Scr/fonts.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/fonts.d" -MT"App/Scr/fonts.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/fonts.o"
-arm-none-eabi-gcc "../App/Scr/interupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/interupt.d" -MT"App/Scr/interupt.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/interupt.o"
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:13:16: error: redefinition of 'struct PID_STATE_t'
- typedef struct PID_STATE_t {
-                ^~~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:13:16: note: originally defined here
- typedef struct PID_STATE_t {
-                ^~~~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:20:2: error: conflicting types for 'PID_STATE'
- }PID_STATE;
-  ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:20:2: note: previous declaration of 'PID_STATE' was here
- }PID_STATE;
-  ^~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:23:16: error: redefinition of 'struct PID_t'
- typedef struct PID_t {
-                ^~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:23:16: note: originally defined here
- typedef struct PID_t {
-                ^~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:35:3: error: conflicting types for 'PID'
- } PID;
-   ^~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:35:3: note: previous declaration of 'PID' was here
- } PID;
-   ^~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:37:7: error: conflicting types for 'PID_update'
- float PID_update (float target, float current, PID *pid);
-       ^~~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:37:7: note: previous declaration of 'PID_update' was here
- float PID_update (float target, float current, PID *pid);
-       ^~~~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:39:12: error: conflicting types for 'pid_left'
- extern PID pid_left;
-            ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:39:12: note: previous declaration of 'pid_left' was here
- extern PID pid_left;
-            ^~~~~~~~
-In file included from ../App/Inc/ui.h:13:0,
-                 from ../App/Scr/app_main.c:52:
-../App/Inc/pid.h:40:12: error: conflicting types for 'pid_right'
- extern PID pid_right;
-            ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_right' was here
- extern PID pid_right;
-            ^~~~~~~~~
-../App/Scr/edge_sensor.c:49:10: warning: 'debounce' defined but not used [-Wunused-function]
- uint32_t debounce(uint32_t sample)
-          ^~~~~~~~
-In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
-                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
-                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../App/Scr/app_main.c:30:
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
- #define TRIGL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                 ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
- #define TRIGL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:33: note: in expansion of macro 'TRIGL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                 ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
- #define ECHOL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                                           ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
- #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-                             ^
-../Core/Inc/main.h:87:25: note: in expansion of macro 'GPIOB'
- #define ECHOL_GPIO_Port GPIOB
-                         ^~~~~
-../App/Scr/app_main.c:68:59: note: in expansion of macro 'ECHOL_GPIO_Port'
- SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
-                                                           ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
- #define TRIGR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:113:25: note: in expansion of macro 'GPIOA'
- #define TRIGR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:16: note: in expansion of macro 'TRIGR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
- #define ECHOR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                                          ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
- #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-                             ^
-../Core/Inc/main.h:110:25: note: in expansion of macro 'GPIOA'
- #define ECHOR_GPIO_Port GPIOA
-                         ^~~~~
-../App/Scr/app_main.c:69:42: note: in expansion of macro 'ECHOR_GPIO_Port'
-       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
-                                          ^~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
- #define TRIG_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:108:28: note: in expansion of macro 'GPIOC'
- #define TRIG_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
- #define ECHO_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                                                 ^~~~~~~~~~~~~~~~~~
-../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
- #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-                             ^
-../Core/Inc/main.h:105:28: note: in expansion of macro 'GPIOC'
- #define ECHO_CTR_GPIO_Port GPIOC
-                            ^~~~~
-../App/Scr/app_main.c:70:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
-       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
-                                                 ^~~~~~~~~~~~~~~~~~
-../App/Scr/app_main.c:107:2: warning: "/*" within comment [-Wcomment]
- //******Motor Setup****
-   
-../App/Scr/app_main.c:122:5: error: conflicting types for 'pid_right'
- PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
-     ^~~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:40:12: note: previous declaration of 'pid_right' was here
- extern PID pid_right;
-            ^~~~~~~~~
-../App/Scr/app_main.c:123:5: error: conflicting types for 'pid_left'
- PID pid_left  = {KP,KI,DT,false,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
-     ^~~~~~~~
-In file included from ../App/Scr/app_main.c:50:0:
-../App/Inc/PID.h:39:12: note: previous declaration of 'pid_left' was here
- extern PID pid_left;
-            ^~~~~~~~
-../App/Scr/app_main.c: In function 'appMain':
-../App/Scr/app_main.c:269:15: warning: unused variable 'event' [-Wunused-variable]
-    MotorEvent event = updateMotors(pid_update,DT);
-               ^~~~~
-../App/Scr/app_main.c:206:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
-   bool send_telemetry=false;
-        ^~~~~~~~~~~~~~
-make: *** [App/Scr/subdir.mk:50: App/Scr/app_main.o] Error 1
-make: *** Waiting for unfinished jobs....
 "make -j8 all" terminated with exit code 2. Build might be incomplete.

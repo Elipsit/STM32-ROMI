@@ -25,8 +25,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h> //this is required to use bool statements
+#include "math.h"
+#include "app_main.h"
+#include "PID.h"
+#include "encoder.h"
+
 #include "main.h"
 #include "can.h"
 #include "dac.h"
@@ -40,14 +44,16 @@
 #include "stm32f4xx_hal_tim.h"
 #include "stm32f4xx_hal_tim_ex.h"
 
+
 //******Custom Files******
-#include "app_main.h"
+
+
+#include "motors.h"
 #include "control.h"
 #include "edge_sensor.h"
-#include "encoder.h"
+
 #include "interupt.h" // Sonar
-#include "motors.h"
-#include "PID.h"
+
 #include "sonar.h"
 #include "ui.h"
 
@@ -77,14 +83,8 @@ uint32_t numTicks = 0;
 
 char updatescr[10]; //use to update screen
 
-/*
-//-******PID******
-float speed_l = 0.0;
-float speed_r = 0.0;
 
-float duty_l = 0.0;
-float duty_r = 0.0;
-*/
+//PID
 #define KP 0.03
 #define KI 1.0
 
@@ -95,28 +95,6 @@ float duty_r = 0.0;
 #define PID_RATE  2 //2*10mS
 
 #define DT ((float)(TICK_RATE*PID_RATE)/1000)
-
-
-
-//#define MAX_SPEED 10.0  //rad/s
-
-//#define MAX_VELOCITY 50.0
-//#define SPEED_CHANGE 5.0
-
-/*
-//******Motor Setup****
-typedef struct MOTOR_T {
-	char *motor;
-	uint32_t tim_ch;
-	TIM_HandleTypeDef *htim;
-	GPIO_TypeDef* gpio_port;
-	uint32_t gpio_pin;
-
-}MOTOR_CONF;*/
-
-//static const MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
-//static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
-
 
 // declare the PID state variables
 PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
@@ -130,12 +108,6 @@ ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5,{0.0f,0.0f}};
 
 // Hardware Revision bits
 uint8_t RevBit[3];
-
-// local functions
-//static void uSec_Delay(uint32_t uSec);
-//static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
-//static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
-//void STOP(void);
 
 
 // main application loop
@@ -296,6 +268,7 @@ void appMain(void){
 						}*/
 						break;
 					case 'a':
+						drive(0.0f,MAX_ANG_VEL/4.0f);
 						/*
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_r += SPEED_CHANGE/2;
@@ -303,6 +276,7 @@ void appMain(void){
 						}*/
 						break;
 					case 's':
+						drive(0.0f,-MAX_ANG_VEL/4.0f);
 						/*
 						if((speed_l > -MAX_SPEED)&&(speed_r > -MAX_SPEED)){
 							speed_l -= SPEED_CHANGE;
@@ -337,33 +311,3 @@ void appMain(void){
 } //end of main loop
 
 
-/*
-void setMTRSpeed(float speed, const MOTOR_CONF *motor){
-	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
-	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
-
-	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
-	speed = abs(speed); //takes speed and returns absolute value
-	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
-
-	if(speed > MOTOR_PWM_PERIOD){
-		speed = MOTOR_PWM_PERIOD;
-	}
-	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
-}
-
-
-void STOP(void){
-	printf("Stop Detected\n\r");
-	speed_l = 0.0;
-	speed_r = 0.0;
-	setMTRSpeed(0.0,&mot_right);
-	setMTRSpeed(0.0,&mot_left);
-	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, RESET);
-	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, RESET);
-	//driving = false;
-}*/
-/*
-void drive(float lin_vel, float ang_vel){
-	//speed_l = (lin_vel);
-}*/

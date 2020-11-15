@@ -2,7 +2,7 @@
  * encoder.c
  *
  *  Created on: Sep 16, 2020
- *      Author: Kyle R
+ *      Author: Kyle Rodrigues
  */
 
 #include "encoder.h"

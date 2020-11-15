@@ -2,7 +2,7 @@
  * interupt.h
  *
  *  Created on: Oct 9, 2020
- *      Author: livin
+ *      Author: Kyle Rodrigues
  */
 
 #ifndef INC_INTERUPT_H_

@@ -25,6 +25,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h> //this is required to use bool statements
 #include "main.h"
 #include "can.h"
@@ -41,10 +42,14 @@
 
 //******Custom Files******
 #include "app_main.h"
-#include "PID.h"
-#include "encoder.h"
-#include "sonar.h"
+#include "control.h"
 #include "edge_sensor.h"
+#include "encoder.h"
+#include "interupt.h" // Sonar
+#include "motors.h"
+#include "PID.h"
+#include "sonar.h"
+#include "ui.h"
 
 
 //OLED Includes
@@ -60,12 +65,6 @@ extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim9; //sonar 1uSec
 
-//******Define Sonar******
-//#define uSTIM TIM9
-
-//Speed of sound in air cm/uSec
-//const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
-
 SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0.0},
 						{"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0.0},
 						{"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
@@ -78,13 +77,14 @@ uint32_t numTicks = 0;
 
 char updatescr[10]; //use to update screen
 
-//******PID******
+/*
+//-******PID******
 float speed_l = 0.0;
 float speed_r = 0.0;
 
 float duty_l = 0.0;
 float duty_r = 0.0;
-
+*/
 #define KP 0.03
 #define KI 1.0
 
@@ -98,12 +98,13 @@ float duty_r = 0.0;
 
 
 
-#define MAX_SPEED 10.0  //rad/s
+//#define MAX_SPEED 10.0  //rad/s
 
 //#define MAX_VELOCITY 50.0
-#define SPEED_CHANGE 5.0
+//#define SPEED_CHANGE 5.0
 
-//******PWM Setup****
+/*
+//******Motor Setup****
 typedef struct MOTOR_T {
 	char *motor;
 	uint32_t tim_ch;
@@ -111,17 +112,20 @@ typedef struct MOTOR_T {
 	GPIO_TypeDef* gpio_port;
 	uint32_t gpio_pin;
 
-}MOTOR_CONF;
+}MOTOR_CONF;*/
 
-static const MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
-static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
-
-static PID pid_right = {KP, KI, 0, 0,"Right",DT};
-static PID pid_left = {KP, KI, 0, 0,"Left",DT};
+//static const MOTOR_CONF mot_left = {"Left",TIM_CHANNEL_1, &htim4, ROMI_DIRL_GPIO_Port, ROMI_DIRL_Pin}; //add a status bit?
+//static const MOTOR_CONF mot_right = {"Right",TIM_CHANNEL_3, &htim2, ROMI_DIRR_GPIO_Port, ROMI_DIRR_Pin};
 
 
-ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3};
-ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5};
+// declare the PID state variables
+PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
+PID pid_left  = {KP,KI,DT,false,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
+
+
+ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3,{0.0f,0.0f}};
+ENC_STATUS enc_left = {0,0,0,"Left", 0, &htim5,{0.0f,0.0f}};
+
 
 
 // Hardware Revision bits
@@ -130,8 +134,8 @@ uint8_t RevBit[3];
 // local functions
 //static void uSec_Delay(uint32_t uSec);
 //static void setPWM(TIM_HandleTypeDef, uint32_t, uint8_t, uint16_t, uint16_t);
-static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
-void STOP(void);
+//static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+//void STOP(void);
 
 
 // main application loop
@@ -198,6 +202,9 @@ void appMain(void){
 	while(1){
 		uint32_t tock = HAL_GetTick();
 
+		bool pid_update=false;
+		bool send_telemetry=false;
+
 		if(tock-tick>TICK_RATE){ //10mS
 
 			ledTimer--;
@@ -209,35 +216,38 @@ void appMain(void){
 			PIDTimer --;
 			if(PIDTimer==0) {
 				PIDTimer=PID_RATE;
+				pid_update=true;
+                send_telemetry=true;
 
 				//set the motor drivers on
 				HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 				HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
 
 				/* Update the encoders*/
-				updateEncoder(&enc_right);
-				updateEncoder(&enc_left);
-				printf("%s Encoder Vel %f \t Pos %f\n\r",enc_left.tag,enc_left.vel, enc_left.pos);
-				printf("%s Encoder Vel %f \t Pos %f\n\r",enc_right.tag,enc_right.vel, enc_right.pos);
+				//updateEncoder(&enc_right);
+				//updateEncoder(&enc_left);
+				//printf("%s Encoder Vel %f \t Pos %f\n\r",enc_left.tag,enc_left.vel, enc_left.pos);
+				//printf("%s Encoder Vel %f \t Pos %f\n\r",enc_right.tag,enc_right.vel, enc_right.pos);
 
-				duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
-				duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
+				//duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
+				//duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
 				//duty_l = 0.2;
 				//duty_r = 0.2;
-				setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
-				setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
+				//setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
+				//setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
 
 				//printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
 				//printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
 
-				//update screen
+				/*//update screen
 				SSD1306_GotoXY(10, 40);
 				sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
 				SSD1306_GotoXY(75, 40);
 				sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
-				/*SSD1306_GotoXY(10, 50);
+				SSD1306_UpdateScreen();
+				SSD1306_GotoXY(10, 50);
 				sprintf(updatescr, "%ld",speed_l); //this is used to convert to the char array position[10]
 				SSD1306_Puts(updatescr, &Font_7x10, 1);
 				SSD1306_GotoXY(75, 50);
@@ -249,11 +259,18 @@ void appMain(void){
 				checkSonar(&SONARS[SONAR1]);
 				checkSonar(&SONARS[SONAR2]);
 
-				//check Edge Sensors
-				updateEdgeSensors();  //update the state of the edge sensors
 
 			}
 			tick = tock;
+
+			//check Edge Sensors
+			updateEdgeSensors();  //update the state of the edge sensors
+
+			MotorEvent event = updateMotors(pid_update,DT);
+					if(pid_update) {
+						setPIDState(&pid_left.state,&pid_right.state);
+						setEncoderState(&enc_left.state,&enc_right.state);
+					}
 
 		}
 
@@ -264,28 +281,33 @@ void appMain(void){
 				putchar(c);
 				switch (c) {
 					case 'w':
+						drive(MAX_LIN_VEL/2.0f,0.0f);
+						/*
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_l += SPEED_CHANGE;
 							speed_r += SPEED_CHANGE;
-						}
+						}*/
 						break;
 					case 'd':
+						/*
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_l += SPEED_CHANGE/2;
 							speed_r -= SPEED_CHANGE/2;
-						}
+						}*/
 						break;
 					case 'a':
+						/*
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
 							speed_r += SPEED_CHANGE/2;
 							speed_l -= SPEED_CHANGE/2;
-						}
+						}*/
 						break;
 					case 's':
+						/*
 						if((speed_l > -MAX_SPEED)&&(speed_r > -MAX_SPEED)){
 							speed_l -= SPEED_CHANGE;
 							speed_r -= SPEED_CHANGE;
-						}
+						}*/
 						break;
 
 					case ' ':
@@ -300,12 +322,12 @@ void appMain(void){
 				}
 
 		//	updateEdgeSensors();  //update the state of the edge sensors
-		bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
-		bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
+		//bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
+		//bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
 
-			if(leftClif || rightClif){
-				STOP();
-			}
+			//if(leftClif || rightClif){
+			//	STOP();
+			//}
 
 
 			} //end of while loop
@@ -315,7 +337,7 @@ void appMain(void){
 } //end of main loop
 
 
-
+/*
 void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
@@ -340,7 +362,7 @@ void STOP(void){
 	HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, RESET);
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, RESET);
 	//driving = false;
-}
+}*/
 /*
 void drive(float lin_vel, float ang_vel){
 	//speed_l = (lin_vel);

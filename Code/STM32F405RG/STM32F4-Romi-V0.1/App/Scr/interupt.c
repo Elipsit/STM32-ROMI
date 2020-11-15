@@ -2,7 +2,7 @@
  * interupt.c
  *
  *  Created on: Oct 9, 2020
- *      Author: livin
+ *      Author: Kyle Rodrigues
  */
 
 #include "main.h"

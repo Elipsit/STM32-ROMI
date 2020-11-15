@@ -2,7 +2,7 @@
  * app_main.h
  *
  *  Created on: August 29 2020
- *      Author: Kyle
+ *      Author: Kyle Rodrigues
  */
 
 #ifndef INC_APP_MAIN_H_

@@ -9,9 +9,9 @@
 #include  "edge_sensor.h"
 #include "motors.h"
 
-#define FWD_SPEED 0.1f
-#define BACK_SPEED 0.1f
-#define TURN_SPEED (0.6f)
+#define FWD_SPEED 0.02f
+#define BACK_SPEED 0.02f
+#define TURN_SPEED (0.2f)
 
 extern const float M_PI_F;
 

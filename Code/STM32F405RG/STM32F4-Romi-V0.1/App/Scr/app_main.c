@@ -27,10 +27,6 @@
 #include <stdio.h>
 #include <stdbool.h> //this is required to use bool statements
 #include "math.h"
-#include "app_main.h"
-#include "PID.h"
-#include "encoder.h"
-
 #include "main.h"
 #include "can.h"
 #include "dac.h"
@@ -47,13 +43,13 @@
 
 //******Custom Files******
 
-
+#include "app_main.h"
 #include "motors.h"
 #include "control.h"
 #include "edge_sensor.h"
-
+#include "PID.h"
+#include "encoder.h"
 #include "interupt.h" // Sonar
-
 #include "sonar.h"
 #include "ui.h"
 
@@ -85,8 +81,8 @@ char updatescr[10]; //use to update screen
 
 
 //PID
-#define KP 0.03
-#define KI 1.0
+#define KP 0.018f
+#define KI 0.0f
 
 //#define KP 0.065
 //#define KI 2.0
@@ -174,63 +170,33 @@ void appMain(void){
 	while(1){
 		uint32_t tock = HAL_GetTick();
 
-		bool pid_update=false;
-		bool send_telemetry=false;
+		bool pid_update=false;     // flag to say if we should update the PID this time through the loop
+		bool send_telemetry=false; // flag to say if we should send updated telemetry data to host this time through the loop
 
-		if(tock-tick>TICK_RATE){ //10mS
 
-			ledTimer--;
+		if(tock-tick>TICK_RATE){ // 10ms timer (this 'if' is true once every 10ms)
+
+			ledTimer--; // blink LED at LED_BLINK_RATE
 			if(ledTimer==0){
-				ledTimer = LED_BLINK_RATE;
+				ledTimer = LED_BLINK_RATE; //0.5 Sec blink
 				HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
 			}
 
-			PIDTimer --;
+			PIDTimer --; // see if we should run the PID update this time through the loop
 			if(PIDTimer==0) {
 				PIDTimer=PID_RATE;
-				pid_update=true;
-                send_telemetry=true;
+				pid_update=true; // flag to update PID this time
+                send_telemetry=true; // also send new telemetry after we update the PID
 
+                /*
 				//set the motor drivers on
 				HAL_GPIO_WritePin(ROMI_SLPL_GPIO_Port, ROMI_SLPL_Pin, SET);
 				HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
-
-				/* Update the encoders*/
-				//updateEncoder(&enc_right);
-				//updateEncoder(&enc_left);
-				//printf("%s Encoder Vel %f \t Pos %f\n\r",enc_left.tag,enc_left.vel, enc_left.pos);
-				//printf("%s Encoder Vel %f \t Pos %f\n\r",enc_right.tag,enc_right.vel, enc_right.pos);
-
-				//duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
-				//duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
-				//duty_l = 0.2;
-				//duty_r = 0.2;
-				//setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);
-				//setMTRSpeed(duty_l*MOTOR_PWM_PERIOD,&mot_left);
-
-				//printf("Left Speed = %f\t Right Speed =%f\n\r",speed_l,speed_r);
-				//printf("Left Duty = %f\t Right Duty =%f\n\r",duty_l,duty_r);
-
-				/*//update screen
-				SSD1306_GotoXY(10, 40);
-				sprintf(updatescr, "%ld",duty_l); //this is used to convert to the char array position[10]
-				SSD1306_Puts(updatescr, &Font_7x10, 1);
-				SSD1306_GotoXY(75, 40);
-				sprintf(updatescr, "%ld",duty_r); //this is used to convert to the char array position[10]
-				SSD1306_Puts(updatescr, &Font_7x10, 1);
-				SSD1306_UpdateScreen();
-				SSD1306_GotoXY(10, 50);
-				sprintf(updatescr, "%ld",speed_l); //this is used to convert to the char array position[10]
-				SSD1306_Puts(updatescr, &Font_7x10, 1);
-				SSD1306_GotoXY(75, 50);
-				sprintf(updatescr, "%ld",speed_r); //this is used to convert to the char array position[10]
-				SSD1306_Puts(updatescr, &Font_7x10, 1);
 				*/
 
 				//Check the sonars
 				checkSonar(&SONARS[SONAR1]);
 				checkSonar(&SONARS[SONAR2]);
-
 
 			}
 			tick = tock;
@@ -238,13 +204,25 @@ void appMain(void){
 			//check Edge Sensors
 			updateEdgeSensors();  //update the state of the edge sensors
 
-			MotorEvent event = updateMotors(pid_update,DT);
-					if(pid_update) {
-						setPIDState(&pid_left.state,&pid_right.state);
-						setEncoderState(&enc_left.state,&enc_right.state);
-					}
 
 		}
+
+		// update the motor controller state (handles driving to distance/turns etc)
+		// will also update the PID controller if the flag is set
+		MotorEvent event = updateMotors(pid_update,DT); // returns events flags if state changed or edge sensor triggered etc
+
+		if(pid_update) {
+					setPIDState(&pid_left.state,&pid_right.state);
+					setEncoderState(&enc_left.state,&enc_right.state);
+		}
+
+		updateControler(event); // update the main state machine (giving it any events that should be handled)
+		/*
+		if(send_telemetry) { // if flag is set send new telemetry data to the host
+			sendTelemetry();
+		}*/
+
+
 
 		/// use this to adjust the pwm
 
@@ -254,12 +232,8 @@ void appMain(void){
 				switch (c) {
 					case 'w':
 						drive(MAX_LIN_VEL/2.0f,0.0f);
-						/*
-						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l += SPEED_CHANGE;
-							speed_r += SPEED_CHANGE;
-						}*/
 						break;
+
 					case 'd':
 						/*
 						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
@@ -267,21 +241,21 @@ void appMain(void){
 							speed_r -= SPEED_CHANGE/2;
 						}*/
 						break;
+
 					case 'a':
-						drive(0.0f,MAX_ANG_VEL/4.0f);
-						/*
-						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_r += SPEED_CHANGE/2;
-							speed_l -= SPEED_CHANGE/2;
-						}*/
+						drive(0.0f,MAX_ANG_VEL/2.0f);
 						break;
+
 					case 's':
 						drive(0.0f,-MAX_ANG_VEL/4.0f);
-						/*
-						if((speed_l > -MAX_SPEED)&&(speed_r > -MAX_SPEED)){
-							speed_l -= SPEED_CHANGE;
-							speed_r -= SPEED_CHANGE;
-						}*/
+						break;
+
+					case '1': // return event to start controller in table top challenge level 1 mode
+						//MotorEvent event |= CE_M1;
+						break;
+
+					case '2': // return event to start controller in table top challenge level 1 mode
+						//MotorEvent event |= CE_M2;
 						break;
 
 					case ' ':
@@ -295,13 +269,6 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-		//	updateEdgeSensors();  //update the state of the edge sensors
-		//bool leftClif = getEdgeSensorState(BUMP_BIT_LEFT)==ES_HIT;
-		//bool rightClif = getEdgeSensorState(BUMP_BIT_RIGHT)==ES_HIT;
-
-			//if(leftClif || rightClif){
-			//	STOP();
-			//}
 
 
 			} //end of while loop

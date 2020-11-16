@@ -39,7 +39,7 @@ float PID_update (float target, float current, PID *pid){
 	    	}
 
 	    	// Long form message for debugging
-	    		//printf("PID: %s,  target=%d, current=%d, duty=%d, I=%d\n",pid_state->tag,(int)(target*1000),(int)(current*1000),(int)(duty*1000),(int)(I*1000));
+	    		printf("PID: %s,  target=%d, current=%d, duty=%d, I=%d\n\r", pid->tag,(int)(target*1000),(int)(current*1000),(int)(duty*1000),(int)(I*1000));
 
 	    		// Short form message for logging and PID tuning in matlab/octave
 	    		//printf("%c,%d,%d,%d,%d\n",pid_state->tag[0],(int)(target*1000),(int)(current*1000),(int)(duty*1000),(int)(I*1000));

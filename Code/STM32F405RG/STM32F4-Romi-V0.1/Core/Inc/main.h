@@ -59,7 +59,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define MOTOR_PWM_PERIOD 1000
+#define MOTOR_PWM_PERIOD 2000
 #define OLED_BTN_Pin GPIO_PIN_13
 #define OLED_BTN_GPIO_Port GPIOC
 #define OLED_BTN_EXTI_IRQn EXTI15_10_IRQn

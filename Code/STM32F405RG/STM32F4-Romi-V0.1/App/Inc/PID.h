@@ -3,8 +3,9 @@
  * By: Kyle Rodrigues
  *
  */
-#ifndef INC_PID_H
+#ifndef INC_PID_H_
 #define INC_PID_H_
+
 
 #include <stdbool.h>
 
@@ -28,10 +29,9 @@ typedef struct PID_t {
 	bool openLoop; // set true PID update is open loop pass through mode
 	const char * tag; // tag label for debug messages
 
-
 	PID_STATE state; // current state of the controller
 
-} PID;
+}PID;
 
 float PID_update (float target, float current, PID *pid);
 
@@ -39,4 +39,4 @@ extern PID pid_right;
 extern PID pid_left;
 
 
-#endif /*INC_PID_H_ */
+#endif /* INC_PID_H_ */

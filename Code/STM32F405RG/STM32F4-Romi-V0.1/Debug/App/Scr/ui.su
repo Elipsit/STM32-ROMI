@@ -1,2 +1,4 @@
-ui.c:42:6:setEncoderState	16	static
-ui.c:47:6:setPIDState	24	static
+ui.c:50:6:setEncoderState	16	static
+ui.c:56:6:setPIDState	24	static
+ui.c:62:6:setMotorState	4	static
+ui.c:67:6:setControlerState	4	static

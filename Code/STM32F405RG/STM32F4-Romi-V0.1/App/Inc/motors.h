@@ -17,11 +17,13 @@
 #define MAX_SPEED 10.0  //rad/s
 
 //#define MAX_VELOCITY 50.0
-#define SPEED_CHANGE 5.0
+#define SPEED_CHANGE 3 .0
 
 extern const float M_PI_F;
 
-#define MAX_LIN_VEL 0.5f         //  m/s
+//#define MAX_LIN_VEL 0.5f         //  m/s
+#define MAX_LIN_VEL 0.25f         //  m/s
+
 #define MAX_ANG_VEL (2.0f*M_PI_F)  //  rad/s
 
 

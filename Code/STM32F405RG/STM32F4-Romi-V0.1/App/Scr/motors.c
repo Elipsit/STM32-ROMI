@@ -40,7 +40,7 @@ const float M_PI_F = (3.141592653589793f);
 const float M_2PI_F = (2.0f*3.141592653589793f);
 
 // local prototypes
-void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+static void setMTRSpeed(float speed, const MOTOR_CONF *motor);
 static void updatePose(float DT);
 
 static float speed_l=0.0f; // desired left wheel speed (rad/sec)
@@ -72,13 +72,13 @@ void setMTRSpeed(float speed, const MOTOR_CONF *motor){
 	HAL_GPIO_WritePin(ROMI_SLPR_GPIO_Port, ROMI_SLPR_Pin, SET);
 
 	uint32_t direction = speed > 0?0:1; //if assignment, ternary operator
-	speed = abs(speed); //takes speed and returns absolute value
+	speed = fabsf(speed); //takes speed and returns absolute value
 	HAL_GPIO_WritePin(motor->gpio_port, motor->gpio_pin, direction==1 ?SET:RESET);
 
 	if(speed > MOTOR_PWM_PERIOD){
 		speed = MOTOR_PWM_PERIOD;
 	}
-	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,speed); //sets capture/compare register for the the duty; how fast the
+	__HAL_TIM_SET_COMPARE(motor->htim,motor->tim_ch,(uint32_t)speed); //sets capture/compare register for the the duty; how fast the
 }
 
 // set target velocity for each wheel (in rad/s)
@@ -131,6 +131,7 @@ MotorEvent updateMotors(bool pid_update, float DT) {
 		// run PID for speed control
 		duty_l = PID_update(speed_l,enc_left.vel,&pid_left);
 		duty_r = PID_update(speed_r,enc_right.vel,&pid_right);
+
 
 		// set output PWM duty for both motors
 		setMTRSpeed(duty_r*MOTOR_PWM_PERIOD,&mot_right);

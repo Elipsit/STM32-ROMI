@@ -9,6 +9,7 @@
 
 #include <stdbool.h>
 
+
 // Define PID (PI) state variables
 typedef	struct PID_STATE_t {
 	float error; // last error value
@@ -34,6 +35,9 @@ typedef struct PID_t {
 }PID;
 
 float PID_update (float target, float current, PID *pid);
+
+// Controller can be set to open loop to gather open loop data to use for tuning
+inline bool setOpenLoop(PID * pid, bool openLoop) { pid->openLoop=openLoop; return openLoop; };
 
 extern PID pid_right;
 extern PID pid_left;

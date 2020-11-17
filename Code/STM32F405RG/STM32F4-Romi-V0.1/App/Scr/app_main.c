@@ -81,8 +81,8 @@ char updatescr[10]; //use to update screen
 
 
 //PID
-#define KP 0.018f
-#define KI 0.0f
+#define KP 0.035f
+#define KI 1.0f
 
 //#define KP 0.065
 //#define KI 2.0
@@ -95,6 +95,9 @@ char updatescr[10]; //use to update screen
 // declare the PID state variables
 PID pid_right = {KP,KI,DT,false,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
 PID pid_left  = {KP,KI,DT,false,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
+
+//PID pid_right = {KP,KI,DT,true,"Right", {0.0f,0.0f,0.0f,0.0f,0.0f}};
+//PID pid_left  = {KP,KI,DT,true,"Left", {0.0f,0.0f,0.0f,0.0f,0.0f}};
 
 
 ENC_STATUS enc_right = {0,0,0,"Right", 0, &htim3,{0.0f,0.0f}};
@@ -165,7 +168,6 @@ void appMain(void){
 	//Edge Sensors
 	enableEdgeSensors(BUMP_BIT_LEFT | BUMP_BIT_RIGHT);
 
-
 	//Main program to loop forever
 	while(1){
 		uint32_t tock = HAL_GetTick();
@@ -216,13 +218,6 @@ void appMain(void){
 					setEncoderState(&enc_left.state,&enc_right.state);
 		}
 
-		updateControler(event); // update the main state machine (giving it any events that should be handled)
-		/*
-		if(send_telemetry) { // if flag is set send new telemetry data to the host
-			sendTelemetry();
-		}*/
-
-
 
 		/// use this to adjust the pwm
 
@@ -235,11 +230,7 @@ void appMain(void){
 						break;
 
 					case 'd':
-						/*
-						if((speed_l < MAX_SPEED)&&(speed_r < MAX_SPEED)){
-							speed_l += SPEED_CHANGE/2;
-							speed_r -= SPEED_CHANGE/2;
-						}*/
+						setMotorSpeed(0.5f, 0.8f);
 						break;
 
 					case 'a':
@@ -250,12 +241,25 @@ void appMain(void){
 						drive(0.0f,-MAX_ANG_VEL/4.0f);
 						break;
 
+				/*	case 'o':  // put PID in closed loop mode
+						setOpenLoop(&pid_left,false);
+						setOpenLoop(&pid_right,false);
+						//printf("Motors In Closed Loop Mode\n");
+						break;
+
+					case 'O':  // put PID in open loop mode
+						setOpenLoop(&pid_left,true);
+						setOpenLoop(&pid_right,true);
+						//printf("Motors In Open Loop Mode\n");
+						break;
+				*/
+
 					case '1': // return event to start controller in table top challenge level 1 mode
-						//MotorEvent event |= CE_M1;
+						 event |= CE_M1;
 						break;
 
 					case '2': // return event to start controller in table top challenge level 1 mode
-						//MotorEvent event |= CE_M2;
+						 event |= CE_M2;
 						break;
 
 					case ' ':
@@ -269,7 +273,11 @@ void appMain(void){
 				clearerr(stdin); // Reset the EOF Condition
 				}
 
-
+			updateControler(event); // update the main state machine (giving it any events that should be handled)
+			/*
+			if(send_telemetry) { // if flag is set send new telemetry data to the host
+				sendTelemetry();
+			}*/
 
 			} //end of while loop
 

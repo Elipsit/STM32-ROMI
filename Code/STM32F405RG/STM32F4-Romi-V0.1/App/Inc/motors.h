@@ -14,10 +14,10 @@
 #include "math.h"
 #include <stdbool.h>
 
-#define MAX_SPEED 10.0  //rad/s
+#define MAX_SPEED 1.0  //rad/s
 
 //#define MAX_VELOCITY 50.0
-#define SPEED_CHANGE 3 .0
+#define SPEED_CHANGE  0.1
 
 extern const float M_PI_F;
 
@@ -53,7 +53,7 @@ typedef enum MotorEvents_t {
 
 
 //Functions
-void setMTRSpeed(float speed, const MOTOR_CONF *motor);
+void setMotorSpeed(float left, float right);
 
 void STOP(void);
 

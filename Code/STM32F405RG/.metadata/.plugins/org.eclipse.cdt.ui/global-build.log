@@ -1,4 +1,4 @@
-22:17:48 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+20:27:10 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
 In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
@@ -117,7 +117,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                                                  ^~~~~~~~~~~~~~~~~~
 ../App/Scr/app_main.c: In function 'appMain':
-../App/Scr/app_main.c:174:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
+../App/Scr/app_main.c:176:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
    bool send_telemetry=false; // flag to say if we should send updated telemetry data to host this time through the loop
         ^~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
@@ -127,45 +127,21 @@ arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
 arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  50284	    720	   3720	  54724	   d5c4	STM32F4-Romi-V0.1.elf
+  50316	    720	   3720	  54756	   d5e4	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
 Finished building: STM32F4-Romi-V0.1.bin
  
 Finished building: STM32F4-Romi-V0.1.list
  
-22:18:17 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+20:27:18 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  50284	    720	   3720	  54724	   d5c4	STM32F4-Romi-V0.1.elf
+  50316	    720	   3720	  54756	   d5e4	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
-22:19:35 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
-make -j8 all 
-arm-none-eabi-gcc "../App/Scr/PID.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/PID.d" -MT"App/Scr/PID.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/PID.o"
-arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: STM32F4-Romi-V0.1.elf
- 
-arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
-arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
-arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
-   text	   data	    bss	    dec	    hex	filename
-  50436	    720	   3720	  54876	   d65c	STM32F4-Romi-V0.1.elf
-Finished building: default.size.stdout
- 
-Finished building: STM32F4-Romi-V0.1.bin
- 
-Finished building: STM32F4-Romi-V0.1.list
- 
-22:19:44 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
-make -j8 all 
-arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
-   text	   data	    bss	    dec	    hex	filename
-  50436	    720	   3720	  54876	   d65c	STM32F4-Romi-V0.1.elf
-Finished building: default.size.stdout
- 
-22:22:37 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+20:28:12 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../App/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
 In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
@@ -284,7 +260,7 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:1
        {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0.0}};
                                                  ^~~~~~~~~~~~~~~~~~
 ../App/Scr/app_main.c: In function 'appMain':
-../App/Scr/app_main.c:174:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
+../App/Scr/app_main.c:176:8: warning: variable 'send_telemetry' set but not used [-Wunused-but-set-variable]
    bool send_telemetry=false; // flag to say if we should send updated telemetry data to host this time through the loop
         ^~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "STM32F4-Romi-V0.1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\STM32F4-Romi-V0.1\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F4-Romi-V0.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
@@ -294,17 +270,17 @@ arm-none-eabi-objdump -h -S  STM32F4-Romi-V0.1.elf  > "STM32F4-Romi-V0.1.list"
 arm-none-eabi-objcopy  -O binary  STM32F4-Romi-V0.1.elf  "STM32F4-Romi-V0.1.bin"
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  50436	    720	   3720	  54876	   d65c	STM32F4-Romi-V0.1.elf
+  50316	    720	   3720	  54756	   d5e4	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  
 Finished building: STM32F4-Romi-V0.1.bin
  
 Finished building: STM32F4-Romi-V0.1.list
  
-22:22:58 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
+20:28:16 **** Incremental Build of configuration Debug for project STM32F4-Romi-V0.1 ****
 make -j8 all 
 arm-none-eabi-size   STM32F4-Romi-V0.1.elf 
    text	   data	    bss	    dec	    hex	filename
-  50436	    720	   3720	  54876	   d65c	STM32F4-Romi-V0.1.elf
+  50316	    720	   3720	  54756	   d5e4	STM32F4-Romi-V0.1.elf
 Finished building: default.size.stdout
  

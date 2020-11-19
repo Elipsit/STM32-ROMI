@@ -1,5 +1,4 @@
-App/Scr/ssd1306.o: ../App/Scr/ssd1306.c \
- ../App/Scr/../../app/Inc/ssd1306.h \
+App/Scr/ssd1306.o: ../App/Scr/ssd1306.c ../App/Inc/ssd1306.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -34,9 +33,9 @@ App/Scr/ssd1306.o: ../App/Scr/ssd1306.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../App/Scr/../../app/Inc/../../app/Inc/fonts.h
+ ../App/Inc/../../app/Inc/fonts.h
 
-../App/Scr/../../app/Inc/ssd1306.h:
+../App/Inc/ssd1306.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -106,4 +105,4 @@ App/Scr/ssd1306.o: ../App/Scr/ssd1306.c \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
-../App/Scr/../../app/Inc/../../app/Inc/fonts.h:
+../App/Inc/../../app/Inc/fonts.h:

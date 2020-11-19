@@ -37,8 +37,10 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
  ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/usart.h \
  ../Core/Inc/gpio.h ../Core/Inc/stm32f4xx_it.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../App/Inc/app_main.h ../App/Inc/PID.h ../App/Inc/app_main.h \
- ../App/Inc/encoder.h ../App/Inc/sonar.h ../App/Inc/edge_sensor.h \
+ ../App/Inc/app_main.h ../App/Inc/motors.h ../App/Inc/app_main.h \
+ ../App/Inc/control.h ../App/Inc/motors.h ../App/Inc/edge_sensor.h \
+ ../App/Inc/PID.h ../App/Inc/encoder.h ../App/Inc/interupt.h \
+ ../App/Inc/sonar.h ../App/Inc/ui.h ../App/Inc/encoder.h ../App/Inc/pid.h \
  ../App/Inc/fonts.h ../App/Inc/ssd1306.h ../App/Inc/../../app/Inc/fonts.h \
  ../App/Inc/test.h ../App/Scr/bitmap.h
 
@@ -134,15 +136,29 @@ App/Scr/app_main.o: ../App/Scr/app_main.c ../Core/Inc/main.h \
 
 ../App/Inc/app_main.h:
 
-../App/Inc/PID.h:
+../App/Inc/motors.h:
 
 ../App/Inc/app_main.h:
 
+../App/Inc/control.h:
+
+../App/Inc/motors.h:
+
+../App/Inc/edge_sensor.h:
+
+../App/Inc/PID.h:
+
 ../App/Inc/encoder.h:
+
+../App/Inc/interupt.h:
 
 ../App/Inc/sonar.h:
 
-../App/Inc/edge_sensor.h:
+../App/Inc/ui.h:
+
+../App/Inc/encoder.h:
+
+../App/Inc/pid.h:
 
 ../App/Inc/fonts.h:
 

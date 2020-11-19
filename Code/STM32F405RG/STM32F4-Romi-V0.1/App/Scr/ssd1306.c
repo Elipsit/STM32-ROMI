@@ -20,7 +20,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    ----------------------------------------------------------------------
  */
-#include "../../app/Inc/ssd1306.h"
+#include "ssd1306.h"
 
 extern I2C_HandleTypeDef hi2c1;
 /* Write command */

@@ -3,25 +3,44 @@
  * By: Kyle Rodrigues
  *
  */
-#ifndef INC_PID_H
+#ifndef INC_PID_H_
 #define INC_PID_H_
 
-#include "app_main.h"
 
-// The strut is named PID_t, the typedef is PID
-typedef struct PID_t{
-	float kp; //proportional error
-	float ki; //Integral error
-	float error; //error that is  tracking
-	float I; //running integral of error
-	char *tag;
-	float dt; //delta time
+#include <stdbool.h>
+
+
+// Define PID (PI) state variables
+typedef	struct PID_STATE_t {
+	float error; // last error value
+	float I;     // running integral of error
+
+	float ref;  // last setpoint
+	float fb;   // last feed back
+	float u;    // last output
+}PID_STATE;
+
+// Define PID Configuration including state
+typedef struct PID_t {
+	float kp; // Proportional tuning constant
+	float ki; // Integral tuning constant
+
+	float dt;    // time interval for updates
+
+	bool openLoop; // set true PID update is open loop pass through mode
+	const char * tag; // tag label for debug messages
+
+	PID_STATE state; // current state of the controller
 
 }PID;
 
-float PID_update (float target, float current, PID *PID_state);
+float PID_update (float target, float current, PID *pid);
+
+// Controller can be set to open loop to gather open loop data to use for tuning
+inline bool setOpenLoop(PID * pid, bool openLoop) { pid->openLoop=openLoop; return openLoop; };
+
+extern PID pid_right;
+extern PID pid_left;
 
 
-
-
-#endif /*INC_PID_H_ */
+#endif /* INC_PID_H_ */

@@ -2,7 +2,7 @@
  * edge_sensor.c
  *
  *  Created on: Oct 2, 2020
- *      Author: Kyle R.
+ *      Author: Kyle Rodrigues
  */
 
 #include <stdio.h>

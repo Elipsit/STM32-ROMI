@@ -1,10 +1,7 @@
-19:40:11 **** Incremental Build of configuration Debug for project BlueBot ****
-make -j8 all 
-arm-none-eabi-size   BlueBot.elf 
-   text	   data	    bss	    dec	    hex	filename
-  18632	    208	   2328	  21168	   52b0	BlueBot.elf
-Finished building: default.size.stdout
+20:31:26 **** Clean-only build of configuration Debug for project BlueBot ****
+make -j8 clean 
+rm -rf *
  
 
-19:40:11 Build Finished. 0 errors, 0 warnings. (took 366ms)
+20:31:26 Build Finished. 0 errors, 0 warnings. (took 220ms)
 

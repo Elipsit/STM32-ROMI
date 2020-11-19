@@ -2,7 +2,7 @@
  * sonar.c
  *
  *  Created on: Sep 19, 2020
- *      Author: livin
+ *      Author: Kyle Rodrigues
  */
 #include "sonar.h"
 #include "main.h"

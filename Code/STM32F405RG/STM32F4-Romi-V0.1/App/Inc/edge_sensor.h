@@ -2,7 +2,7 @@
  * edge_sensor.h
  *
  *  Created on: Oct 2, 2020
- *      Author: livin
+ *      Author: Kyle Rodrigues
  */
 
 #ifndef INC_EDGE_SENSOR_H_

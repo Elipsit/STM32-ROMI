@@ -14,7 +14,7 @@
 #define INC_SONAR_H_
 
 #include <stdbool.h> //this is required to use bool statements
-#include <stdint.h> //standard int
+#include <stdint.h> //standard interager
 #include <stdio.h>
 #include "tim.h"
 #include "main.h"
@@ -37,7 +37,6 @@ typedef struct SONAR_t {
 	uint32_t echo_port;
 	uint32_t echo_pin;
 	uint32_t tick;
-	uint32_t tock;
 	float distance;
 
 

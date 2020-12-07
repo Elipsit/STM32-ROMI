@@ -31,7 +31,7 @@ typedef enum SONAR_UPADTE_EVENT_t {
 } SONAR_UPDATE_EVENT;
 
 typedef struct SONAR_t {
-	char *sonar_ch;
+	const char *sonar_ch;
 	uint32_t trig_port;
 	uint32_t trig_pin;
 	uint32_t echo_port;

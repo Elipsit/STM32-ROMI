@@ -12,7 +12,7 @@
 
 #define SR04_MAX_READING 0.05f  // 50ms
 #define PING_MAX_READING 0.018f  // 18ms
-#define SONAR_TIM_SCALE 0.00000023977f //Define how much the time scales by
+#define SONAR_TIM_SCALE 1.0f //Define how much the time scales by
 uint32_t uSec = 10;
 
 const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
@@ -39,7 +39,7 @@ void updateSonar(SONAR_STATUS *sonar){
 	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
 	//sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
 	sonar->distance = (sonar->tock-sonar->tick + 0.0f)*SONAR_TIM_SCALE*SpeedOfSound;
-	printf("Sonar tick: %d \t Sonar tock: %d\n\r",sonar->tick,sonar->tock);
+	printf("Sonar tick: %ld \t Sonar tock: %d\n\r",sonar->tick,sonar->tock);
 	printf("%c Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
 
 }
@@ -50,7 +50,7 @@ void sonarISR(SONARID id){
 	//sonar->tick = tock - sonar->tick;
 	//updateSonar(sonar->tick);
 	sonar->tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
-	updateSonar(sonar->sonar_ch);
+	updateSonar(sonar->tock);
 
 }
 /*

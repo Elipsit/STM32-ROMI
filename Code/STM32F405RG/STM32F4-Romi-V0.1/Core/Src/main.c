@@ -53,6 +53,7 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim9; //Sonar 1mS Timer
 extern UART_HandleTypeDef huart2;
 
@@ -126,6 +127,7 @@ int main(void)
   MX_TIM11_Init();
   MX_USART3_UART_Init();
   MX_CAN1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   //Start the timer
   HAL_TIM_Base_Start_IT(&htim6);

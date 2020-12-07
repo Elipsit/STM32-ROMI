@@ -1,3 +1,3 @@
 sonar.c:21:6:checkSonar	16	static
-sonar.c:38:6:updateSonar	24	static
+sonar.c:38:6:updateSonar	16	static
 sonar.c:47:6:sonarISR	24	static

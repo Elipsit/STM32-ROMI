@@ -12,11 +12,11 @@
 
 #define SR04_MAX_READING 0.05f  // 50ms
 #define PING_MAX_READING 0.018f  // 18ms
-#define SONAR_TIM_SCALE 1.0f //Define how much the time scales by
+
 uint32_t uSec = 10;
 
-const float SpeedOfSound = 0.0343/2; //divided by 2 since its the speed to reach the object and come back
-
+const float SpeedOfSound = 0.0343/2; //cm/uSec divided by 2 since its the speed to reach the object and come back
+const float SONAR_TIM_SCALE = 2.8; //Define how much the time scales by
 
 void checkSonar(SONAR_STATUS *sonar){
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
@@ -31,24 +31,27 @@ void checkSonar(SONAR_STATUS *sonar){
 	TIM7 -> SR &= ~(0x0001);
 
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET);//Set to low again to start reading
-	sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	//sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
 	//printf(" %c Sonar tick: %ld\n\r",sonar->sonar_ch,sonar->tick);
 }
 
 void updateSonar(SONAR_STATUS *sonar){
 	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
 	//sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
-	sonar->distance = (sonar->tock-sonar->tick + 0.0f)*SONAR_TIM_SCALE*SpeedOfSound;
-	printf("Sonar tick: %ld \t Sonar tock: %d\n\r",sonar->tick,sonar->tock);
-	printf("%c Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
+	//sonar->distance = (sonar->tock-sonar->tick + 0.0f)*SONAR_TIM_SCALE*SpeedOfSound;
+	printf("Sonar tick: %ld \t Sonar tock: %ld\n\r",sonar->tick,sonar->tock);
+	//printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
 
 }
 //This is called as an interrupt controller, do minimal stuff in here and leave
 void sonarISR(SONARID id){
 	SONAR_STATUS *sonar = &SONARS[id];
-	//uint32_t tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
-	//sonar->tick = tock - sonar->tick;
-	//updateSonar(sonar->tick);
+	sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+
+	while(HAL_GPIO_ReadPin(sonar->echo_port, sonar->echo_pin)== GPIO_PIN_SET)
+	{
+		// Wait for pin to go low
+	}
 	sonar->tock = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
 	updateSonar(sonar->tock);
 

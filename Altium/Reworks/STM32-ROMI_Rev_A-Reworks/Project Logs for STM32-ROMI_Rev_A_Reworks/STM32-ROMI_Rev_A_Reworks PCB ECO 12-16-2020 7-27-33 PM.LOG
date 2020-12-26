@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=ECHOL Pin=U1-27
+Removed Pin From Net: NetName=SERVO1_PWM Pin=U1-36
+Removed Pin From Net: NetName=ECHOR Pin=U1-42
+Added Pin To Net: NetName=SERVO1_PWM Pin=U1-27
+Added Pin To Net: NetName=ECHOR Pin=U1-36
+Added Pin To Net: NetName=ECHOL Pin=U1-42

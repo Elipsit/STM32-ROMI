@@ -123,11 +123,13 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM6_Init();
   MX_TIM9_Init();
-  MX_TIM12_Init();
   MX_TIM11_Init();
   MX_USART3_UART_Init();
   MX_CAN1_Init();
   MX_TIM7_Init();
+  MX_TIM1_Init();
+  MX_TIM12_Init();
+  MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
   //Start the timer
   HAL_TIM_Base_Start_IT(&htim6);

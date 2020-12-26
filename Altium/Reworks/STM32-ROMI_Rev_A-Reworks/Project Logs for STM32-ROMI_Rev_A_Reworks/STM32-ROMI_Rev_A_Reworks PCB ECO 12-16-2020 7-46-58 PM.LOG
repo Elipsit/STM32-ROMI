@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=TXO Pin=CN6-1
+Removed Pin From Net: NetName=RXO Pin=CN6-8
+Added Pin To Net: NetName=RXO Pin=CN6-1
+Added Pin To Net: NetName=TXO Pin=CN6-8

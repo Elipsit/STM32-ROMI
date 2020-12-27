@@ -1,0 +1,56 @@
+/*
+ * sonar.c
+ *
+ *  Created on: Sep 19, 2020
+ *      Author: Kyle Rodrigues
+ *
+ *      To Do: fix timer scale factor
+ */
+#include "sonar.h"
+#include "main.h"
+#include "tim.h"
+
+#define SR04_MAX_READING 0.05f  // 50ms
+#define PING_MAX_READING 0.018f  // 18ms
+
+uint32_t uSec = 10;
+
+const float SpeedOfSound = 0.0343/2; //cm/uSec divided by 2 since its the speed to reach the object and come back
+const float SONAR_TIM_SCALE = 2.8; //Define how much the time scales by
+
+void uSec_Delay(uint32_t uSec);
+
+void checkSonar(SONAR_STATUS *sonar){
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
+	/* This is a 10uS delay*/
+	uSec_Delay(10);
+	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET);//Set to low again to start reading
+	//sonar->tick = __HAL_TIM_GET_COUNTER(&htim9); //grab the count value in the counter register
+	//printf(" %c Sonar tick: %ld\n\r",sonar->sonar_ch,sonar->tick);
+}
+
+void updateSonar(SONAR_STATUS *sonar){
+	//4. Estimate distance. 0.0f type casts as a float, multiply by actual delay 2.8uS
+	//sonar->distance = (sonar->tick + 0.0f)*2.8*SpeedOfSound;
+	//sonar->distance = (sonar->tock-sonar->tick + 0.0f)*SONAR_TIM_SCALE*SpeedOfSound;
+	printf("Sonar tick: %ld \t Sonar tock: %ld\n\r",sonar->tick,sonar->tock);
+	//printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
+
+}
+
+
+
+void uSec_Delay(uint32_t uSec)
+{
+	if(uSec < 2)uSec = 2;
+	uSTIM->ARR = uSec - 1; 	//Sets the value in the auto reload register
+	uSTIM -> EGR = 1;		//Re-initialize the Timer
+	uSTIM -> SR &= ~1;  	//Resets the flag
+	uSTIM ->CR1 |= 1;		//Enables the counter
+	while((uSTIM -> SR&0x0001) != 1);
+	uSTIM -> SR &= ~(0x0001);
+
+}
+
+

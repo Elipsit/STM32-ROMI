@@ -22,7 +22,6 @@
 #include "can.h"
 #include "dac.h"
 #include "i2c.h"
-#include "rtc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -30,6 +29,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include <stdio.h>
+#include <string.h>
+#include <stm32f4xx_hal.h>
+#include "app_main.h"
+
+//******Setup PrintF****
+#define IO_UART huart2 // **** change this to the UART your board uses ****
 
 /* USER CODE END Includes */
 
@@ -40,6 +47,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+extern TIM_HandleTypeDef htim1;  // Sonar Right
+extern TIM_HandleTypeDef htim12; //Sonar Left
+extern TIM_HandleTypeDef htim7; //Sonar 1mS Timer
+extern UART_HandleTypeDef huart2;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -102,7 +113,6 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM5_Init();
   MX_TIM6_Init();
-  MX_TIM9_Init();
   MX_TIM11_Init();
   MX_USART3_UART_Init();
   MX_CAN1_Init();
@@ -110,7 +120,6 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM12_Init();
   MX_TIM8_Init();
-  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -119,6 +128,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  appMain(); // will not return from here
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -134,7 +145,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage
   */
@@ -143,10 +153,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
@@ -170,15 +179,44 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-  PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
 }
 
 /* USER CODE BEGIN 4 */
+
+/* This function sets up the serial printf*/
+int __io_putchar(int ch) {
+    HAL_StatusTypeDef sts = HAL_UART_Transmit(&IO_UART ,(uint8_t*)&ch,1,10);
+    if(sts == HAL_OK) {
+        return ch;
+    }
+    return EOF;
+}
+int __io_getchar(void) {
+    if(__HAL_UART_GET_FLAG(&IO_UART , UART_FLAG_RXNE)) {
+        uint8_t ch=0;
+        __HAL_UART_CLEAR_FEFLAG(&IO_UART );
+        __HAL_UART_CLEAR_OREFLAG(&IO_UART );
+        __HAL_UART_CLEAR_PEFLAG(&IO_UART );
+        HAL_StatusTypeDef sts = HAL_UART_Receive(&IO_UART ,&ch,1,1);
+        if(sts == HAL_OK) {
+            return (int)ch;
+        }
+    }
+    return EOF;
+}
+int _read(int file, char *ptr, int len){
+int DataIdx;
+    for (DataIdx = 0; DataIdx < len; DataIdx++) {
+        int ch =  __io_getchar();
+        if(ch != EOF) {
+             *ptr++ = ch;
+        }
+        else {
+            return DataIdx;
+        }
+    }
+    return len;
+}
 
 /* USER CODE END 4 */
 

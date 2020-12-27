@@ -49,12 +49,14 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 //extern the timer variable to pass it to the interrupt
+extern TIM_HandleTypeDef htim1; // Right Sonar
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim9; //Sonar 1mS Timer
+extern TIM_HandleTypeDef htim12; //Left Sonar
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE END PD */
@@ -122,7 +124,6 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM5_Init();
   MX_TIM6_Init();
-  MX_TIM9_Init();
   MX_TIM11_Init();
   MX_USART3_UART_Init();
   MX_CAN1_Init();

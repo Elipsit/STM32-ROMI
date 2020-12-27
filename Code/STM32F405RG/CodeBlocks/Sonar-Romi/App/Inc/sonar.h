@@ -19,7 +19,7 @@
 #include "tim.h"
 #include "main.h"
 
-#define uSTIM TIM9
+#define uSTIM TIM7
 
 
 // event flag to pass to updateSonars method
@@ -63,8 +63,7 @@ typedef enum SONARID_t{
 }SONARID;
 
 void checkSonar(SONAR_STATUS *sonar);
-void updateSonar(SONAR_STATUS *sonar);
-void sonarISR(SONARID id);
+void checkSonar(SONAR_STATUS *sonar);
 
 extern SONAR_STATUS SONARS[numSONAR];
 

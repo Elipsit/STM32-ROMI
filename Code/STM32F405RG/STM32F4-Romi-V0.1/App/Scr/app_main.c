@@ -65,8 +65,8 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
-//extern TIM_HandleTypeDef htim7;
-extern TIM_HandleTypeDef htim9; //sonar 1uSec
+extern TIM_HandleTypeDef htim7;  //sonar 1uSec
+//extern TIM_HandleTypeDef htim9; //sonar 1uSec
 
 SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0,0.0},
 						{"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0,0.0},
@@ -120,7 +120,7 @@ void appMain(void){
 	RevBit[2] =	HAL_GPIO_ReadPin(REV_BIT2_GPIO_Port, REV_BIT2_Pin);
 
 	//Start the 1uSec timer for sonar
-	HAL_TIM_Base_Start(&htim9);
+	//HAL_TIM_Base_Start(&htim9);
 
 	//hal pwm start
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);  //Start PWM
@@ -198,8 +198,8 @@ void appMain(void){
 				*/
 
 				//Check the sonars
-				checkSonar(&SONARS[SONAR1]);
-				checkSonar(&SONARS[SONAR2]);
+        		checkSonarL(&SONARS[SONAR1]);
+        		checkSonarR(&SONARS[SONAR2]);
 
 			}
 			tick = tock;

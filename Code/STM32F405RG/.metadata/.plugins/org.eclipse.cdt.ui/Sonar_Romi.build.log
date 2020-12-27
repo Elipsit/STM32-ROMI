@@ -1,0 +1,10 @@
+19:48:47 **** Incremental Build of configuration Debug for project Sonar_Romi ****
+make -j8 all 
+arm-none-eabi-size   Sonar_Romi.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44084	    588	   3732	  48404	   bd14	Sonar_Romi.elf
+Finished building: default.size.stdout
+ 
+
+19:48:48 Build Finished. 0 errors, 0 warnings. (took 317ms)
+

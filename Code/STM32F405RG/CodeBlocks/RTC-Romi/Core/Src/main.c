@@ -120,7 +120,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  appMain(); // will not return from here
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -179,6 +179,41 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/* This function sets up the serial printf*/
+int __io_putchar(int ch) {
+    HAL_StatusTypeDef sts = HAL_UART_Transmit(&IO_UART ,(uint8_t*)&ch,1,10);
+    if(sts == HAL_OK) {
+        return ch;
+    }
+    return EOF;
+}
+int __io_getchar(void) {
+    if(__HAL_UART_GET_FLAG(&IO_UART , UART_FLAG_RXNE)) {
+        uint8_t ch=0;
+        __HAL_UART_CLEAR_FEFLAG(&IO_UART );
+        __HAL_UART_CLEAR_OREFLAG(&IO_UART );
+        __HAL_UART_CLEAR_PEFLAG(&IO_UART );
+        HAL_StatusTypeDef sts = HAL_UART_Receive(&IO_UART ,&ch,1,1);
+        if(sts == HAL_OK) {
+            return (int)ch;
+        }
+    }
+    return EOF;
+}
+int _read(int file, char *ptr, int len){
+int DataIdx;
+    for (DataIdx = 0; DataIdx < len; DataIdx++) {
+        int ch =  __io_getchar();
+        if(ch != EOF) {
+             *ptr++ = ch;
+        }
+        else {
+            return DataIdx;
+        }
+    }
+    return len;
+}
 
 /* USER CODE END 4 */
 

@@ -55,7 +55,7 @@ typedef enum MotorEvents_t {
 //Functions
 void setMotorSpeed(float left, float right);
 
-void STOP(void);
+extern void STOP(void);
 
 void drive(float lin_vel, float ang_vel);
 

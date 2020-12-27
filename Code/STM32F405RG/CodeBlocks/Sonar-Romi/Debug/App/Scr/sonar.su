@@ -1,0 +1,3 @@
+sonar.c:25:6:checkSonar	32	static
+sonar.c:86:6:HAL_TIM_IC_CaptureCallback	16	static
+sonar.c:106:6:uSec_Delay	16	static

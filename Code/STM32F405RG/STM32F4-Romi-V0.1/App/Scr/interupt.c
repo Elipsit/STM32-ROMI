@@ -7,10 +7,10 @@
 
 #include "main.h"
 #include "sonar.h"
-
+/*
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  /* Prevent unused argument(s) compilation warning */
+  // Prevent unused argument(s) compilation warning
   switch (GPIO_Pin) {
 	case ECHOL_Pin:
 		sonarISR(SONAR1);
@@ -27,7 +27,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	default:
 		break;
 }
-  /* NOTE: This function Should not be modified, when the callback is needed,
+  // NOTE: This function Should not be modified, when the callback is needed,
            the HAL_GPIO_EXTI_Callback could be implemented in the user file
-   */
-}
+
+}*/

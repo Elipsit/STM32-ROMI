@@ -83,7 +83,7 @@ char updatescr[10]; //use to update screen
 
 //PID
 #define KP 0.035f
-#define KI 1.0f
+#define KI 0.75f
 
 //#define KP 0.065
 //#define KI 2.0

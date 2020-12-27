@@ -84,7 +84,7 @@ void checkSonar(SONAR_STATUS *sonar){
 			STOP();
 		}
 	//Print to UART terminal for debugging
-	printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
+	//printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
 	//printf("Edge Time 1: %ld \t Edge Time 2: %ld\n\n\r",edge1Time,edge2Time);
 
 }

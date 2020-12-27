@@ -9,6 +9,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\github\STM32Romi_RevB\Code\STM32F405RG\STM32F4-Romi-V0.2"/>
+			<item value="C:\github\STM32-ROMI\Code\STM32F405RG\CodeBlocks\Sonar-Romi"/>
 			<item value="C:\github\STM32\STM32F4\STM32L452RE\STM32L4-SSD1306"/>
 			<item value="C:\github\STM32\ecarnival\BlueBot"/>
 			<item value="C:\github\STM32\tof\TOFCANFirmware"/>

@@ -1,7 +1,7 @@
 /*
  * sonar.h
  *
- *  Created on: December 26th, 2020
+ *  Created on: Sep 19, 2020
  *      Author: Kyle Rodrigues
  *
  *      ECHOL = GPIO_EXTI1 - EXTI1_IRQHandler(void)

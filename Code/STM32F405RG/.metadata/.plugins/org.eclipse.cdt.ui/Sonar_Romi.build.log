@@ -1,10 +1,173 @@
-19:48:47 **** Incremental Build of configuration Debug for project Sonar_Romi ****
+20:04:13 **** Incremental Build of configuration Debug for project Sonar_Romi ****
 make -j8 all 
+arm-none-eabi-gcc "../App/Scr/app_main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../App/Inc -I../App/Scr -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/app_main.d" -MT"App/Scr/app_main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/app_main.o"
+arm-none-eabi-gcc "../App/Scr/sonar.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32F405xx -DUSE_HAL_DRIVER -DDEBUG -c -I../App/Inc -I../App/Scr -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"App/Scr/sonar.d" -MT"App/Scr/sonar.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Scr/sonar.o"
+../App/Scr/sonar.c: In function 'checkSonar':
+../App/Scr/sonar.c:26:20: warning: passing argument 1 of 'HAL_GPIO_WritePin' makes pointer from integer without a cast [-Wint-conversion]
+  HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
+                    ^~~~~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:276:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../Core/Inc/tim.h:27,
+                 from ../App/Inc/sonar.h:19,
+                 from ../App/Scr/sonar.c:9:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:236:6: note: expected 'GPIO_TypeDef * {aka struct <anonymous> *}' but argument is of type 'uint32_t {aka long unsigned int}'
+ void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+      ^~~~~~~~~~~~~~~~~
+../App/Scr/sonar.c:28:20: warning: passing argument 1 of 'HAL_GPIO_WritePin' makes pointer from integer without a cast [-Wint-conversion]
+  HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
+                    ^~~~~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:276:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../Core/Inc/tim.h:27,
+                 from ../App/Inc/sonar.h:19,
+                 from ../App/Scr/sonar.c:9:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:236:6: note: expected 'GPIO_TypeDef * {aka struct <anonymous> *}' but argument is of type 'uint32_t {aka long unsigned int}'
+ void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+      ^~~~~~~~~~~~~~~~~
+../App/Scr/sonar.c:30:20: warning: passing argument 1 of 'HAL_GPIO_WritePin' makes pointer from integer without a cast [-Wint-conversion]
+  HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET);//Set to low again to start reading
+                    ^~~~~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:276:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../Core/Inc/tim.h:27,
+                 from ../App/Inc/sonar.h:19,
+                 from ../App/Scr/sonar.c:9:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:236:6: note: expected 'GPIO_TypeDef * {aka struct <anonymous> *}' but argument is of type 'uint32_t {aka long unsigned int}'
+ void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+      ^~~~~~~~~~~~~~~~~
+In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:129:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:30,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:29,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:272,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../App/Scr/app_main.c:30:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:62:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].trig_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:85:25: note: in expansion of macro 'GPIOB'
+ #define TRIGL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:62:33: note: in expansion of macro 'TRIGL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0,0.0},
+                                 ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:100:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:62:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1002:29: note: (near initialization for 'SONARS[0].echo_port')
+ #define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+                             ^
+../Core/Inc/main.h:100:25: note: in expansion of macro 'GPIOB'
+ #define ECHOL_GPIO_Port GPIOB
+                         ^~~~~
+../App/Scr/app_main.c:62:59: note: in expansion of macro 'ECHOL_GPIO_Port'
+ SONAR_STATUS SONARS[] ={{"Left",TRIGL_GPIO_Port,TRIGL_Pin,ECHOL_GPIO_Port,ECHOL_Pin,0,0,0.0},
+                                                           ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:111:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:63:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].trig_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:111:25: note: in expansion of macro 'GPIOA'
+ #define TRIGR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:63:16: note: in expansion of macro 'TRIGR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0,0.0},
+                ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:109:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:63:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1001:29: note: (near initialization for 'SONARS[1].echo_port')
+ #define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+                             ^
+../Core/Inc/main.h:109:25: note: in expansion of macro 'GPIOA'
+ #define ECHOR_GPIO_Port GPIOA
+                         ^~~~~
+../App/Scr/app_main.c:63:42: note: in expansion of macro 'ECHOR_GPIO_Port'
+       {"Right",TRIGR_GPIO_Port,TRIGR_Pin,ECHOR_GPIO_Port,ECHOR_Pin,0,0,0.0},
+                                          ^~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:107:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:64:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].trig_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:107:28: note: in expansion of macro 'GPIOC'
+ #define TRIG_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:64:17: note: in expansion of macro 'TRIG_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0,0.0}};
+                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:104:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:64:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h:1003:29: note: (near initialization for 'SONARS[2].echo_port')
+ #define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+                             ^
+../Core/Inc/main.h:104:28: note: in expansion of macro 'GPIOC'
+ #define ECHO_CTR_GPIO_Port GPIOC
+                            ^~~~~
+../App/Scr/app_main.c:64:49: note: in expansion of macro 'ECHO_CTR_GPIO_Port'
+       {"Center",TRIG_CTR_GPIO_Port,TRIG_CTR_Pin,ECHO_CTR_GPIO_Port,ECHO_CTR_Pin,0,0,0.0}};
+                                                 ^~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Sonar_Romi.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\CodeBlocks\Sonar-Romi\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sonar_Romi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Sonar_Romi.elf
+ 
+arm-none-eabi-objdump -h -S  Sonar_Romi.elf  > "Sonar_Romi.list"
+arm-none-eabi-objcopy  -O binary  Sonar_Romi.elf  "Sonar_Romi.bin"
 arm-none-eabi-size   Sonar_Romi.elf 
    text	   data	    bss	    dec	    hex	filename
   44084	    588	   3732	  48404	   bd14	Sonar_Romi.elf
 Finished building: default.size.stdout
  
+Finished building: Sonar_Romi.bin
+ 
+Finished building: Sonar_Romi.list
+ 
 
-19:48:48 Build Finished. 0 errors, 0 warnings. (took 317ms)
+20:04:15 Build Finished. 0 errors, 9 warnings. (took 1s.290ms)
 

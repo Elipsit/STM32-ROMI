@@ -198,8 +198,8 @@ void appMain(void){
 				*/
 
 				//Check the sonars
-        		checkSonar(&SONARS[SONAR1]);
-        		checkSonar(&SONARS[SONAR2]);
+        		checkSonarL(&SONARS[SONAR1]);
+        		checkSonarR(&SONARS[SONAR2]);
 
 			}
 			tick = tock;

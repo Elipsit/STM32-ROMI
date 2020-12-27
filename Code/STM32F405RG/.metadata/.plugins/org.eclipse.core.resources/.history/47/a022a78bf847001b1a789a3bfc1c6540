@@ -9,6 +9,7 @@
 #include "sonar.h"
 #include "main.h"
 #include "tim.h"
+#include "motors.h"
 
 #define SR04_MAX_READING 0.05f  // 50ms
 #define PING_MAX_READING 0.018f  // 18ms
@@ -16,6 +17,7 @@
 uint8_t icFlag = 0;
 uint8_t captureIdx=0;
 uint32_t edge1Time=0, edge2Time=0;
+uint32_t DistanceDec;
 
 const float speedOfSound = 0.0171821; //cm/uSec divided by 2 since its the speed to reach the object and come back
 
@@ -53,6 +55,7 @@ void checkSonar(SONAR_STATUS *sonar){
 		}while((HAL_GetTick() - startTick) < 500);  // timeout of 500ms
 		icFlag = 0;
 
+		//(switch case to pick correct timer)
 		switch (sonar->trig_pin) {
 			case TRIGL_Pin:
 				HAL_TIM_IC_Stop_IT(&htim12, TIM_CHANNEL_2);
@@ -76,6 +79,10 @@ void checkSonar(SONAR_STATUS *sonar){
 		}
 
 
+		if(0.0f < sonar->distance <= 4.0f){
+			printf("%s Sonar Object in path (cm): %f\n\n\r",sonar->sonar_ch);
+			STOP();
+		}
 	//Print to UART terminal for debugging
 	printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
 	printf("Edge Time 1: %ld \t Edge Time 2: %ld\n\n\r",edge1Time,edge2Time);

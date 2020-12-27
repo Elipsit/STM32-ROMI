@@ -17,13 +17,14 @@
 uint8_t icFlag = 0;
 uint8_t captureIdx=0;
 uint32_t edge1Time=0, edge2Time=0;
+uint32_t DistanceDec;
 
 const float speedOfSound = 0.0171821; //cm/uSec divided by 2 since its the speed to reach the object and come back
 
 
 void uSec_Delay(uint32_t uSec);
 
-void checkSonarL(SONAR_STATUS *sonar){
+void checkSonar(SONAR_STATUS *sonar){
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
 	uSec_Delay(3);
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
@@ -31,9 +32,21 @@ void checkSonarL(SONAR_STATUS *sonar){
 	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET);//Set to low again to start reading
 
 	//2. ECHO signal pulse width
-	//Start IC timer
+	//Start IC timer (switch case to pick correct timer)
+		switch (sonar->trig_pin) {
+			case TRIGL_Pin:
+				HAL_TIM_IC_Start_IT(&htim12, TIM_CHANNEL_2);
+				break;
 
-		HAL_TIM_IC_Start_IT(&htim12, TIM_CHANNEL_2);
+			case TRIGR_Pin:
+				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);
+				break;
+
+			default:
+				break;
+		}
+
+		//HAL_TIM_IC_Start_IT(&htim12, TIM_CHANNEL_2);
 
 		//Wait for IC flag
 		uint32_t startTick = HAL_GetTick();
@@ -41,7 +54,22 @@ void checkSonarL(SONAR_STATUS *sonar){
 			if(icFlag) break;
 		}while((HAL_GetTick() - startTick) < 500);  // timeout of 500ms
 		icFlag = 0;
-		HAL_TIM_IC_Stop_IT(&htim12, TIM_CHANNEL_2);
+
+		//(switch case to pick correct timer)
+		switch (sonar->trig_pin) {
+			case TRIGL_Pin:
+				HAL_TIM_IC_Stop_IT(&htim12, TIM_CHANNEL_2);
+				break;
+
+			case TRIGR_Pin:
+				HAL_TIM_IC_Stop_IT(&htim1, TIM_CHANNEL_2);
+				break;
+
+			default:
+				break;
+		}
+
+		//HAL_TIM_IC_Stop_IT(&htim12, TIM_CHANNEL_2);
 
 		//Calculate distance in cm
 		if(edge2Time > edge1Time){
@@ -51,46 +79,13 @@ void checkSonarL(SONAR_STATUS *sonar){
 		}
 
 
-	//Print to UART terminal for debugging
-	printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
-	printf("Edge Time 1: %ld \t Edge Time 2: %ld\n\n\r",edge1Time,edge2Time);
-
-}
-
-void checkSonarR(SONAR_STATUS *sonar){
-	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET); //Set the Trigger pin low
-	uSec_Delay(3);
-	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,SET);//keep high for 10uS
-	uSec_Delay(10); /* This is a 10uS delay*/
-	HAL_GPIO_WritePin(sonar->trig_port,sonar->trig_pin,RESET);//Set to low again to start reading
-
-	//2. ECHO signal pulse width
-	//Start IC timer
-
-		HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);
-
-		//Wait for IC flag
-		uint32_t startTick = HAL_GetTick();
-		do{
-			if(icFlag) break;
-		}while((HAL_GetTick() - startTick) < 500);  // timeout of 500ms
-		icFlag = 0;
-		HAL_TIM_IC_Stop_IT(&htim1, TIM_CHANNEL_2);
-
-		//Calculate distance in cm
-		if(edge2Time > edge1Time){
-			sonar->distance = ((edge2Time - edge1Time) + 0.0f)*speedOfSound;
-		}else{
-			sonar->distance = 0.0f;
-		}
-
-		/*if(0 < sonar->distance <= 5){
-			printf("***** %s Sonar Obstacle ***** \n\n\r",sonar->sonar_ch);
+		if((sonar->distance > 0.0f) && (sonar->distance < 5.0f)){
+			printf("%s Sonar Object in path (cm): %f\n\n\r",sonar->sonar_ch);
 			STOP();
-		}*/
+		}
 	//Print to UART terminal for debugging
 	printf("%s Sonar Distance (cm): %f\n\n\r",sonar->sonar_ch,sonar->distance);
-	printf("Edge Time 1: %ld \t Edge Time 2: %ld\n\n\r",edge1Time,edge2Time);
+	//printf("Edge Time 1: %ld \t Edge Time 2: %ld\n\n\r",edge1Time,edge2Time);
 
 }
 
@@ -98,7 +93,7 @@ void checkSonarR(SONAR_STATUS *sonar){
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 
-	//HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
+	HAL_GPIO_TogglePin(Blinky_GPIO_Port, Blinky_Pin);
 
 		if(captureIdx == 0) //First edge
 		{

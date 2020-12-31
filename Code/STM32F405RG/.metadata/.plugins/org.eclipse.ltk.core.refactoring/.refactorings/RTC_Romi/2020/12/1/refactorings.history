@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;RTC_Romi/Sonar_Romi.ioc&apos; to &apos;RTC_Romi.ioc&apos;" description="Rename resource &apos;Sonar_Romi.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sonar_Romi.ioc" name="RTC_Romi.ioc" stamp="1609095593697" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;RTC_Romi/App/Inc/rtc.h&apos; to &apos;test_rtc.h&apos;" description="Rename resource &apos;rtc.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="App/Inc/rtc.h" name="test_rtc.h" stamp="1609114124041" updateReferences="true"/>
+</session>

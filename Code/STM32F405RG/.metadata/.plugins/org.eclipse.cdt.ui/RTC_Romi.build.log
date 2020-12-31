@@ -1,0 +1,10 @@
+19:05:12 **** Incremental Build of configuration Debug for project RTC_Romi ****
+make -j8 all 
+arm-none-eabi-size   RTC_Romi.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44764	    492	   3748	  49004	   bf6c	RTC_Romi.elf
+Finished building: default.size.stdout
+ 
+
+19:05:12 Build Finished. 0 errors, 0 warnings. (took 325ms)
+

@@ -1,0 +1,19 @@
+15:09:39 **** Incremental Build of configuration Debug for project Time_Romi ****
+make -j8 all 
+arm-none-eabi-gcc -o "Time_Romi.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\github\STM32-ROMI\Code\STM32F405RG\CodeBlocks\Time_Romi\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Time_Romi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Time_Romi.elf
+ 
+arm-none-eabi-objdump -h -S  Time_Romi.elf  > "Time_Romi.list"
+arm-none-eabi-objcopy  -O binary  Time_Romi.elf  "Time_Romi.bin"
+arm-none-eabi-size   Time_Romi.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46632	    492	   3772	  50896	   c6d0	Time_Romi.elf
+Finished building: default.size.stdout
+ 
+Finished building: Time_Romi.bin
+ 
+Finished building: Time_Romi.list
+ 
+
+15:09:40 Build Finished. 0 errors, 0 warnings. (took 874ms)
+

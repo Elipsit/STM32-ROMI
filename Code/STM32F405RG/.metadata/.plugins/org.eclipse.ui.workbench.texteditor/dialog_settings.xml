@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=""/>
+		<item key="selection" value="RTC"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="rtc"/>
+			<item value="hrtc"/>
+			<item value="setMotorSpeed"/>
+			<item value="setmot"/>
+			<item value="setm"/>
+			<item value="set"/>
 			<item value="HAL_TIM_IC_CaptureCallback"/>
 			<item value="void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)"/>
 			<item value="tim12"/>
@@ -17,12 +23,6 @@
 			<item value="hal_tim_ic_cap"/>
 			<item value="hal_tim_ic"/>
 			<item value="mot_right"/>
-			<item value="vel"/>
-			<item value="enable"/>
-			<item value="readSensors"/>
-			<item value="edge"/>
-			<item value="stop"/>
-			<item value="checkSonar"/>
 		</list>
 		<list key="replacehistory">
 		</list>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Time_Romi/Sonar_Romi.ioc&apos; to &apos;Time_Romi.ioc&apos;" description="Rename resource &apos;Sonar_Romi.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sonar_Romi.ioc" name="Time_Romi.ioc" stamp="1609127265558" updateReferences="true"/>
+</session>

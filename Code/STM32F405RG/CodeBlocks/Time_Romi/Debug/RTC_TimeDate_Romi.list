@@ -3887,8 +3887,8 @@ void MX_RTC_Init(void)
 {
  8001fa4:	b580      	push	{r7, lr}
  8001fa6:	af00      	add	r7, sp, #0
-  // RTC_TimeTypeDef sTime = {0};
-  // RTC_DateTypeDef sDate = {0};
+ // RTC_TimeTypeDef sTime = {0};
+ // RTC_DateTypeDef sDate = {0};
 
   /** Initialize RTC Only
   */
@@ -3938,9 +3938,9 @@ void MX_RTC_Init(void)
  8001fe2:	4b1c      	ldr	r3, [pc, #112]	; (8002054 <MX_RTC_Init+0xb0>)
  8001fe4:	2207      	movs	r2, #7
  8001fe6:	701a      	strb	r2, [r3, #0]
-  sTime.Minutes = 0x20;
+  sTime.Minutes = 0x36;
  8001fe8:	4b1a      	ldr	r3, [pc, #104]	; (8002054 <MX_RTC_Init+0xb0>)
- 8001fea:	2220      	movs	r2, #32
+ 8001fea:	2236      	movs	r2, #54	; 0x36
  8001fec:	705a      	strb	r2, [r3, #1]
   sTime.Seconds = 0x0;
  8001fee:	4b19      	ldr	r3, [pc, #100]	; (8002054 <MX_RTC_Init+0xb0>)

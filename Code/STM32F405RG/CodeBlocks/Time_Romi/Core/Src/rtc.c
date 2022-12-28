@@ -30,8 +30,8 @@ RTC_HandleTypeDef hrtc;
 /* RTC init function */
 void MX_RTC_Init(void)
 {
-  // RTC_TimeTypeDef sTime = {0};
-  // RTC_DateTypeDef sDate = {0};
+ // RTC_TimeTypeDef sTime = {0};
+ // RTC_DateTypeDef sDate = {0};
 
   /** Initialize RTC Only
   */
@@ -54,7 +54,7 @@ void MX_RTC_Init(void)
   /** Initialize RTC and set the Time and Date
   */
   sTime.Hours = 0x7;
-  sTime.Minutes = 0x20;
+  sTime.Minutes = 0x36;
   sTime.Seconds = 0x0;
   sTime.TimeFormat = RTC_HOURFORMAT12_PM;
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;

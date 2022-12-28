@@ -1,1 +1,7 @@
-Record=TopLevelDocument|FileName=STM32-ROMI_Rev_A_0_Title.SchDoc
+Record=TopLevelDocument|FileName=STM32-ROMI_Rev_A_0_Title.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_1_STM32.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_2_Connectors.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_3_OLED_Sensor.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_4_3V_5V.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_5_IMU_IO.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=STM32-ROMI_Rev_A_0_Title.SchDoc|FileName=STM32-ROMI_Rev_A_6_Reworks.SchDoc|SheetNumber= 

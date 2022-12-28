@@ -1,3 +1,0 @@
-app_main.c:78:6:appMain	32	static
-app_main.c:121:6:updateDisplay	8	static
-app_main.c:165:7:getDayofweek	56	static
